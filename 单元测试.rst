@@ -1,0 +1,39 @@
+unittest 模块
+============
+- 又叫 PyUnit （对应其它语言的 **Unit ）， python 标准库
+
+单元测试
+-------
+.. code-block:: python
+
+    import unittest
+
+
+    class Test(unittest.TestCase):
+        """
+        测试用例
+        """
+        def setUp(self):
+            """
+            测试前准备（初始化）
+            """
+            pass
+
+
+        def test_xxxx(self):
+            """
+            测试项
+            first, second  期望值--被测试的代码返回的实际值
+            msg            发生错误时报告的消息
+            """
+            self.assertEqual(first, second, msg=None)
+
+
+        def tearDown(self):
+            """
+            测试完毕后执行销毁工作
+            每次调用测试后，都会执行，即使调用的测试错误（Error）
+            """
+            pass
+
+    unittest.main()

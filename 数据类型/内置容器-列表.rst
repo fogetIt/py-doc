@@ -1,0 +1,46 @@
+list([iterable]) -> new list
+============================
+
+（原地）增
+---------
+    =======================  ========  =====
+    method                     return   todo
+    =======================  ========  =====
+    L.append(object)           None      追加 1 个元素
+    L.extend(iterable)         None      迭代追加 1~* 个元素
+    L.insert(index, object)    None      `把 1 个对象添加到指定索引之前`
+    =======================  ========  =====
+
+
+（原地）删
+---------
+    ===============  =================  ======
+    method             return             todo
+    ===============  =================  ======
+    L.pop(index=-1)    item/IndexError    匹配索引删除
+    -                                     Raises IndexError if list is empty or index is out of range.
+    L.remove(value)    None/ValueError    匹配元素删除（第 1 个）
+    -                                     Raises ValueError if the value is not present.
+    ===============  =================  ======
+
+
+查
+--
+    ================================  ====================  ======
+    method                              return                todo
+    ================================  ====================  ======
+    L.count(value)                      integer               计算元素个数
+    L.index(value, [start, [stop]])     integer/ValueError    匹配指定范围内第 1 个元素的索引
+    -                                                         Raises ValueError if the value is not present.
+    ================================  ====================  ======
+
+
+（原地）改
+---------
+    =========================================  ========  ======
+    method                                       return    todo
+    =========================================  ========  ======
+    L.reverse()                                  None      反转排序
+    L.sort(cmp=None, key=None, reverse=False)    None      根据指定规则排序
+    -                                                      cmp(x, y) -> -1, 0, 1
+    =========================================  ========  ======
