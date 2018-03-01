@@ -1,11 +1,11 @@
-嵌套函数
+函数嵌套
 =======
     - **outer** 必须 **return inner** ，才能 ``在外部`` 执行 **inner**
     :闭包_:
         - 由函数和与其相关的引用环境组合而成的实体
             - **inner** 引用了 **outer** 的变量（包括参数）
             - **outer** 的局部变量被 **inner** 引用，并返回 **inner**
-            - 返回的函数并没有立刻执行，而是直到 调用时才执行_
+            - 返回的函数并没有立刻执行，而是 调用时才执行内部函数_
             - 被引用的 **outer 变量** 将和 **inner 函数** 一同存在，即使已经离开了创造它的环境
         - 闭包的作用
             - 加强模块化
@@ -25,15 +25,17 @@
 
         def outer(a):
             def inner(b):
+                print(b) #: 后执行
                 return a * b
+            print(a)     #: 先执行
             return inner
 
         oi = outer(3)
         print(oi, oi(5)) # <function inner at 0x7fd29aa681b8> 15
 
 
-调用时才执行
------------
+调用时才执行内部函数
+-----------------
     .. code-block:: python
 
         def qiu_he(*args):
@@ -56,3 +58,38 @@
         f1 = closure_qiu_he(1, 2, 3, 4, 5)
         print(f == f1)                #: False  # 每次调用都会返回一个新的函数，即使传入相同的参数
         print(f() == f1())            #: True
+
+    **内层函数不要引用外层循环变量或者后续会发生变化的变量**
+        .. code-block:: python
+
+            def multi_fun():
+                fs = []
+                for i in range(4):
+                    def f(x):
+                        return i * x  # 返回的内层函数引用了变量i，但它并非立刻执行
+                    fs.append(f)
+                return fs
+            # multi_fun = lambda : [lambda x: i * x for i in range(4)]
+            print(multi_fun())                 # [<function ...>, ...]
+            print([f(2) for f in multi_fun()]) # [6, 6, 6, 6]  # 内层函数都返回时，它们所引用的变量i都已经变了
+
+    **引用循环变量**
+        .. code-block:: python
+
+            def multi_fun():
+                def f(j):
+                    """
+                    创建一个函数，参数绑定循环变量当前的值
+                    f() 函数与 for 循环分离，可以写在任意能调用到的地方
+                    """
+                    def g(x):
+                        """
+                        无论该循环变量后续如何更改，已绑定到函数参数的值不变
+                        """
+                        return j * x
+                    return g
+                fs = []
+                for i in range(4):
+                    fs.append(f(i))
+                return fs
+            print([f(2) for f in multi_fun()])

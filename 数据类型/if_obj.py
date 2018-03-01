@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # @Date:   2018-02-01 16:34:44
-# @Last Modified time: 2018-02-01 16:36:41
+# @Last Modified time: 2018-03-01 16:42:40
 import timeit
 import dis
 """
@@ -21,9 +21,9 @@ def if_x_eq_true():
         pass
 
 
-print timeit.timeit(if_x, "from __main__ import if_x", number=10000000)
-print timeit.timeit(if_x_eq_true, "from __main__ import if_x_eq_true", number=10000000)
+print(timeit.timeit(if_x, "from __main__ import if_x", number=10000000))
+print(timeit.timeit(if_x_eq_true, "from __main__ import if_x_eq_true", number=10000000))
 
-print dis.dis(if_x)
+print(dis.dis(if_x))
 print("#" * 20)
-print dis.dis(if_x_eq_true)
+print(dis.dis(if_x_eq_true))
