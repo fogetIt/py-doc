@@ -92,7 +92,7 @@ global
     - 在局部对全局变量（不可变类型）修改
     .. code-block:: python
 
-        i = 0
+        i = j = 0
 
 
         def outer():
