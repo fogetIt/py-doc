@@ -9,8 +9,8 @@ bool
     True + True == 2
 
 - 关键字
-    - in python2
-        - True/False 不是关键字，可以对其进行任意的赋值
+    - python2
+        - **True/False** 不是关键字，可以对其进行任意的赋值
             .. code-block:: python
 
                 import keyword
@@ -19,7 +19,7 @@ bool
 
         - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
 
-    - in python3
+    - python3
         .. code-block:: python
 
             import keyword

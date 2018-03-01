@@ -11,21 +11,21 @@ python 默认文件字符编码格式（查看编码_）
     :python3.x: unicode
 
     python2.x
-        - 纯英文的 str
-            - 直接用 ASCII 编码为 bytes ，内容是一样的
+        - 纯英文的 **str**
+            - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
 
             .. code-block:: python
 
                 s = "asdfg".encode("gbk")
                 print(s, len(s))
 
-        - 含中文的 str
-            - 无法直接用 ASCII 编码，通常需要以 unicode 作为中间编码进行转换
-                (1) 将其他编码的字符串解码成 unicode  `utf8 -> unicode`_
+        - 含中文的 **str**
+            - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
+                (1) 将其他编码的字符串解码成 **unicode**  `utf8 -> unicode`_
                 (2) 从 unicode 转码成另一种编码　`unicode -> gbk`_
 
             - 或者
-                (1) 设置 python2 默认编码: setdefaultencoding_
+                (1) 设置 **python2** 默认编码: setdefaultencoding_
                 (2) 直接转码
 
                 .. code-block:: python
@@ -36,7 +36,7 @@ python 默认文件字符编码格式（查看编码_）
                     s = "中国".encode("gbk")
                     print(s, len(s))
 
-        - 在 bytes 中，无法显示为 ASCII 字符的字节，用 \x## 显示
+        - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
 
 
 .. _查看编码:
@@ -80,31 +80,33 @@ unicode -> gbk
 .. _setdefaultencoding:
 
 setdefaultencoding
-::::::::::::::::::
-    .. code-block:: python
+:::::::::::::::::::
+    **方法1**
+        .. code-block:: python
 
-        # 方法1
-        import sys
-        """
-        python 解释器启动时会自动加载 Lib/site.py
-        in site.main()
-            del sys.setdefaultencoding
-        """
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
+            import sys
+            """
+            python 解释器启动时会自动加载 Lib/site.py
+            in site.main()
+                del sys.setdefaultencoding
+            """
+            reload(sys)
+            sys.setdefaultencoding('utf-8')
 
-        # 方法2
-        # sitecustomize.py is a special script;
-        # Python will try to import it on startup, so any code in it will be run automatically.
-        # $ touch Lib/site-packages/sitecustomize.py
+    **方法2**
+        .. code-block:: bash
+
+            # sitecustomize.py is a special script;
+            # Python will try to import it on startup, so any code in it will be run automatically.
+            touch Lib/site-packages/sitecustomize.py
 
 
 避免中文乱码
 :::::::::::
-    1. 使用 utf-8 ，跨平台通用
-    #. 打开文件的时候，用 codecs.open() ，替代 open()
-    #. decode early, unicode everywhere, encode late：
-        - 在输入或者声明字符串的时候，尽早地使用 decode() 将 str 转化成 unicode
-        - 在程序内统一使用 unicode 处理字符串
+    1. 使用 **utf-8** ，跨平台通用
+    #. 打开文件的时候，用 **codecs.open()** ，替代 **open()**
+    #. ``decode early, unicode everywhere, encode late:``
+        - 在输入或者声明字符串的时候，尽早地使用 **decode()** 将 **str** 转化成 **unicode**
+        - 在程序内统一使用 **unicode** 处理字符串
             + 比如：字符串拼接、字符串替换、获取字符串的长度等操作
-        - 在输出字符串的时候（控制台/网页/文件），通过 encode() 将字符串转化为想要的编码格式
+        - 在输出字符串的时候（控制台/网页/文件），通过 **encode()** 将字符串转化为想要的编码格式

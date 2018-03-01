@@ -1,21 +1,21 @@
 string 模块
 ===========
-================  ========
-attrs               return
-================  ========
-letters             ``[a-z],[A-Z]``
-ascii_letters       ``[a-z],[A-Z]``
-lowercase           ``[a-z]``
-ascii_lowercase     ``[a-z]``
-uppercase           ``[A-Z]``
-ascii_uppercase     ``[A-Z]``
-digits              ``[0-9]``
-hexdigits           ``[0-9],[a-f],[A-F]``
-octdigits           ``[0-7]``
-punctuation         ``!"#$%&'()*+,-./:;<=>?@[\]^_`{&#124;}~``
-printable           上述所有
-whitespace          ``\s,\n,\t``
-================  ========
+====================  ========
+attrs                   return
+====================  ========
+``letters``             ``[a-z],[A-Z]``
+``ascii_letters``       ``[a-z],[A-Z]``
+``lowercase``           ``[a-z]``
+``ascii_lowercase``     ``[a-z]``
+``uppercase``           ``[A-Z]``
+``ascii_uppercase``     ``[A-Z]``
+``digits``              ``[0-9]``
+``hexdigits``           ``[0-9],[a-f],[A-F]``
+``octdigits``           ``[0-7]``
+``punctuation``         ``!"#$%&'()*+,-./:;<=>?@[\]^_`{&#124;}~``
+``printable``           上述所有
+``whitespace``          ``\s,\n,\t``
+====================  ========
 
 
 methods
@@ -35,8 +35,8 @@ methods
 
         from string import maketrans
         # maketrans(frm, to) -> string
-        transtab = maketrans(frm, to)  # 指定翻译方式
-        S.translate(transtab)
+        table = maketrans(frm, to)  # 指定翻译方式
+        S.translate(table)
 
 
 自定义模板转义

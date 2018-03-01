@@ -1,0 +1,118 @@
+作用域
+======
+    - 变量（标识符）起作用的范围（所处的命名空间）
+    :赋值:
+        :显式赋值:
+            - 直接赋值
+            - 链式赋值
+            - 序列解包赋值
+        :隐式赋值:
+            - 模块导入
+            - 函数和类的定义
+            - 循环变量
+            - 函数参数
+        - 产生标识符
+        - 赋值的地点决定标识符作用域
+    :定义函数: 产生新的作用域
+
+
+标识符的搜索顺序
+--------------
+    - ``L(local) ---> E(enclosing function) ---> G(global) ---> B(builtin)``
+    :`L`:
+        - 局部作用域
+        - 在一个函数中，而且这个函数里没有再包含函数
+    :`E`:
+        - 嵌套作用域
+        - 在一个函数中，但这个函数里面还包含有函数定义
+        - L 层和 E 层只是相对的
+    :`G`: 全局作用域
+    :`B`:
+        - 内建作用域
+        - 在解释器启动时就自动载入 **__builtin__** 模块（包含 **list(),str()** 等内置函数）
+
+
+函数内部无法修改外部的不可变对象
+----------------------------
+    .. code-block:: python
+
+        i1, l1 = 0, [0]
+        def outer():
+            i2, l2 = 0, [0]
+            def inner():
+                print(i1, i2)     # 0 0                # 外部不可变对象，直接引用
+                # i1 += 1         # UnboundLocalError  # 外部不可变对象，无法修改
+                # i2 += 1         # UnboundLocalError
+                print(l1, l2)     # [0] [0]            # 外部可变对象，直接引用
+                l1[0] += 1
+                l2.append(123)
+                print(l1, l2)     # [1] [0, 123]       # 外部可变对象，直接修改
+            print(i1, i2, l1, l2) # 0 0 [0] [0]        # 最先执行
+            return inner
+        outer()()
+        print(i1, l1)             # 0 [1]              # 最后执行
+
+
+lambda 函数直接修改外部的不可变对象
+-------------------------------
+    .. code-block:: python
+
+        i = 0
+        a = lambda : lambda : i + 1
+        print(a()()) # 1
+        print(i)     # 0
+
+
+nonlocal
+---------
+    - **python3 新增**
+    - 在函数或其他作用域中使用外层（非全局）变量（不可变类型）
+    .. code-block:: python
+
+        def outer():
+            i = 0
+            def inner():
+                nonlocal i
+                i += 1
+                print(i) # 1
+            print(i)     # 0 最先执行
+            return inner
+        outer()()
+
+        i = 0
+        def demo():
+            nonlocal i # SyntaxError
+            i += 1
+            print(i)
+        demo()
+
+
+global
+------
+    - 在局部对全局变量（不可变类型）修改
+    .. code-block:: python
+
+        i = 0
+
+
+        def outer():
+            print(i)     # 0
+            global i
+            i += 1
+            print(i)     # 1
+            def inner():
+                global i
+                i += 1
+                print(i) # 2
+            return inner
+        outer()()
+        print(i)         # 2 # 全局变量也随之改变
+
+
+        def outer():
+            def inner():
+                global i
+                i += 1
+                print(i) # 3
+            return inner
+        outer()()

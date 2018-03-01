@@ -35,5 +35,5 @@ unittest 模块
             每次调用测试后，都会执行，即使调用的测试错误（Error）
             """
             pass
-
-    unittest.main()
+    if __name__ == '__main__':
+        unittest.main()

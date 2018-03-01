@@ -5,7 +5,7 @@ str(object='') -> string
 ------------------------
     返回对象的字符串描述
 
-    :__repr__():  返回解释器中的字符串，通常用于 eval() 求值
+    :__repr__():  返回解释器中的字符串，通常用于 **eval()** 求值
     :__str__():   经过计算，返回用户看到的字符串
 
     .. code-block:: python
@@ -25,7 +25,6 @@ str(object='') -> string
                 return self.arg
 
             __repr__ = __str__
-
         a = A("hello")
         print(a)       # hello
         print(str(a))  # hello
@@ -34,8 +33,10 @@ str(object='') -> string
 
 :bytes: 从网络或磁盘上读取的字节流数据
 
-python2 有两种字符串类型，都是 basestring 的派生类
+python2 有两种字符串类型，都是 **basestring** 的派生类
     - str
+    - unicode
+Python3 只有一种字符串类型， **str()** 即可完成所有的功能
     - unicode
 
 

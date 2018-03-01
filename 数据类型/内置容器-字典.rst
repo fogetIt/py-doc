@@ -15,71 +15,71 @@
 
 创建
 ----
-    ========================  ======
-    methods                     todo
-    ========================  ======
-    dict()                      -> new empty dict
-    dict({k: v, ...})           -> new dict initialized from a mapping object
-    dict(**kwargs)              -> new dict initialized with keyword arguments
-    dict([(k, v), ...])         -> new dict initialized with (k, v) iterable
-    dict.fromkeys(S, v=None)    -> new dict
-    -                           S ， key 的序列
-    D.fromkeys(S, v=None)       原字典不变
-    ========================  ======
+    ============================  ======
+    methods                         todo
+    ============================  ======
+    ``dict()``                      ``-> new empty dict``
+    ``dict({k: v, ...})``           ``-> new dict initialized from a mapping object``
+    ``dict(**kwargs)``              ``-> new dict initialized with keyword arguments``
+    ``dict([(k, v), ...])``         ``-> new dict initialized with (k, v) iterable``
+    ``dict.fromkeys(S, v=None)``    ``-> new dict``
+    -                               **S** ， **key** 的序列
+    ``D.fromkeys(S, v=None)``       原字典不变
+    ============================  ======
 
 
 （原地）增、改
 ------------
-    =======================  ========  ======
-    method                     return    todo
-    =======================  ========  ======
-    D.update([E, ]**F)         None      `用键值对/ 1~* 个赋值表达式，更新字典（覆盖）`
-    D.setdefault(k, d=None)    d/None    尝试给字典添加键值对（不覆盖）
-    =======================  ========  ======
+    ===========================  ============  ======
+    method                         return        todo
+    ===========================  ============  ======
+    ``D.update([E, ]**F)``         ``None``      用键值对/ **1~*** 个赋值表达式，更新字典（覆盖）
+    ``D.setdefault(k, d=None)``    ``d/None``    尝试给字典添加键值对（不覆盖）
+    ===========================  ============  ======
 
 
 （原地）删
 ---------
-    ============  =================  ======
-    methods         return             todo
-    ============  =================  ======
-    D.pop(k[,d])    v/KeyError         弹出键对应的值
-    -                                  if not k: return d
-    -                                  if not k and not d: raise KeyError
-    D.popitem()     (k, v)/KeyError    if D is empty: raise KeyError
-    D.clear()       None               清空字典
-    ============  =================  ======
+    ================  =====================  ======
+    methods             return                 todo
+    ================  =====================  ======
+    ``D.pop(k[,d])``    ``v/KeyError``         弹出键对应的值
+    -                                          ``if not k: return d``
+    -                                          ``if not k and not d: raise KeyError``
+    ``D.popitem()``     ``(k, v)/KeyError``    ``if D is empty: raise KeyError``
+    ``D.clear()``       ``None``               清空字典
+    ================  =====================  ======
 
 
 查
 --
-    ================  ============  ======
-    methods             return        todo
-    ================  ============  ======
-    D.get(k, d=None)    D[k]/d
-    D.has_key(k)        True/False
-    k in D              True/False    `D has a key k or not`
-    ================  ============  ======
+    ====================  ================  ======
+    methods                 return            todo
+    ====================  ================  ======
+    ``D.get(k, d=None)``    ``D[k]/d``
+    ``D.has_key(k)``        ``True/False``    **python3** 不再支持这个方法
+    ``k in D``              ``True/False``    ``D has a key k or not``
+    ====================  ================  ======
 
 
 迭代
 ----
-    =========  ================  ========
-    pattern      methods           return
-    =========  ================  ========
+    =========  ====================  ========
+    pattern      methods               return
+    =========  ====================  ========
     列表模式
-    -            D.items()         [(key, value), ...]
-    -            D.keys()          [key, ...]
-    -            D.values()        [value, ...]
+    -            ``D.items()``         ``[(key, value), ...]``
+    -            ``D.keys()``          ``[key, ...]``
+    -            ``D.values()``        ``[value, ...]``
     视图模式_
-    -            D.viewitems()     dict_items([(key, value), ...])
-    -            D.viewkeys()      dict_keys([key, ...])
-    -            D.viewvalues()    dict_values([value, ...])
+    -            ``D.viewitems()``     ``dict_items([(key, value), ...])``
+    -            ``D.viewkeys()``      ``dict_keys([key, ...])``
+    -            ``D.viewvalues()``    ``dict_values([value, ...])``
     迭代模式_
-    -            D.itervalues()    D.values() iterator
-    -            D.iterkeys()      D.keys() iterator, equals iter(D)
-    -            D.iteritems()     D.items() iterator
-    =========  ================  ========
+    -            ``D.itervalues()``    ``D.values() iterator``
+    -            ``D.iterkeys()``      ``D.keys() iterator, equals iter(D)``
+    -            ``D.iteritems()``     ``D.items() iterator``
+    =========  ====================  ========
 
 
 .. _视图模式:
@@ -88,12 +88,12 @@
 >>>>>>>
     - 字典的动态视图
     - 与字典实时同步
-    - 支持 len(), iter(), in() 等
-    - viewitems, viewkeys 还支持 set-like 操作
+    - 支持 ``len(), iter(), in()`` 等
+    - ``viewitems, viewkeys`` 还支持 ``set-like`` 操作
 
 
 .. _迭代模式:
 
 迭代模式
 >>>>>>>
-    可以通过 next(),for 循环取值
+    可以通过 ``next(),for`` 循环取值

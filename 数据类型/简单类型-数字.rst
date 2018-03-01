@@ -1,38 +1,37 @@
 数字
-----
-- 包括
-    + 整型
-        * int
-            - bool
-                + `<type 'bool'>`
-                + True == 1
-                + False == 0
-        * long
-            - 仅受限于虚拟内存大小
-    + float
-    + complex
-        * 无法转换成其它数字类型
-- 同一数字类型运算，返回值类型不变
-- 不同数字类型
-    + complex > float > long > int
-- 整形、浮点、长整形都可以互相转化
-- 工厂函数
-```
-int(x[, base=10]) -> int or long # 如果带参数`base`（x原本的进制），x要以字符串的形式进行输入
-long(x[, base=10]) -> long
-float(x) -> floating point number
-complex(real[, imag]) -> complex number
-bool()
-```
+====
+    :int:
+        :bool:
+            - True == 1
+            - False == 0
+    :long: 仅受限于虚拟内存大小
+    :float:
+    :complex: 无法转换成其它数字类型
 
-##### None
-- `None`是一个特殊的常量
-- `None`不是`False`，不是`0`，不是空字符串
-- `None`和任何其他的数据类型比较永远返回`False`
-- `None`有自己的数据类型`<type 'NoneType'>`
-- 你可以将`None`赋值给任何变量，但是你不能创建其他`NoneType`对象
+    - 同一数字类型运算，返回值类型不变
+    - 不同数字类型
+        + complex > float > long > int
+    - 整形、浮点、长整形都可以互相转化
+
+工厂函数
+=======
+=========================  ========
+methods                      return
+=========================  ========
+``int(x[, base=10])``        ``int or long``
+-                            :base: **x** 原本的进制
+-                            如果带 **base** 参数， **x** 要以字符串的形式进行输入
+``long(x[, base=10])``       ``long``
+``float(x)``                 ``floating point number``
+``complex(real[, imag])``    ``complex number``
+``bool(x)``                  ``bool``
+=========================  ========
 
 
-- 不变对象一旦创建，对象内部的数据就不能修改，这样就减少了由于修改数据导致的错误。
-- 由于对象不变，多任务环境下同时读取对象不需要加锁，同时读一点问题都没有。
-- 我们在编写程序时，如果可以设计一个不变对象，那就尽量设计成不变对象。
+None
+====
+    - **None** 是一个特殊的常量
+    - **None** 不是 **False** ，不是 **0** ，不是空字符串
+    - **None** 和任何其他的数据类型比较永远返回 **False**
+    - **None** 有自己的数据类型 **<type 'NoneType'>**
+    - 可以将 **None** 赋值给任何变量，但不能创建其他 **NoneType** 对象
