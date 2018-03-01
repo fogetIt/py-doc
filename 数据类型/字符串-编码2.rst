@@ -39,8 +39,6 @@ python 默认文件字符编码格式（查看编码_）
         - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
 
 
-.. _查看编码:
-
 查看编码
 :::::::
     .. code-block:: python
@@ -53,8 +51,6 @@ python 默认文件字符编码格式（查看编码_）
         locale.getpreferredencoding() # 系统文本数据编码
 
 
-.. _`utf8 -> unicode`:
-
 utf8 -> unicode
 :::::::::::::::
     .. code-block:: python
@@ -66,8 +62,6 @@ utf8 -> unicode
         print(u, len(u))
 
 
-.. _`unicode -> gbk`:
-
 unicode -> gbk
 ::::::::::::::
     .. code-block:: python
@@ -75,9 +69,6 @@ unicode -> gbk
         # coding: utf-8
         s = u.encode("gbk")
 
-
-
-.. _setdefaultencoding:
 
 setdefaultencoding
 :::::::::::::::::::

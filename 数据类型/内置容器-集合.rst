@@ -1,13 +1,12 @@
 集合
 ####
-    `set([iterable])`_
+    `set([iterable]) -> new set object`_
         - 可变集合
         - 不可哈希
-    `frozenset([iterable])`_
+    `frozenset([iterable]) -> new frozenset object`_
         - 不可变集合
         - 可哈希
 
-.. _set([iterable]):
 
 set([iterable]) -> new set object
 ---------------------------------
@@ -37,8 +36,6 @@ set([iterable]) -> new set object
             s ^ s1 == s.symmetric_difference(s1)  #: 补集之和
 
 
-.. _frozenset([iterable]):
-
-frozenset
----------
+frozenset([iterable]) -> new frozenset object
+---------------------------------------------
     ``has't add(), update(), remove()``

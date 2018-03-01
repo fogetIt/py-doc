@@ -16,7 +16,6 @@ bool
                 import keyword
                 "True" not in keyword.kwlist # True
                 True = "hello"
-
         - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
 
     - python3

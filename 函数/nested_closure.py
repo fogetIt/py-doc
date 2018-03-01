@@ -3,49 +3,6 @@
 # @Last Modified time: 2018-01-16 16:37:20
 
 
-def outer(a):
-    def inner(b):
-        return a * b
-    return inner
-
-oi = outer(3)
-print(oi, oi(5)) # <function inner at 0x7fd29aa681b8> 15
-
-print("-" * 20)
-
-
-def qiuHe(*args):
-    """
-    立刻求和
-    """
-    x = 0
-    for i in args:
-        x += i
-    return x
-
-print qiuHe(1, 2, 3, 4, 5)
-
-
-def closure_qiuHe(*args):
-    """
-    不立刻求和，而是返回求和的函数，根据需要再计算求和的结果
-    """
-    def qiuHe():
-        x = 0
-        for i in args:
-            x += i
-        return x
-    return qiuHe
-
-sum = closure_qiuHe(1, 2, 3, 4, 5)
-sum()
-sum1 = closure_qiuHe(1, 2, 3, 4, 5)
-print sum == sum1  # 每次调用都会返回一个新的函数，即使传入相同的参数
-print sum() == sum1()
-
-print("-" * 20)
-
-
 def multi_fun():
     """
     返回的内层函数不要引用任何循环变量，或者后续会发生变化的变量

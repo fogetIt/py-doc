@@ -1,11 +1,11 @@
 嵌套函数
 =======
     - **outer** 必须 **return inner** ，才能 ``在外部`` 执行 **inner**
-    :闭包:
+    :闭包_:
         - 由函数和与其相关的引用环境组合而成的实体
             - **inner** 引用了 **outer** 的变量（包括参数）
             - **outer** 的局部变量被 **inner** 引用，并返回 **inner**
-            - 返回的函数并没有立刻执行，而是直到调用了才执行
+            - 返回的函数并没有立刻执行，而是直到 调用时才执行_
             - 被引用的 **outer 变量** 将和 **inner 函数** 一同存在，即使已经离开了创造它的环境
         - 闭包的作用
             - 加强模块化
@@ -17,3 +17,48 @@
                         - **inner** 被调用，返回值被传给 **@outer**
                         - **@outer** 接收 **inner** ，返回一个包装了 **inner** 的 ``替代函数``
                         - 程序的其他部分看到的将是这个 ``包装函数``
+
+
+闭包
+----
+    .. code-block:: python
+
+        def outer(a):
+            def inner(b):
+                return a * b
+            return inner
+
+        oi = outer(3)
+        print(oi, oi(5)) # <function inner at 0x7fd29aa681b8> 15
+
+
+调用时才执行
+-----------
+    .. code-block:: python
+
+        def qiu_he(*args):
+            """
+            立刻求和
+            """
+            x = 0
+            for i in args:
+                x += i
+            return x
+
+
+        def closure_qiu_he(*args):
+            """
+            不立刻求和，而是返回求和的函数，根据需要再计算求和的结果
+            """
+            def qiu_he():
+                x = 0
+                for i in args:
+                    x += i
+                return x
+            return qiu_he
+        print(qiu_he(1, 2, 3, 4, 5))      #: 15
+        f = closure_qiu_he(1, 2, 3, 4, 5)
+        print(f())                        #: 15
+        f1 = closure_qiu_he(1, 2, 3, 4, 5)
+        print(f == f1)                    #: False  # 每次调用都会返回一个新的函数，即使传入相同的参数
+        print(f() == f1())                #: True
