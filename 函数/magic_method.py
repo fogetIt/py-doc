@@ -12,6 +12,7 @@ class C(object):
     def t1(self):
         print(self.arg)
 
+
 c = C('arg')
 # python2.x
 print(C.t1.im_func)  # <function t1 at 0x7fcaf8a3c230>
