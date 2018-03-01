@@ -5,10 +5,15 @@ decorator
 
 标准的装饰器
 -----------
-    - ``inner ---> func() == outer(func)()``
-        - **func** 被 **modify** 调用，返回值被传给 **decorator**
-        - **decorator** 接收 **func** ，返回一个包装了 **func** 的 ``替代函数：`` **modify**
-        - 程序的其他部分看到的将是 ``包装函数：`` **modify**
+    - ``modify ---> func() == decorator(func)()``
+        :初始化:
+            - **@decorator** 会在加载模块时执行初始化
+            - **decorator** 接收 **func** ，返回一个包装了 **func** 的 ``替代函数：`` **modify**
+            - 程序的其他部分看到的将是 ``包装函数：`` **modify**
+        :调用:
+            - 使用 **func** 函数名调用
+            - **modify** 接收参数并传递给 **func**
+            - **modify** 执行 **func** 并返回结果给 **@decorator**
     .. code-block:: python
 
         def decorator(func):
@@ -22,27 +27,50 @@ decorator
         @decorator
         def func(*args, **kwargs):
             print("func")
-        decorator(lambda : print("func"))() #: outer inner func  # 嵌套函数
-        func()                              #: inner func        # 装饰器
+                                            #: outer             # 初始化
+        decorator(lambda : print("func"))() #: outer inner func  # 执行嵌套函数
+        func()                              #: inner func        # 执行装饰器
         print(func.__name__)                #: modify            # 装饰之后的函数名变了
 
 
-最简单的装饰器
-------------
+不修改被装饰的函数的行为，只是获得它的引用
+------------------------------------
     - **被装饰函数无法接收参数**
     .. code-block:: python
 
-        def simple(func):
-            print("do_something")
+        def decorator(func):
+            print("get_func")
             return func
 
 
-        @simple
+        @decorator
         def func():
             print("func")
-        func() # do_something func
+        func() # get_func func
 
 
 装饰函数接收参数（再加一层包装函数）
 ------------------------------
     .. code-block:: python
+
+        def wrapper(*args, **kwargs):
+            print("wrapper")
+            def decorator(func):
+                def modify(*args, **kwargs):
+                    print("inner")
+                    return func(*args, **kwargs)
+
+                print("outer")
+                return modify
+            return decorator
+
+
+        @wrapper()
+        def func():
+            print("func")
+               #: wrapper outer  # 初始化
+        func() #: inner func     # 执行装饰器
+
+
+装饰器可以连用
+-------------

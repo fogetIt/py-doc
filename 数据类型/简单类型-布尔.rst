@@ -18,6 +18,8 @@ bool
                 True = "hello"
         - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
 
+        .. __: while_1.py
+
     - python3
         .. code-block:: python
 
@@ -32,6 +34,3 @@ bool
     这样既能保证正确性，又能减少代码量
     """
     [i for i in (False, '', 0, [], (), {}, set(), None) if i] # []
-
-
-.. __: while_1.py
