@@ -1,8 +1,7 @@
 .idea/
 venv/
-origin/
+original/
 
 
 *.pyc
 test.py
-text
