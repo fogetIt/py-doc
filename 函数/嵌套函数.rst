@@ -40,10 +40,8 @@
             """
             立刻求和
             """
-            x = 0
-            for i in args:
-                x += i
-            return x
+            return sum(args)
+        print(qiu_he(1, 2, 3, 4, 5))  #: 15
 
 
         def closure_qiu_he(*args):
@@ -51,14 +49,10 @@
             不立刻求和，而是返回求和的函数，根据需要再计算求和的结果
             """
             def qiu_he():
-                x = 0
-                for i in args:
-                    x += i
-                return x
+                return sum(args)
             return qiu_he
-        print(qiu_he(1, 2, 3, 4, 5))      #: 15
         f = closure_qiu_he(1, 2, 3, 4, 5)
-        print(f())                        #: 15
+        print(f, f())                 #: <function closure_qiu_he.<locals>.qiu_he at 0x7f7605a39048> 15
         f1 = closure_qiu_he(1, 2, 3, 4, 5)
-        print(f == f1)                    #: False  # 每次调用都会返回一个新的函数，即使传入相同的参数
-        print(f() == f1())                #: True
+        print(f == f1)                #: False  # 每次调用都会返回一个新的函数，即使传入相同的参数
+        print(f() == f1())            #: True
