@@ -3,36 +3,10 @@
 # @Last Modified time: 2017-11-14 10:31:00
 
 
-def outer(fun):
-    def inner():
-        print 'inner start'
-        fun()
-        print 'inner done'
-    return inner
-
-
-def my_fun():
-    print 'my_fun start'
-    print 'my_fun done'
-outer(my_fun)()  # 嵌套函数
-print("-" * 20)
-
-
-@outer
-def my_fun():
-    print 'my_fun start'
-    print 'my_fun done'
-my_fun()
-print
-print my_fun.__name__  # 装饰之后的函数名变了
-print("-" * 20)
-
-
-#
 # 装饰器可以连用
-# 装饰函数可以接收参数（再加一层包装函数）
 # 被装饰函数可以接收参数
-#
+
+
 def decorator(func):
     """
     一个标准的装饰器

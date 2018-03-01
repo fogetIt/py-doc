@@ -1,7 +1,48 @@
 decorator
-----------
-    - 针对嵌套函数的语法糖
-    - ``@outer ===> inner() = outer(inner)``
-        - **inner** 被调用，返回值被传给 **@outer**
-        - **@outer** 接收 **inner** ，返回一个包装了 **inner** 的 ``替代函数``
-        - 程序的其他部分看到的将是这个 ``包装函数``
+=========
+    针对嵌套函数的语法糖
+
+
+标准的装饰器
+-----------
+    - ``inner ---> func() == outer(func)()``
+        - **func** 被 **modify** 调用，返回值被传给 **decorator**
+        - **decorator** 接收 **func** ，返回一个包装了 **func** 的 ``替代函数：`` **modify**
+        - 程序的其他部分看到的将是 ``包装函数：`` **modify**
+    .. code-block:: python
+
+        def decorator(func):
+            def modify(*args, **kwargs):
+                print("inner")
+                return func(*args, **kwargs)
+            print("outer")
+            return modify
+
+
+        @decorator
+        def func(*args, **kwargs):
+            print("func")
+        decorator(lambda : print("func"))() #: outer inner func  # 嵌套函数
+        func()                              #: inner func        # 装饰器
+        print(func.__name__)                #: modify            # 装饰之后的函数名变了
+
+
+最简单的装饰器
+------------
+    - **被装饰函数无法接收参数**
+    .. code-block:: python
+
+        def simple(func):
+            print("do_something")
+            return func
+
+
+        @simple
+        def func():
+            print("func")
+        func() # do_something func
+
+
+装饰函数接收参数（再加一层包装函数）
+------------------------------
+    .. code-block:: python
