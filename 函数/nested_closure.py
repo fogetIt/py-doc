@@ -6,10 +6,10 @@
 def outer(a):
     def inner(b):
         return a * b
-    return inner  # 闭包必须return内层函数
+    return inner
 
 oi = outer(3)
-print oi, oi(5)
+print(oi, oi(5)) # <function inner at 0x7fd29aa681b8> 15
 
 print("-" * 20)
 

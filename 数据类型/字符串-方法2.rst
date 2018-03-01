@@ -59,8 +59,8 @@ S.strip([chars])
         # strip() 会寻找所有符合条件的元素，直到遇到一个不符合条件的元素
         s = '8080 vsid 0 \n'
         e = '8081 vsid 0 \n'
-        print(s.rstrip(' vsid 0 \n'))
-        print(e.rstrip(' vsid 0 \n'))
+        print(s.rstrip(' vsid 0 \n')) #: 808
+        print(e.rstrip(' vsid 0 \n')) #: 8081
 
 
 格式化字符串

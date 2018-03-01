@@ -16,8 +16,8 @@ python 默认文件字符编码格式（查看编码_）
 
             .. code-block:: python
 
-                s = "asdfg".encode("gbk")
-                print(s, len(s))
+                s = "hello".encode("gbk")
+                print(s, len(s)) # b'hello' 5
 
         - 含中文的 **str**
             - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
@@ -49,7 +49,7 @@ python 默认文件字符编码格式（查看编码_）
         import locale
 
         sys.getdefaultencoding()      # python 默认文件字符编码 ascii
-        locale.getdefaultlocale()     # (语言, 系统文本数据编码)
+        locale.getdefaultlocale()     # ('zh_CN', 'UTF-8')
         locale.getpreferredencoding() # 系统文本数据编码
 
 

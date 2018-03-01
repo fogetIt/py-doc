@@ -4,9 +4,9 @@ bool
 .. code-block:: python
 
     issubclass(bool, int) is True
-    True == 1
-    False == 0
-    True + True == 2
+    True == 1        #: True
+    False == 0       #: True
+    True + True == 2 #: True
 
 - 关键字
     - python2
@@ -14,7 +14,7 @@ bool
             .. code-block:: python
 
                 import keyword
-                "True" not in keyword.kwlist
+                "True" not in keyword.kwlist # True
                 True = "hello"
 
         - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
@@ -24,7 +24,7 @@ bool
 
             import keyword
             "True" in keyword.kwlist
-            # True = "hello"  # error
+            # True = "hello"  # SyntaxError
 - 真值测试
 .. code-block:: python
 
@@ -32,7 +32,7 @@ bool
     对于任意对象，直接判断其真假，无需写判断条件
     这样既能保证正确性，又能减少代码量
     """
-    [i for i in (False, '', 0, [], (), {}, set(), None) if i] == []
+    [i for i in (False, '', 0, [], (), {}, set(), None) if i] # []
 
 
 .. __: while_1.py

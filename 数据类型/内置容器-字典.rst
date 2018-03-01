@@ -6,9 +6,9 @@
 
         # zip() 去重
         D = dict(zip('bvhfjhfh', range(8)))
-        del D[k]  # 以键删除
-        D[k] = v  # 以键修改
-        del D     # 删除字典
+        del D[k]  #: 以键删除
+        D[k] = v  #: 以键修改
+        del D     #: 删除字典
     - 不可哈希
         + 可变类型，对字典进行操作原字典会改变
 
