@@ -1,46 +1,14 @@
 python 编码
 ===========
+    :内存中的字符编码格式: unicode
+    :默认文件字符编码格式: 查看编码_
 
-内存中的字符编码格式
-------------------
-    unicode
-
-python 默认文件字符编码格式（查看编码_）
------------------------------------
-    :python2.x: ascii
-    :python3.x: unicode
-
-    python2.x
-        - 纯英文的 **str**
-            - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
-
-            .. code-block:: python
-
-                s = "hello".encode("gbk")
-                print(s, len(s)) # b'hello' 5
-
-        - 含中文的 **str**
-            - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
-                (1) 将其他编码的字符串解码成 **unicode**  `utf8 -> unicode`_
-                (2) 从 unicode 转码成另一种编码　`unicode -> gbk`_
-
-            - 或者
-                (1) 设置 **python2** 默认编码: setdefaultencoding_
-                (2) 直接转码
-
-                .. code-block:: python
-
-                    """
-                    s.encode("gbk") == s.decode("utf8").encode("gbk")
-                    """
-                    s = "中国".encode("gbk")
-                    print(s, len(s))
-
-        - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
+        :python2.x_: ascii
+        :python3.x: unicode
 
 
 查看编码
-:::::::
+--------
     .. code-block:: python
 
         import sys
@@ -49,6 +17,36 @@ python 默认文件字符编码格式（查看编码_）
         sys.getdefaultencoding()      # python 默认文件字符编码 ascii
         locale.getdefaultlocale()     # ('zh_CN', 'UTF-8')
         locale.getpreferredencoding() # 系统文本数据编码
+
+
+python2.x
+----------
+    - 纯英文的 **str**
+        - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
+
+        .. code-block:: python
+
+            s = "hello".encode("gbk")
+            print(s, len(s)) # b'hello' 5
+
+    - 含中文的 **str**
+        - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
+            (1) 将其他编码的字符串解码成 **unicode**  `utf8 -> unicode`_
+            (2) 从 unicode 转码成另一种编码　`unicode -> gbk`_
+
+        - 或者
+            (1) 设置 **python2** 默认编码: setdefaultencoding_
+            (2) 直接转码
+
+            .. code-block:: python
+
+                """
+                s.encode("gbk") == s.decode("utf8").encode("gbk")
+                """
+                s = "中国".encode("gbk")
+                print(s, len(s))
+
+    - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
 
 
 utf8 -> unicode
@@ -93,7 +91,7 @@ setdefaultencoding
 
 
 避免中文乱码
-:::::::::::
+-----------
     1. 使用 **utf-8** ，跨平台通用
     #. 打开文件的时候，用 **codecs.open()** ，替代 **open()**
     #. ``decode early, unicode everywhere, encode late:``
