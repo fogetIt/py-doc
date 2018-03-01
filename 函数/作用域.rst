@@ -69,22 +69,17 @@ nonlocal
     - 在函数或其他作用域中使用外层（非全局）变量（不可变类型）
     .. code-block:: python
 
+        i = 0
         def outer():
-            i = 0
+            j = 0
+            nonlocal i      #: SyntaxError
             def inner():
-                nonlocal i
-                i += 1
-                print(i) #: 1
-            print(i)     #: 0 最先执行
+                nonlocal j
+                j += 1
+                print(i, j) #: 1 1  # 后执行
+            print(i, j)     #: 0 0  # 先执行
             return inner
         outer()()
-
-        i = 0
-        def demo():
-            nonlocal i # SyntaxError
-            i += 1
-            print(i)
-        demo()
 
 
 global
@@ -93,26 +88,15 @@ global
     .. code-block:: python
 
         i = j = 0
-
-
         def outer():
-            print(i)     #: 0
+            print(i, j)     #: 0 0
             global i
             i += 1
-            print(i)     #: 1
+            print(i, j)     #: 1 0
             def inner():
-                global i
+                global i, j
                 i += 1
-                print(i) #: 2
+                print(i, j) #: 2 0
             return inner
         outer()()
-        print(i)         #: 2 # 全局变量也随之改变
-
-
-        def outer():
-            def inner():
-                global i
-                i += 1
-                print(i) #: 3
-            return inner
-        outer()()
+        print(i, j)         #: 2 0  # 全局变量也随之改变
