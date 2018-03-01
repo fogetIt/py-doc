@@ -1,5 +1,7 @@
 .idea/
 venv/
+origin/
+
 
 *.pyc
 test.py
