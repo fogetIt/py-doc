@@ -1,0 +1,72 @@
+数字
+====
+    :int:
+        :bool:
+            - True == 1
+            - False == 0
+    :long: 仅受限于虚拟内存大小
+    :float:
+    :complex: 无法转换成其它数字类型
+
+    - 同一数字类型运算，返回值类型不变
+    - 不同数字类型
+        + complex > float > long > int
+    - 整形、浮点、长整形都可以互相转化
+    - 工厂函数
+    =========================  ========
+    methods                      return
+    =========================  ========
+    ``int(x[, base=10])``        ``int or long``
+    -                            :base: **x** 原本的进制
+    -                            如果带 **base** 参数， **x** 要以字符串的形式进行输入
+    ``long(x[, base=10])``       ``long``
+    ``float(x)``                 ``floating point number``
+    ``complex(real[, imag])``    ``complex number``
+    `bool(x) -> bool`_           ``bool``
+    =========================  ========
+
+
+bool(x) -> bool
+---------------
+    - **int** 的子类
+    .. code-block:: python
+
+        issubclass(bool, int) is True
+        True == 1        #: True
+        False == 0       #: True
+        True + True == 2 #: True
+
+    - 关键字
+        - python2
+            - **True/False** 不是关键字，可以对其进行任意的赋值
+                .. code-block:: python
+
+                    import keyword
+                    "True" not in keyword.kwlist # True
+                    True = "hello"
+            - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
+                .. __: while_1.py
+
+        - python3
+            .. code-block:: python
+
+                import keyword
+                "True" in keyword.kwlist
+                # True = "hello"  # SyntaxError
+    - 真值测试
+    .. code-block:: python
+
+        """
+        对于任意对象，直接判断其真假，无需写判断条件
+        这样既能保证正确性，又能减少代码量
+        """
+        [i for i in (False, '', 0, [], (), {}, set(), None) if i] # []
+
+
+None
+====
+    - **None** 是一个特殊的常量
+    - **None** 不是 **False** ，不是 **0** ，不是空字符串
+    - **None** 和任何其他的数据类型比较永远返回 **False**
+    - **None** 有自己的数据类型 **<type 'NoneType'>**
+    - 可以将 **None** 赋值给任何变量，但不能创建其他 **NoneType** 对象

@@ -60,7 +60,7 @@ S.strip([chars])
 
 格式化字符串
 :::::::::::
-.. _S.format(*args, **kwargs): str_format.py
+    .. _S.format(*args, **kwargs): str_format.py
 
 
 %[(name)][flags][width].[precision]typecode

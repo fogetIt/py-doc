@@ -1,0 +1,50 @@
+安装 2 个不同版本的 python （windows）
+----------------------------------
+- 进入`python3.*`安装目录
+- 找到`python.exe`、`pythonw.exe`，重命名为`python3.exe`、`pythonw3.exe`
+- 添加`Path`环境变量：
+    + C:\Python27;C:\Python27\Scripts;
+    + C:\Python3*;C:\Python3*\Scripts;
+
+#### 命令行测试
+```shell
+# 进入python2.7交互环境
+python
+# 进入python3.*交互环境
+python3
+```
+
+#### 下载 ez_setup.py 和 get_pip.py
+- python ez_setup.py
+- python get-pip.py
+- python3 ez_setup.py
+- python3 get-pip.py
+
+#### 安装 package
+- pip install package
+- pip3 install package
+
+---
+##### `python`命令行参数
+
+|参数   |含义                                      |
+|:-----|:----------------------------------------|
+|-d    |调试                                      |
+|-O    |生成`.pyo`文件                            |
+|-S    |不导入`site`模块以在启动时自动查找`python`路径|
+|-v    |冗余输出(导入语句详细追踪)                   |
+|-m mod|将一个模块以脚本形式运行                     |
+|-Q opt|除法选项                                  |
+|-c cmd|运行以命令行字符串形式提交的`python`脚本      |
+|file  |从指定文件运行`python`脚本                  |
+
+##### 安装python多版本
+- [pyenv 安装教程](http://www.cnblogs.com/MacoLee/p/5707546.html)
+- pyenv 安装包国内代理，要不安装很慢
+    ```shell
+    export PYTHON_BUILD_MIRROR_URL="http://pyenv.qiniudn.com/pythons/"
+    ```
+- pyenv install 2.7.6
+- pyenv version
+- pyenv local 2.7.6
+
