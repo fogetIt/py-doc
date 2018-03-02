@@ -1,9 +1,4 @@
-﻿##### 配置环境变量
-- `.exe`程序的搜索路径，系统通过`PATH`找到`.exe`程序，再调用`.py`文件
-    1. python安装包路径;
-    2. python安装包路径\Scripts;
-
-**site-packages，第三方包安装路径**
+﻿**site-packages，第三方包安装路径**
 
 ###### setuptools
 - 包管理工具，用来安装第三方包

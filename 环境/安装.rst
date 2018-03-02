@@ -4,7 +4,7 @@ windows 下安装不同版本的 python
     - 重命名
         - **python.exe --> python3.exe**
         - **pythonw.exe ---> pythonw3.exe**
-    - 添加环境变量
+    - 添加环境变量（系统查找 **.exe** 程序的目录）
         - :PATH: ``$Python2;$Python2\Scripts;$Python3;$Python3\Scripts;``
     - 命令行测试
     .. code-block:: bat
