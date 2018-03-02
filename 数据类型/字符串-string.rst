@@ -19,7 +19,7 @@ attrs                   return
 
 
 methods
---------
+-------
     .. code-block:: python
 
         import string

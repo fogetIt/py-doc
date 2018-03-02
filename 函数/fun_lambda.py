@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # @Date:   2016-09-21 13:54:10
-# @Last Modified time: 2018-01-16 16:01:08
+# @Last Modified time: 2018-03-02 09:45:39
 
 # <type 'function'>
 # 函数也是一个对象，可以被赋值给变量，通过变量也能调用该函数
+
 
 def add(x, y, f):
     """
@@ -15,16 +16,3 @@ def add(x, y, f):
     return f(x) + f(y)
 print(add(3, -5, abs))
 
-
-'''
-lambda函数————单行匿名小函数————labmda *args: expression————默认return表达式的结果
-可以接受任意个参数，包括可选参数
-表达式（expression）只有一个
-可以赋值给一个变量
-'''
-
-g = lambda x, y: x * y
-print(g(3, 4))
-
-d = lambda p: (lambda q: p * q)
-print(d(2)(3))

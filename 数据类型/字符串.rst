@@ -33,10 +33,10 @@ str(object='') -> string
 
 :bytes: 从网络或磁盘上读取的字节流数据
 
-python2 有两种字符串类型，都是 **basestring** 的派生类
+**python2** 有两种字符串类型，都是 **basestring** 的派生类
     - str
     - unicode
-Python3 只有一种字符串类型， **str()** 即可完成所有的功能
+**Python3** 只有一种字符串类型， **str()** 即可完成所有的功能
     - unicode
 
 

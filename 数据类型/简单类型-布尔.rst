@@ -1,6 +1,6 @@
-bool
-====
-- int 的子类
+bool(x) -> bool
+===============
+- **int** 的子类
 .. code-block:: python
 
     issubclass(bool, int) is True
