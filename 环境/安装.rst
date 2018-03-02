@@ -1,0 +1,58 @@
+windows 下安装不同版本的 python
+-----------------------------
+    - 进入 **python3.x** 安装目录
+    - 重命名
+        - **python.exe --> python3.exe**
+        - **pythonw.exe ---> pythonw3.exe**
+    - 添加环境变量
+        - :PATH: ``$Python2;$Python2\Scripts;$Python3;$Python3\Scripts;``
+    - 命令行测试
+    .. code-block:: bat
+
+        :: 进入 python2 交互环境
+        python
+        :: 进入 python3 交互环境
+        python3
+
+
+包管理器（低版本需要手动安装）
+-------------------------
+    :pip:
+        :安装: ``python/python3 get-pip.py``
+        :使用: ``pip install ...``
+    :easy_install:
+        :安装: ``python/python3 ez_setup.py``
+        :使用: ``easy_install ...``
+
+
+PyPI(Python Package Index)
+---------------------------
+    **Python** 第三方插件集中地
+
+
+python 命令行参数
+----------------
+    :python xx.py: 运行指定的 **python** 脚本文件
+
+    -d      调试
+    -O      生成 **.pyo** 文件
+    -S      不导入 **site** 模块以在启动时自动查找 **python** 路径
+    -v      冗余输出（导入语句详细追踪）
+    -m mod  以脚本形式运行一个模块
+    -Q opt  除法选项
+    -c cmd  运行命令行字符串形式的 **python** 脚本
+
+
+pyenv 版本管理
+-------------
+    - 使用国内代理安装包
+        ```shell
+        export PYTHON_BUILD_MIRROR_URL="http://pyenv.qiniudn.com/pythons/"
+        ```
+    - `安装 <http://www.cnblogs.com/MacoLee/p/5707546.html>`_
+    - 命令
+    .. code-block:: bash
+
+        pyenv install 2.7.6
+        pyenv version
+        pyenv local 2.7.6

@@ -35,6 +35,7 @@ methods
 
         from string import maketrans
         # maketrans(frm, to) -> string
+        # S.translate(table [,deletechars]) -> string
         table = maketrans(frm, to)  # 指定翻译方式
         S.translate(table)
 
