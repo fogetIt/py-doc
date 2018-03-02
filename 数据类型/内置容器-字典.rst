@@ -57,7 +57,7 @@
     methods                 return            todo
     ====================  ================  ======
     ``D.get(k, d=None)``    ``D[k]/d``
-    ``D.has_key(k)``        ``True/False``    **python3** 不再支持这个方法
+    ``D.has_key(k)``        ``True/False``    ``python3`` **不再** 支持这个方法
     ``k in D``              ``True/False``    ``D has a key k or not``
     ====================  ================  ======
 
@@ -86,10 +86,10 @@
 >>>>>>>
     - 字典的动态视图
     - 与字典实时同步
-    - 支持 ``len(), iter(), in()`` 等
-    - ``viewitems, viewkeys`` 还支持 ``set-like`` 操作
+    - 支持 **len(), iter(), in()** 等
+    - **viewitems, viewkeys** 还支持 **set-like** 操作
 
 
 迭代模式
 >>>>>>>
-    可以通过 ``next(),for`` 循环取值
+    可以通过 **next(),for** 循环取值

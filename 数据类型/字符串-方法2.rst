@@ -8,10 +8,10 @@
     -       ``S + 'x'``                              ``str``                  追加元素
     -       ``S * 6``                                ``str``                  重复多次
     填充
-    -       ``S.center(width[, fillchar])``          ``str``                  填充， **width** 位数不够，不报错
+    -       ``S.center(width[, fillchar])``          ``str``                  填充， **width < len(S)** ，不报错
     -       ``S.ljust(width[, fillchar])``           ``str``
     -       ``S.rjust(width[, fillchar])``           ``str``
-    -       ``S.zfill(width)``                       ``str``                  填充 **0** ，参数太小，原样返回
+    -       ``S.zfill(width)``                       ``str``                  填充 **0** ，**width < len(S)**，原样返回
     弹出
     -       `S.strip([chars])`_                      ``str/unicode``          弹出（默认空格）
     -       ``S.lstrip([chars])``                    ``str/unicode``          字符不存在，不报错，原样返回

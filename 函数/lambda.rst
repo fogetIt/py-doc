@@ -7,6 +7,7 @@ labmda *args: expression
     .. code-block:: python
 
         f = lambda a, b=1: a + b
+        print(f)    # in PY2 <type 'function'>, in PY3 <class 'function'>
         print(f(2)) # 3
 
 
