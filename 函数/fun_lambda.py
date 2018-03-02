@@ -1,27 +1,9 @@
 # -*- coding: utf-8 -*-
 # @Date:   2016-09-21 13:54:10
 # @Last Modified time: 2018-01-16 16:01:08
-#
+
 # <type 'function'>
-import time
-
-
-def return_tuple():
-    print time.strftime('%Y-%m-%d %H:%M;%S')
-    return 'a', 1, ['qwe']  # return1个或多个对象
-    print 'nihao'           # return结束后函数结束
-print(return_tuple())  # 元组
-print('a', 1, ['qwe'])
-a = 'a', 1, ['qwe']  # 元组
-print a
-print
-f = return_tuple
-print f   # 函数也是一个对象，可以被赋值给变量，通过变量也能调用该函数
-print f()
-# __name__属性，可以拿到函数的名字
-print return_tuple.__name__, f.__name__
-print
-
+# 函数也是一个对象，可以被赋值给变量，通过变量也能调用该函数
 
 def add(x, y, f):
     """
@@ -31,7 +13,7 @@ def add(x, y, f):
     函数式编程就是指这种高度抽象的编程范式
     """
     return f(x) + f(y)
-print add(3, -5, abs)
+print(add(3, -5, abs))
 
 
 '''
@@ -42,8 +24,7 @@ lambda函数————单行匿名小函数————labmda *args: expressio
 '''
 
 g = lambda x, y: x * y
-print g(3, 4)
-print
+print(g(3, 4))
 
 d = lambda p: (lambda q: p * q)
-print d(2)(3)
+print(d(2)(3))

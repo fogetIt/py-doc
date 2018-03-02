@@ -4,8 +4,10 @@ tuple([iterable]) -> new tuple
 
     .. code-block:: python
 
-        t = 1, 2
-        t # (1, 2)
+        t = 1, 2, 3
+        def demo(): return 1, 2, 3
+        print(t)      #: (1, 2, 3)
+        print(demo()) #: (1, 2, 3)
 
 
 查
