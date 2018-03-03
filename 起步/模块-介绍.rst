@@ -1,0 +1,32 @@
+##### 科学计算模块
+- [numpy————数据分析](http://sourceforge.net/projects/numpy/files/NumPy/)
+    - easy_install numpy
+- [scipy](http://sourceforge.net/projects/scipy/files/)
+- [matplotlib](http://matplotlib.org/downloads.html)
+
+##### Anaconda
+- 一个`python`的发行版，包括了`python`和很多常见的软件库
+    + Python
+    + [ipython](http://archive.ipython.org/release/2.3.1/ipython-2.3.1.zip)
+        *  解压，进入解压包目录
+        *  python setup.py install
+        *  ipython在Scripts文件夹下
+    + Ipython QTConsole
+    + IPython Notebook
+    + Spyder(IDE)
+
+pip/conda（anaconda自带的包管理器） list，查看已经安装的包。
+pip/conda install 包名，安装新的包。
+
+#### mysql-connector-python
+- `Python MySQL`官方包
+- 用法和`MySQLdb`基本类
+
+##### Twisted
+- 异步网络库
+- 处理网络通讯
+- 架构清晰，并且包含了各种中间件接口，可以灵活的完成各种需求
+
+##### 手动安装
+- [pywin32](http://sourceforge.net/projects/pywin32/files%2Fpywin32/)
+- [pycrypto](http://www.voidspace.org.uk/python/modules.shtml#pycrypto)

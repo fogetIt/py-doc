@@ -1,0 +1,95 @@
+包管理器（低版本需要手动安装）
+-------------------------
+    :pip:
+        :安装:
+            : **windows** 下依赖 **VS2008**:
+                - 安装 ``VCForPython27(Micorsoft Visual C++ Compiler for Python 2.7)``
+            .. code-block:: shell
+
+                # 脚本安装
+                python get-pip.py
+                python3 get-pip.py
+
+                # easy_install
+                easy_install pip
+
+                # centOS
+                yum -y install epel-release python-pip
+                yum -y install epel-release python3-pip
+
+                # ubuntu
+                # ...
+        :使用:
+            .. code-block:: shell
+
+                pip install xxx                        # 安装wheel包、模块名称、网址
+                pip install -U/--upgrade xxx==version  # 更新模块
+                pip install -U/--upgrade               # 批量更新
+                pip list
+    :setuptools:
+        - ``PEAK(Python Enterprise Application Kit)`` 的一个副项目
+        - ``Python distutilsde`` 工具的增强
+        - 功能
+            - 更方便地创建和发布那些对其它包具有依赖性的 ``Python`` 包
+                - 创建 ``Python Eggs``
+                - 自动包含包目录内的数据文件
+                - 自动包含包目录内所有和发布有关的文件
+                - 自动包含包目录内的所有的包，而不用在 ``setup.py`` 中列举
+                - 自动生成经过包装的脚本或 ``Windows`` 执行文件
+                - 支持 ``Pyrex`` ，即在 ``setup.py`` 中列出 ``.pyx`` 文件
+                - 可以部署开发模式，把项目添加到 ``sys.path`` 中
+                - 用新命令或 ``setup()`` 参数扩展 ``distutils`` ，为多个项目发布/重用扩展
+                - 在项目 ``setup()`` 中简单声明 ``entry points`` ，创建可以自动发现扩展的应用和框架
+            - ``easy_install``
+                - 包里带的一个命令
+                - 调用 ``setuptools`` 来安装第三方包
+                - 自动查找、下载、安装、升级依赖包
+        :安装:
+            :windows:
+                - `下载 <https://pypi.python.org/pypi/setuptools>`_
+                .. code-block:: bat
+
+                    python ez_setup.py
+                    python3 ez_setup.py
+            :ubuntu:
+                .. code-block:: shell
+
+                    sudo apt-get install python-setuptools
+        :使用:
+            .. code-block:: shell
+
+                easy_install egg包/模块名称/网址
+
+
+使用国内镜像库
+------------
+    .. code-block:: shell
+
+        export PYTHON_BUILD_MIRROR_URL="http://pyenv.qiniudn.com/pythons/"
+        # 或者
+        pip install xxx -i http://mirrors.tuna.tsinghua.edu.cn/pypi/simple
+
+
+手动安装模块
+----------
+    - 下载模块包，解压
+    - 进入`**setup.py** 所在目录
+    - ``python setup.py install``
+
+
+PyPI(Python Package Index)
+---------------------------
+    **python** 第三方插件集中地
+
+
+site-packages
+-------------
+    **python** 第三方包安装路径
+
+
+模块安装提示错误：找不到 python.h 文件
+-----------------------------------
+    .. code-block:: shell
+
+        yum search python | grep python-devel || yum install python-devel.x86_64
+        sudo apt-get install python-2.7-dev

@@ -15,21 +15,6 @@ windows 下安装不同版本的 python
         python3
 
 
-包管理器（低版本需要手动安装）
--------------------------
-    :pip:
-        :安装: ``python/python3 get-pip.py``
-        :使用: ``pip install ...``
-    :easy_install:
-        :安装: ``python/python3 ez_setup.py``
-        :使用: ``easy_install ...``
-
-
-PyPI(Python Package Index)
----------------------------
-    **Python** 第三方插件集中地
-
-
 python 命令行参数
 ----------------
     :python xx.py: 运行指定的 **python** 脚本文件
@@ -43,16 +28,14 @@ python 命令行参数
     -c cmd  运行命令行字符串形式的 **python** 脚本
 
 
-pyenv 版本管理
--------------
-    - 使用国内代理安装包
-        ```shell
-        export PYTHON_BUILD_MIRROR_URL="http://pyenv.qiniudn.com/pythons/"
-        ```
-    - `安装 <http://www.cnblogs.com/MacoLee/p/5707546.html>`_
-    - 命令
-    .. code-block:: bash
+版本管理
+-------
+    :pyenv:
+        - `安装 <http://www.cnblogs.com/MacoLee/p/5707546.html>`_
+        - 命令
+        .. code-block:: bash
 
-        pyenv install 2.7.6
-        pyenv version
-        pyenv local 2.7.6
+            pyenv install 2.7.6
+            pyenv version
+            pyenv local 2.7.6
+    :virtualenv: ...
