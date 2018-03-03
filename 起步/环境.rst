@@ -39,3 +39,18 @@ python 命令行参数
             pyenv version
             pyenv local 2.7.6
     :virtualenv: ...
+
+
+Anaconda
+---------
+    - 一个 **python** 发行版，包括了很多常见的软件库
+        - python
+        - ipython
+        - ipython qtconsole
+        - ipython notebook
+        - spyder(IDE)
+    :conda: **Anaconda** 自带的包管理器
+        .. code-block:: shell
+
+            conda list         # 查看已经安装的包
+            conda install 包名  # 安装新包
