@@ -73,7 +73,7 @@
 手动安装模块
 ----------
     - 下载模块包，解压
-    - 进入**setup.py** 所在目录
+    - 进入 **setup.py** 所在目录
     - ``python setup.py install``
 
 
