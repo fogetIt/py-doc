@@ -1,9 +1,7 @@
 数字
 ====
     :int:
-        :bool:
-            - True == 1
-            - False == 0
+        - bool
     :long: 仅受限于虚拟内存大小
     :float:
     :complex: 无法转换成其它数字类型

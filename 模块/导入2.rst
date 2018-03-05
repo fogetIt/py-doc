@@ -1,0 +1,79 @@
+import
+-------
+    - 隐式调用 ``__import__(name, globals={}, locals={}, fromlist=[], level=-1) -> module`` 进行导入工作
+    .. code-block:: python
+
+        import xxx.xxx...
+        import xxx, xxx, ...
+        import (xxx, xxx, ...)
+        from xxx import module[, cls, func, var]
+
+        import sys
+        # equals
+        sys = __import__('sys')
+
+
+exec("import xxx")
+------------------
+    - 将导入语句构建成字符串并传递给 **exec()** 执行
+    - 缺点：每次执行都要编译，运行多次会影响性能
+
+
+importlib
+---------
+    .. code-block:: python
+
+        import importlib
+        importlib.import_module('xxx.xxx')
+
+
+reload(module) -> module
+-------------------------
+    - 对已经加载的模块进行重新加载
+    - 一般用于原模块有变化等特殊情况
+        - **reload** 前该模块必须已经 **import**过
+        - 不支持 **from** 方式导入的模块进行重新加载
+        - 原来已经使用的实例还是会使用旧的模块，新生产的实例会使用新的模块
+        - **reload** 后还是用原来的内存地址
+    .. code-block:: python
+
+        import sys
+        """
+        每次启动 python 解释器时会自动加载 python Lib/site.py 里的 main() 函数
+        setdefaultencoding() 函数一出来就已经被删除了
+        """
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+
+
+if __name__ == '__main__'
+-------------------------
+    只在文件直接运行时有效，在其它文件导入时无效
+
+
+新特性
+------
+    :``import __future__``: 不起任何作用
+    :from __future__ import ...:
+        - "导入"新特性
+        - 必须放在文件首部
+        :精确除法:
+            - ``from __future__ import division``
+            - 返回真实的商（浮点型）
+        :禁用隐式相对路径导入:
+            - ``from __future__ import absolute_import``
+
+
+导入限制
+-------
+    :__all__:
+        - 定义在包的 **__init__.py** 或者单文件模块中
+        - 包含了执行 ``from xxx import **`` 应该导入的对象
+    :_xxx:
+        - 不会被 ``from xxx import *`` 语句导入
+        - 除非模块或包中的 **__all__** 列表显式地包含
+
+
+循环导入
+--------
+    把 **import** 语句移到函数内部或者文件底部

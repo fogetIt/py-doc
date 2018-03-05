@@ -6,3 +6,5 @@
         .. _数据类型: 数据类型/README.rst
     - 函数_
         .. _函数: 函数/README.rst
+    - 模块_
+        .. _模块: 模块/README.rst
