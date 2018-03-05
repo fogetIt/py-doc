@@ -1,0 +1,57 @@
+对象
+====
+    - 可以赋值给一个变量
+    - 可以拷贝
+    - 可以增加属性
+    - 可以作为函数参数进行传递
+
+
+元类 ---> 类 ---> 实例
+=====================
+
+
+元类
+----
+    - **控制类的创建行为** 的类
+        - 类会调用元类的 **__new__()** 来进行初始化
+    - 所有类的默认元类是 **type**
+        - 定义元类
+        .. code-block:: python
+
+            class MetaClass(type):
+                """（1）"""
+                def __new__(cls, what, bases, attrs):
+                    # ...
+                    return type.__new__(name, bases, attrs)
+
+
+            def MetaClass(name, bases, attrs):
+                """（2） __metaclass__ 可以被任意调用，并不需要一个正式的类"""
+                # ...
+                return type(name, bases, attrs)
+        - 指定元类
+            - python2
+            .. code-block:: python
+
+                class New(object): __metaclass__ = MetaClass
+                # __metaclass__ 属性也可以写在父类中
+            - python3
+            .. code-block:: python
+
+                class New(object, metaclass=MetaClass): pass
+
+
+类
+--
+    - 一组用来描述如何生成一个对象的代码段
+    - 拥有创建对象（实例）的能力
+    - 类也是对象，可以在运行时动态地创建
+    - 创建类
+        :一个标准的类定义:
+            :``new_class = metaclass(name, bases, attrs)``:
+                .. code-block:: python
+
+                    A = type('A', (object), {"a": 1})
+            1. 收集所有属性到 **__dict__** 字典中
+            #. 当类定义结束， **python** 将决定类的 元类_
+            #. 实例化元类，创建类对象
