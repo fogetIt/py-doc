@@ -1,0 +1,72 @@
+魔法函数
+"""""""
+    =====================================  ======
+    methods                                  todo
+    =====================================  ======
+    ``__new__(self[, *args, **kwargs])``     构造函数
+    ``__init__(self[, *args, **kwargs])``    初始化函数
+    ``__del__(self)``                        解构函数
+     -
+    ``__str__(self)``                        ``str(), print()``
+    ``__repr__(self)``                       ``repr(), ''``
+    ``__unicode__(self)``                    ``unicode()``
+    ``__call__(self, *args, **kwargs)``      ``callable()``
+    ``__nonzero__(self)``                    ``bool()``
+    ``__len__(self)``                        ``len()``
+     -
+    ``__cmp__(self, obj)``                   ``cmp()``
+    ``__add__(self)``                        ``+``
+    ``__iadd__(self)``                       ``+=``
+    ``__sub__(self, obj)``                   ``-``
+    ``__mul__(self, obj)``                   ``*``
+    ``__div__(self, obj)``                   ``/``
+    ``__truediv__(self, obj)``               ``/``
+    ``__floordiv__(self, obj)``              ``//``
+    ``__mod__(self, obj)``                   ``%``
+    ``__divmod__(self, obj)``                ``divmod()``
+    ``__pow__(self, obj[, mod])``            ``pow(), **``
+     -
+    ``__lshift__(self, obj)``                ``<<``
+    ``__rshift__(self, obj)``                ``>>``
+    ``__and__(self, obj)``                   ``&``
+    ``__or__(self, obj)``                    ``|``
+    ``__xor__(self, obj)``                   ``^``
+    ``__invert__(self)``                     ``~``
+     -
+    ``__complex__(self, com)``               ``complex()``
+    ``__int__(self)``                        ``int()``
+    ``__long__(self)``                       ``long()``
+    ``__float__(self)``                      ``float()``
+     -
+    ``__oct__(self)``                        ``oct()``
+    ``__hex__(self)``                        ``hex()``
+     -
+    ``__coerce__(self, num)``                ``coerce()``
+    ``__index__(self)``
+     -
+    ``__getslice__(self, ind1,ind2)``        得到序列片断
+    ``__setslice__(self, i1, i2,val)``       设置序列片断
+    ``__delslice__(self, ind1,ind2)``        删除序列片断
+    ``__contains__(self, val)``              ``in``
+     -
+    ``__hash__(self)``                       散列函数值
+     -
+    ``__missing__(self,key)``                字典默认值
+     -
+    ``__neg__(self)``                        一元负
+    ``__pos__(self)``                        一元正
+    ``__abs__(self)``                        ``abs()``
+     -
+    ``__lt__(self, obj)``                    ``</<=``
+    ``__gt__(self, obj)``                    ``>/>=``
+    ``__eq__(self, obj)``                    ``==/!=/<>``
+     -
+    ``__getattr__(self, attr)``              ``getattr()``
+    ``__getattribute__(self, attr)``         ``getattr()``
+    ``__setattr__(self, attr, val)``         ``setattr()``
+    ``__delattr__(self, attr)``              ``delattr()``
+     -
+    ``__get__(self, attr)``                  （描述符）获取属性
+    ``__set__(self, attr, val)``             （描述符）设置属性
+    ``__delete__(self, attr)``               （描述符）删除属性
+    =====================================  ======

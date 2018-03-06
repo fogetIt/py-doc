@@ -4,31 +4,31 @@
     todo    methods                                  return                   desc
     ====  =======================================  =======================  ======
     增加
-    -       `S.join(iterable)`_                      ``str``                  把字符串插入到序列元素之间
-    -       ``S + 'x'``                              ``str``                  追加元素
-    -       ``S * 6``                                ``str``                  重复多次
+     -      `S.join(iterable)`_                      ``str``                  把字符串插入到序列元素之间
+     -      ``S + 'x'``                              ``str``                  追加元素
+     -      ``S * 6``                                ``str``                  重复多次
     填充
-    -       ``S.center(width[, fillchar])``          ``str``                  填充， **width < len(S)** ，不报错
-    -       ``S.ljust(width[, fillchar])``           ``str``
-    -       ``S.rjust(width[, fillchar])``           ``str``
-    -       ``S.zfill(width)``                       ``str``                  填充 **0** ，**width < len(S)**，原样返回
+     -      ``S.center(width[, fillchar])``          ``str``                  填充， **width < len(S)** ，不报错
+     -      ``S.ljust(width[, fillchar])``           ``str``
+     -      ``S.rjust(width[, fillchar])``           ``str``
+     -      ``S.zfill(width)``                       ``str``                  填充 **0** ，**width < len(S)**，原样返回
     弹出
-    -       `S.strip([chars])`_                      ``str/unicode``          弹出（默认空格）
-    -       ``S.lstrip([chars])``                    ``str/unicode``          字符不存在，不报错，原样返回
-    -       ``S.rstrip([chars])``                    ``str/unicode``
+     -       `S.strip([chars])`_                      ``str/unicode``          弹出（默认空格）
+     -       ``S.lstrip([chars])``                    ``str/unicode``          字符不存在，不报错，原样返回
+     -       ``S.rstrip([chars])``                    ``str/unicode``
     分割
-    -       ``S.partition(sep)``                     ``(head, sep, tail)``    返回三元组（分隔符不为空）
-    -       ``S.rpartition(sep)``                    ``(head, sep, tail)``
-    -       ``S.split([sep [,maxsplit]])``           ``strs list``            返回字符串列表(默认空格分割)
-    -       ``S.rsplit([sep [,maxsplit]])``          ``strs list``            列表不包含分隔符
-    -       ``S.splitlines(keepends=False)``         ``strs list``            行切片
+     -      ``S.partition(sep)``                     ``(head, sep, tail)``    返回三元组（分隔符不为空）
+     -      ``S.rpartition(sep)``                    ``(head, sep, tail)``
+     -      ``S.split([sep [,maxsplit]])``           ``strs list``            返回字符串列表(默认空格分割)
+     -      ``S.rsplit([sep [,maxsplit]])``          ``strs list``            列表不包含分隔符
+     -      ``S.splitlines(keepends=False)``         ``strs list``            行切片
     转码
-    -       ``S.decode([encoding[,errors]])``        ``object``               **bytes -> str**
-    -       ``S.encode([encoding[,errors]])``        ``object``               **str -> bytes**
+     -      ``S.decode([encoding[,errors]])``        ``object``               **bytes -> str**
+     -      ``S.encode([encoding[,errors]])``        ``object``               **str -> bytes**
     替换
-    -       ``S.replace(old, new[, count])``         ``str``
-    -       ``S.expandtabs([tabsize])``              ``str``                  ``\t`` -> 空格
-    -       -                                        -                        ``default tabsize == 4``
+     -      ``S.replace(old, new[, count])``         ``str``
+     -      ``S.expandtabs([tabsize])``              ``str``                  ``\t`` -> 空格
+     -      -                                        -                        ``default tabsize == 4``
     ====  =======================================  =======================  ======
 
 

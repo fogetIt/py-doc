@@ -127,6 +127,7 @@
         print(c.func.__self__) #: <__main__.C instance at ...>  #: python2
                                #: <__main__.C object at ...>    #: python3
 
+
 指定元类
 -------
     .. code-block:: python

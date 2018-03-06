@@ -23,7 +23,7 @@
     ``dict(**kwargs)``              ``-> new dict initialized with keyword arguments``
     ``dict([(k, v), ...])``         ``-> new dict initialized with (k, v) iterable``
     ``dict.fromkeys(S, v=None)``    ``-> new dict``
-    -                               **S** ， **key** 的序列
+     -                              **S** ， **key** 的序列
     ``D.fromkeys(S, v=None)``       原字典不变
     ============================  ======
 
@@ -44,8 +44,8 @@
     methods             return                 todo
     ================  =====================  ======
     ``D.pop(k[,d])``    ``v/KeyError``         弹出键对应的值
-    -                                          ``if not k: return d``
-    -                                          ``if not k and not d: raise KeyError``
+     -                                         ``if not k: return d``
+     -                                         ``if not k and not d: raise KeyError``
     ``D.popitem()``     ``(k, v)/KeyError``    ``if D is empty: raise KeyError``
     ``D.clear()``       ``None``               清空字典
     ================  =====================  ======
@@ -68,17 +68,17 @@
     pattern      methods               return
     =========  ====================  ========
     列表模式
-    -            ``D.items()``         ``[(key, value), ...]``
-    -            ``D.keys()``          ``[key, ...]``
-    -            ``D.values()``        ``[value, ...]``
+     -           ``D.items()``         ``[(key, value), ...]``
+     -           ``D.keys()``          ``[key, ...]``
+     -           ``D.values()``        ``[value, ...]``
     视图模式_
-    -            ``D.viewitems()``     ``dict_items([(key, value), ...])``
-    -            ``D.viewkeys()``      ``dict_keys([key, ...])``
-    -            ``D.viewvalues()``    ``dict_values([value, ...])``
+     -           ``D.viewitems()``     ``dict_items([(key, value), ...])``
+     -           ``D.viewkeys()``      ``dict_keys([key, ...])``
+     -           ``D.viewvalues()``    ``dict_values([value, ...])``
     迭代模式_
-    -            ``D.itervalues()``    ``D.values() iterator``
-    -            ``D.iterkeys()``      ``D.keys() iterator, equals iter(D)``
-    -            ``D.iteritems()``     ``D.items() iterator``
+     -           ``D.itervalues()``    ``D.values() iterator``
+     -           ``D.iterkeys()``      ``D.keys() iterator, equals iter(D)``
+     -           ``D.iteritems()``     ``D.items() iterator``
     =========  ====================  ========
 
 

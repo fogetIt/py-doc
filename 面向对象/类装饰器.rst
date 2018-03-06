@@ -1,0 +1,59 @@
+内置的类装饰器
+============
+
+@property
+----------
+    - 把一个方法变成属性调用
+        :``getter``: 只能访问，不能修改
+            .. code-block:: python
+
+                class C(onject):
+                    @property
+                    def attr_read():
+                        return xxx
+        :添加 ``setter``:
+            .. code-block:: python
+
+                # class C...
+                    @attr_read.setter
+                    def attr_read():
+                        ...
+        :添加 ``deleter``:
+            .. code-block:: python
+
+                # class C...
+                    @attr_read.deleter
+                    def attr_read():
+                        ...
+        - ``property(fget=None, fset=None, fdel=None, doc=None)``
+
+
+@staticmethod/@classmethod
+---------------------------
+    - 不需要实例化即可调用
+        + 可以被 **类对象** 调用
+        + 可以被 **实例对象** 调用
+
+    ============  ==================================  ==============
+     -              @staticmethod                       @classmethod
+    ============  ==================================  ==============
+    描述             类似静态语言中的 **静态方法**          和类相关的方法
+     -              将外部函数集成到类体中                 隐式传入类变量（ ``cls`` ）作为第一参数，避免硬编码类名
+    访问类成员        ``ClsName.xxx``                     ``cls.xxx``
+    访问实例成员      不可以（没有 ``self`` ）              不可以（没有 ``self`` ）
+    绑定的对象       不绑定（类或实例                       绑定类对象（ ``cls``）
+     -              ``.__self__ -> AttributeError``     ``.__self__ -> Cls``
+    ============  ==================================  ==============
+    - 静态方法如果不覆盖，就无法改变
+        - 可以使用 ``@staticmethod`` 覆盖
+        - 也可以作为普通类属性 ``self`` 覆盖
+    .. code-block:: python
+
+        class A(object):
+
+            @classmethod
+            def test(cls, *args, **kwargs):
+                ...
+
+            # equals
+            test = classmethod(test)

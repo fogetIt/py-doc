@@ -15,8 +15,8 @@
     methods                      return
     =========================  ========
     ``int(x[, base=10])``        ``int or long``
-    -                            :base: **x** 原本的进制
-    -                            如果带 **base** 参数， **x** 要以字符串的形式进行输入
+     -                           :base: **x** 原本的进制
+     -                           如果带 **base** 参数， **x** 要以字符串的形式进行输入
     ``long(x[, base=10])``       ``long``
     ``float(x)``                 ``floating point number``
     ``complex(real[, imag])``    ``complex number``

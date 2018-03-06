@@ -1,0 +1,93 @@
+获取元素个数
+-----------
+    - ``__len__() -> integer``
+    - ``len()`` 的内部实现
+        - ``len(decimal) -> Error``
+
+索引下标
+-------------
+    =================  ======
+    method               todo
+    =================  ======
+    ``__getitem__()``    :索引下标查询: ``print(seq[i])``
+    ``__setitem__()``    :索引下标赋值: ``seq[i] = val``
+    ``__delitem__()``    :索引下标删除: ``del seq[i]``
+    =================  ======
+
+
+迭代
+----
+    =====================  ======
+    method                   todo
+    =====================  ======
+    ``__iter__()``           生成迭代对象
+    ``next()/__dict__()``    迭代对象获取下一个元素的方法
+    =====================  ======
+    :for 循环:
+        - 遍历迭代对象
+            - 调用 ``__iter__()`` 生成迭代对象
+            - 不断调用 **迭代对象** 的 ``next()`` 拿到下一个值
+            - 直到 ``next()`` 中 ``raise StopIteration()`` 时退出循环
+        - 如果缺少 ``__iter__()`` ，由 ``__getitem__()`` 支持 **for** 循环迭代
+
+
+with 语句
+---------
+    - 方便处理一些事先需要设置，事后做清理工作的场景
+    :``__enter__() -> context_object``:
+        - 在进入代码块之前被 **with** 调用
+            - 返回一个可供上下文使用的对象，赋值给 **as** 后面的变量
+    :``__exit__(error_type, error_msg, trace_info)``:
+        - 在离开代码块之后被 **with** 调用
+            :正常退出: 清理被使用的资源（比如：关闭文件）
+            :抛出异常: 接收关联的异常信息
+
+
+属性查找
+-------
+    1. :``__getattribute__(self, attr)``:
+        - 属性查找优先调用
+        - ``getattr(obj, attr)`` 的内部实现
+    #. :``__getattr__(self, attr)``:
+        - 属性查找的最后一步
+            - 当属性不能在实例、类、祖先类的 ``__dict__`` 中找到时，才调用
+        - ``getattr(obj, attr), hasattr(obj, attr)`` 的内部实现
+            :``hasattr(object, name) -> bool``: 判断对象的属性
+            :``getattr(object, name[, default]) -> value``:
+                - 获对象的属性值，如果不存在，返回指定的提示字符串
+                - 只有在不知道对象信息的时候，才会去获取对象信息
+            :``delattr(object, name) == del object.name``:
+                - 删除对象的属性
+                - `object`是实例时，不能用来删除类属性
+            :``setattr(object, name, value)``:
+                - 设置对象的属性值
+                - 如果属性不存在，自动创建并赋值
+
+
+析构函数
+-------
+    :``__del__()``:
+        - 对象被销毁的时候执行，用来将对象所占用的内存资源释放给操作系统
+        - ``del obj`` 仅仅是减少了引用计数，不一定调用 ``obj.__del__()``
+        - ``__del__()`` 只能被调用一次，一旦引用计数为 0，对象就被清除
+        - 程序执行完毕时，会自动销毁程序中的对象
+        - 循环引用或其它原因，让一个实例的引用逗留不去，该对象的 ``__del__()`` 可能永远不会被执行
+        .. code-block:: python
+
+            class Hello:
+                # 使用一个静态成员来记录实例的个数，进行跟踪
+                instance_count = 0
+
+                def __init__(self):
+                    Hello.instance_count += 1
+                    print(Hello.instance_count)
+
+                def __del__(self):
+                    # 不要忘记调用 del
+                    del self
+                    Hello.instance_count -= 1
+                    print(Hello.instance_count)
+            hello1 = Hello() #: 0
+            hello2 = Hello() #: 1
+            del hello1       #: 1
+            del hello2       #: 0
