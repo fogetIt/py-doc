@@ -1,0 +1,53 @@
+类的实例化
+---------
+    - 类创建内存对象的过程
+        1. :``__new__(cls, ...)``:
+            - 新式类才有 ``__new__``
+            .. code-block:: python
+
+                class Cls: pass
+                class D(object): pass
+                print(hasattr(Cls, "__new__")) #: False
+                print(hasattr(D, "__new__"))   #: True
+            :构造方法:
+                - 在进行初始化之前，检查缓存中是否存在对应的实例对象
+                    - 如果存在
+                        - 将缓存中存放的对象直接返回
+                    - 如果不存在
+                        - 创建并返回实例
+                            - 至少要有一个参数 ``cls`` ，代表要实例化的类
+                                - ``cls`` 在实例化时由解释器自动提供
+                            - 一定要有返回，返回 ``cls`` 的实例
+                                - 否则 ``__init__`` 将不会被调用
+                        - 将实例对象放至缓存中，供下次使用
+        #. :``__init__(self, ...)``:
+            :初始化的方法:
+                - 在构造实例之后执行
+                    - 至少要有一个参数 ``self`` ，代表要实例
+                    - 可以接收实例成员变量（实例化时接收传参）
+                    - 不能 ``return``
+    - 多继承
+        - 默认
+            - 调用直接父类的 ``__new__`` 来构造类的实例
+            - 调用直接父类的 ``__init__`` 来初始化实例
+        - 如果父类没有重写 ``__new__`` 或 ``__init__``
+            - 继续追溯父类，直到 **object** 的 ``__new__`` 或 ``__init__``
+            - 可以重写 ``__new__`` 或 ``__init__`` 指定调用方式
+
+
+限制实例添加属性
+--------------
+    .. code-block:: python
+
+        class Cls: __slots__ = ('a', )    #: 允许添加 ('a', )
+        class D(Cls): __slots__ = ('b', ) #: 允许添加 ('a','b')
+        class E(Cls): pass                #: 无限制
+    - 使用 **__slot__** 的对象节省了一部分开销
+
+
+指定元类
+-------
+    .. code-block:: python
+
+        class Cls: __metaclass__ = MetaClass
+        class Cls(object, metaclass=MetaClass): pass

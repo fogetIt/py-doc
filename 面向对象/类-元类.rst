@@ -51,7 +51,7 @@
             :``new_class = metaclass(name, bases, attrs)``:
                 .. code-block:: python
 
-                    A = type('A', (object), {"a": 1})
+                    Cls = type('Cls', (object), {"a": 1})
             1. 收集所有属性到 **__dict__** 字典中
             #. 当类定义结束， **python** 将决定类的 元类_
             #. 实例化元类，创建类对象

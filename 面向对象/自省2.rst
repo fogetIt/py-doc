@@ -1,0 +1,54 @@
+help
+----
+    .. code-block:: python
+
+        help(xxx.xxx)    #: 查看属性、方法
+        help('modules')  #: 列出所有已安装模块
+        help('keywords') #: 列出所有关键字
+        help()           #: 进入help交互式
+                         #: q 退出
+                         #: 输入 list、keywords 等，可以查看对象信息
+
+
+ipython
+--------
+    .. code-block:: shell
+
+        import flask
+        flask? #: 简化了 help
+
+
+查看对象属性
+-----------
+    :``dir([object]) -> list of strings``:
+        - 返回的对象的 **所有** 属性名列表（实例、类、父类的属性）
+            - 无视 ``__slots__``
+        .. code-block:: python
+
+            print(dir())             #: 文件属性（当前模块中定义的方法名称列表）
+            print(dir(Cls))          #: 类属性（模块或者类内部的所有方法）
+            print(dir(instance))     #: 实例属性
+            print(dir(__builtins__)) #: 列出所有内建方法
+
+    :``object.__dict__``:
+        - 返回对象的 **局部** 属性字典（ ``{属性名: 属性值}`` ）
+            - 不包含所有有效属性
+            - 添加了 ``__slots__`` 的类的实例，将不会拥有 ``__dict__``
+                - 许多内建类型（如 ``list`` ）都没有 ``__dict__``
+            .. code-block:: python
+
+                print(__builtins__.__dict__)
+        - 动态地添加或删除属性
+            .. code-block:: python
+
+                class Cls(object):
+                    def __init__(self):
+                        self.__dict__.update(...)
+                c = Cls()
+                c.xxx = ...
+                c.__dict__.update(...)
+        :对象的属性查找顺序:
+            - ``instance.__dict__ -> Cls.__dict__ -> Base.__dict__``
+            - ``instance.__dict__`` 仅仅是实例的局部属性集合
+            - 对一个类设置属性时，它的实例的 ``__dict__`` 也会受到影响
+            - 对一个实例设置属性时，它所属类的 ``__dict__`` 不受影响

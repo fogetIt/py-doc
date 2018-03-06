@@ -1,0 +1,77 @@
+:自省: 程序在运行时获得对象的信息
+============================
+
+
+python 之禅
+-----------
+    .. code-block:: python
+
+        import this
+
+
+issubclass(C, B) -> bool
+-------------------------
+    - 判断类参数 ``C`` 是否是类型参数 ``B`` 的子类
+    - 参数 ``B`` 可能是元组
+    .. code-block:: python
+
+        print(issubclass(bool, int))  #: True
+
+
+isinstance(object, class-or-type-or-tuple) -> bool
+---------------------------------------------------
+    .. code-block:: python
+
+        class Cls: pass
+        c = Cls()
+        print(isinstance(c, Cls))  #: 判断实例是否属于类
+        print(isinstance('', str)) #: 判断对象是否是一个已知的类型
+
+
+
+callable(object) -> bool
+------------------------
+    - 判断一个对象是否可以被调用
+    .. code-block:: python
+
+        print(callable('a string'))  #: False
+        print(callable(lambda x: x)) #: True
+
+
+type
+-----
+    - ``type(object) -> the object's type``
+    - ``type(name, bases, dict) -> a new type``
+
+
+sys.modules
+------------
+    - 当前载入（成功导入）到解释器的模块
+        - ``{模块名: 模块位置, ...}``
+    .. code-block:: python
+
+        import sys
+        print(sys.modules.keys())
+
+
+查看关键字
+---------
+    .. code-block:: python
+
+        import keyword
+        print(keyword.kwlist)
+        print(keyword.iskeyword('and'))
+
+
+pprint
+-------
+    :``pprint(object, stream=None, indent=1, width=80, depth=None)``:
+        :stream: 输出流对象，默认是 ``sys.stdout``
+        :indent: 缩进
+        :width:  最大行宽
+        :depth:  打印的深度
+    .. code-block:: python
+
+        from pprint import pprint
+        print(__builtins__.__dict__)
+        pprint(__builtins__.__dict__, indent=2)
