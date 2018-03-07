@@ -51,3 +51,32 @@
 
         class Cls: __metaclass__ = MetaClass
         class Cls(object, metaclass=MetaClass): pass
+
+
+析构函数
+-------
+    :``__del__()``:
+        - 对象被销毁的时候执行，用来将对象所占用的内存资源释放给操作系统
+        - ``del obj`` 减少了引用计数
+            - 一旦引用计数为 **0**，对象就被清除
+        - 程序执行完毕时，会自动销毁程序中的对象
+        - 循环引用或其它原因，让一个实例的引用逗留不去，该对象的 ``__del__()`` 可能永远不会被执行
+        .. code-block:: python
+
+            class Hello:
+                # 使用一个静态成员来记录实例的个数，进行跟踪
+                instance_count = 0
+
+                def __init__(self):
+                    Hello.instance_count += 1
+                    print(Hello.instance_count)
+
+                def __del__(self):
+                    # 不要忘记调用 del
+                    del self
+                    Hello.instance_count -= 1
+                    print(Hello.instance_count)
+            hello1 = Hello() #: 0
+            hello2 = Hello() #: 1
+            del hello1       #: 1
+            del hello2       #: 0
