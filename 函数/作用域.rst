@@ -40,17 +40,17 @@
         def outer():
             i2, l2 = 0, [0]
             def inner():
-                print(i1, i2)     #: 0 0                # 外部不可变对象，直接引用
-                # i1 += 1         #: UnboundLocalError  # 外部不可变对象，无法修改
-                # i2 += 1         #: UnboundLocalError
-                print(l1, l2)     #: [0] [0]            # 外部可变对象，直接引用
+                print(i1, i2)      #: 0 0                #: 外部不可变对象，直接引用
+                # i1 += 1          #: UnboundLocalError  #: 外部不可变对象，无法修改
+                # i2 += 1          #: UnboundLocalError
+                print(l1, l2)      #: [0] [0]            #: 外部可变对象，直接引用
                 l1[0] += 1
                 l2.append(123)
-                print(l1, l2)     #: [1] [0, 123]       # 外部可变对象，直接修改
-            print(i1, i2, l1, l2) #: 0 0 [0] [0]        # 最先执行
+                print(l1, l2)      #: [1] [0, 123]       #: 外部可变对象，直接修改
+            print(i1, i2, l1, l2)  #: 0 0 [0] [0]        #: 最先执行
             return inner
         outer()()
-        print(i1, l1)             #: 0 [1]              # 最后执行
+        print(i1, l1)              #: 0 [1]              #: 最后执行
 
 
 `lambda 函数直接修改外部的不可变对象`__
@@ -66,12 +66,12 @@ nonlocal
         i = 0
         def outer():
             j = 0
-            nonlocal i      #: SyntaxError
+            nonlocal i       #: SyntaxError
             def inner():
                 nonlocal j
                 j += 1
-                print(i, j) #: 1 1  # 后执行
-            print(i, j)     #: 0 0  # 先执行
+                print(i, j)  #: 1 1  # 后执行
+            print(i, j)      #: 0 0  # 先执行
             return inner
         outer()()
 
@@ -83,14 +83,14 @@ global
 
         i = j = 0
         def outer():
-            print(i, j)     #: 0 0
+            print(i, j)      #: 0 0
             global i
             i += 1
-            print(i, j)     #: 1 0
+            print(i, j)      #: 1 0
             def inner():
                 global i, j
                 i += 1
-                print(i, j) #: 2 0
+                print(i, j)  #: 2 0
             return inner
         outer()()
-        print(i, j)         #: 2 0  # 全局变量也随之改变
+        print(i, j)          #: 2 0  # 全局变量也随之改变

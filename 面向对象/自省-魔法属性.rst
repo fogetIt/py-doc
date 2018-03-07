@@ -82,11 +82,11 @@
     .. code-block:: python
 
         import os, sys, time
-        print(__file__)      #: 返回当前文件路径
-        print(os.__file__)   #: /usr/lib/python2.7/os.pyc
+        print(__file__)       #: 返回当前文件路径
+        print(os.__file__)    #: /usr/lib/python2.7/os.pyc
         # 某些内建模块没有 __file__ 属性
-        print(sys.__file__)  #: AttributeError
-        print(time.__file__) #: AttributeError
+        print(sys.__file__)   #: AttributeError
+        print(time.__file__)  #: AttributeError
 
 
 查看方法、类所属的模块名称
@@ -94,15 +94,15 @@
     .. code-block:: python
 
         from os import open
-        print(open.__module__) #: posix
-        print(str.__module__)  #: __builtin__
+        print(open.__module__)  #: posix
+        print(str.__module__)   #: __builtin__
 
         class Cls: pass
         def func(): pass
         c = Cls()
-        print(c.__module__)    #: __main__
-        print(Cls.__module__)  #: __main__
-        print(func.__module__) #: __main__
+        print(c.__module__)     #: __main__
+        print(Cls.__module__)   #: __main__
+        print(func.__module__)  #: __main__
 
 
 判断方法绑定在哪个实例上
@@ -113,5 +113,5 @@
             def func(self): pass
 
         c = Cls()
-        print(c.func.__self__) #: <__main__.Cls instance at ...>  #: python2
-                               #: <__main__.Cls object at ...>    #: python3
+        print(c.func.__self__)  #: <__main__.Cls instance at ...>  #: python2
+                                #: <__main__.Cls object at ...>    #: python3

@@ -10,10 +10,10 @@ str(object='') -> string
 
     .. code-block:: python
 
-        str("hello")  #: hello
-        repr("hello") #: 'hello'
-        str(123L)     #: 123
-        repr(123L)    #: 123L
+        str("hello")   #: hello
+        repr("hello")  #: 'hello'
+        str(123L)      #: 123
+        repr(123L)     #: 123L
 
 
         class A(object):
@@ -26,9 +26,9 @@ str(object='') -> string
 
             __repr__ = __str__
         a = A("hello")
-        print(a)       #: hello
-        print(str(a))  #: hello
-        print(repr(a)) #: hello
+        print(a)        #: hello
+        print(str(a))   #: hello
+        print(repr(a))  #: hello
 
 
 :bytes: 从网络或磁盘上读取的字节流数据

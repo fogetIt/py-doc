@@ -40,20 +40,20 @@ warn
 
         l1 = [src]
         l2 = list(a)
-        l1, len(l1) # (['hello'], 1)
-        l2, len(l2) # (['h', 'e', 'l', 'l', 'o'], 5)
+        l1, len(l1)  #: (['hello'], 1)
+        l2, len(l2)  #: (['h', 'e', 'l', 'l', 'o'], 5)
 
         (src) == src
 
         t1 = (src, )
         t2 = tuple(src)
-        t1, len(t1) # (('hello',), 1)
-        t2, len(t2) # (('h', 'e', 'l', 'l', 'o'), 5)
+        t1, len(t1)  #: (('hello',), 1)
+        t2, len(t2)  #: (('h', 'e', 'l', 'l', 'o'), 5)
 
         s1 = {src}
         s2 = set(src)
-        s1, len(s1) # ({'hello'}, 1)
-        s2, len(s2) # ({'e', 'h', 'l', 'o'}, 4)
+        s1, len(s1)  #: ({'hello'}, 1)
+        s2, len(s2)  #: ({'e', 'h', 'l', 'o'}, 4)
 
 
 时间复杂度

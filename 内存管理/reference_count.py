@@ -22,7 +22,7 @@ print(getrefcount(a))  #: 6(3+1+1+1)  #: 对象作为一个元素，存储在容
 def f(): x = a; return getrefcount(a)
 print(f())             #: 7(6+1)      #: 本地引用
 f = lambda a: getrefcount(a)
-print(f(a))            #: 9(6+1+1+1)  #: 本地引用 +1+1+1
+print(f(a))            #: 9(6+1+1+1)  #: 本地引用
 print("*" * 30)
 """
 对象的引用计数 -1

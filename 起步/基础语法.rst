@@ -23,14 +23,14 @@
     :赋值运算符: **=** ，绑定变量名与数据对象
     .. code-block:: python
 
-        a = 123                 #: 单一变量赋值
-        b = c = d = 234         #: 链式赋值
-        e, f, g = 345, 456, 567 #: 序列解包赋值
-        h, i = [1]              #: ValueError  # 序列解包变量个数必须等于序列元素个数
-        j, k = [1, 2, 3]        #: ValueError  # 序列解包变量个数必须等于序列元素个数
-        del b, f                #: 删除变量
-        print(b)                #: NameError
-        l = ['a']; l[0] = 123   #: 索引赋值
+        a = 123                  #: 单一变量赋值
+        b = c = d = 234          #: 链式赋值
+        e, f, g = 345, 456, 567  #: 序列解包赋值
+        h, i = [1]               #: ValueError  # 序列解包变量个数必须等于序列元素个数
+        j, k = [1, 2, 3]         #: ValueError  # 序列解包变量个数必须等于序列元素个数
+        del b, f                 #: 删除变量
+        print(b)                 #: NameError
+        l = ['a']; l[0] = 123    #: 索引赋值
 
 
 特殊变量
@@ -77,7 +77,7 @@
 
             S = "hello" + \
                 "world"
-            print(S) # helloworld
+            print(S)  # helloworld
     :合并行:
         .. code-block:: python
 

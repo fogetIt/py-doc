@@ -7,8 +7,8 @@
 
                 class Cls: pass
                 class D(object): pass
-                print(hasattr(Cls, "__new__")) #: False
-                print(hasattr(D, "__new__"))   #: True
+                print(hasattr(Cls, "__new__"))  #: False
+                print(hasattr(D, "__new__"))    #: True
             :构造方法:
                 - 在进行初始化之前，检查缓存中是否存在对应的实例对象
                     - 如果存在
@@ -39,9 +39,9 @@
 --------------
     .. code-block:: python
 
-        class Cls: __slots__ = ('a', )    #: 允许添加 ('a', )
-        class D(Cls): __slots__ = ('b', ) #: 允许添加 ('a','b')
-        class E(Cls): pass                #: 无限制
+        class Cls: __slots__ = ('a', )     #: 允许添加 ('a', )
+        class D(Cls): __slots__ = ('b', )  #: 允许添加 ('a','b')
+        class E(Cls): pass                 #: 无限制
     - 使用 **__slot__** 的对象节省了一部分开销
 
 
@@ -56,27 +56,26 @@
 析构函数
 -------
     :``__del__()``:
-        - 对象被销毁的时候执行，用来将对象所占用的内存资源释放给操作系统
-        - ``del obj`` 减少了引用计数
-            - 一旦引用计数为 **0**，对象就被清除
-        - 程序执行完毕时，会自动销毁程序中的对象
+        - 对象被销毁的时候执行
+            - 用来将对象所占用的内存资源释放给操作系统
+            - 一旦引用计数为 **0** ，就执行 ``__del__`` 清除对象
+            .. code-block:: python
+
+                class Cls:
+                    instance_count = 0
+
+                    def __init__(self): Cls.instance_count += 1
+
+                    def __del__(self):
+                        # 不要忘记调用 del
+                        del self
+                        Cls.instance_count -= 1
+                        print("del %d" % Cls.instance_count)
+                c = Cls()
+                c1 = Cls()
+                cc = c
+                del c             #: c 的引用计数：2-1=1，不会执行 __del__
+                del c1  #: del 1  #: c1 的引用计数：1-1=0，执行 __del__
+                print("*" * 10)
+                        #: del 0  #: 程序执行完毕，自动销毁程序中未销毁的的对象： c
         - 循环引用或其它原因，让一个实例的引用逗留不去，该对象的 ``__del__()`` 可能永远不会被执行
-        .. code-block:: python
-
-            class Hello:
-                # 使用一个静态成员来记录实例的个数，进行跟踪
-                instance_count = 0
-
-                def __init__(self):
-                    Hello.instance_count += 1
-                    print(Hello.instance_count)
-
-                def __del__(self):
-                    # 不要忘记调用 del
-                    del self
-                    Hello.instance_count -= 1
-                    print(Hello.instance_count)
-            hello1 = Hello() #: 0
-            hello2 = Hello() #: 1
-            del hello1       #: 1
-            del hello2       #: 0

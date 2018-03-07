@@ -6,8 +6,8 @@ tuple([iterable]) -> new tuple
 
         t = 1, 2, 3
         def demo(): return 1, 2, 3
-        print(t)      #: (1, 2, 3)
-        print(demo()) #: (1, 2, 3)
+        print(t)       #: (1, 2, 3)
+        print(demo())  #: (1, 2, 3)
 
 
 查

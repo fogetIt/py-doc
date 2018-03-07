@@ -32,9 +32,9 @@
         - 指定元类
         .. code-block:: python
 
-            class New(object): __metaclass__ = MetaClass #: python2
+            class New(object): __metaclass__ = MetaClass  #: python2
             # __metaclass__ 属性也可以写在父类中
-            class New(object, metaclass=MetaClass): pass #: python3
+            class New(object, metaclass=MetaClass): pass  #: python3
 
 
 类

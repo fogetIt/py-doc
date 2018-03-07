@@ -2,12 +2,12 @@ help
 ----
     .. code-block:: python
 
-        help(xxx.xxx)    #: 查看属性、方法
-        help('modules')  #: 列出所有已安装模块
-        help('keywords') #: 列出所有关键字
-        help()           #: 进入help交互式
-                         #: q 退出
-                         #: 输入 list、keywords 等，可以查看对象信息
+        help(xxx.xxx)     #: 查看属性、方法
+        help('modules')   #: 列出所有已安装模块
+        help('keywords')  #: 列出所有关键字
+        help()            #: 进入help交互式
+                          #: q 退出
+                          #: 输入 list、keywords 等，可以查看对象信息
 
 
 ipython
@@ -25,10 +25,10 @@ ipython
             - 无视 ``__slots__``
         .. code-block:: python
 
-            print(dir())             #: 文件属性（当前模块中定义的方法名称列表）
-            print(dir(Cls))          #: 类属性（模块或者类内部的所有方法）
-            print(dir(instance))     #: 实例属性
-            print(dir(__builtins__)) #: 列出所有内建方法
+            print(dir())              #: 文件属性（当前模块中定义的方法名称列表）
+            print(dir(Cls))           #: 类属性（模块或者类内部的所有方法）
+            print(dir(instance))      #: 实例属性
+            print(dir(__builtins__))  #: 列出所有内建方法
 
     :``object.__dict__``:
         - 返回对象的 **局部** 属性字典（ ``{属性名: 属性值}`` ）

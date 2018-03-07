@@ -40,10 +40,10 @@ decorator
         @decorator
         def func(*args, **kwargs):
             print("func")
-                                            #: outer             # 初始化
-        decorator(lambda : print("func"))() #: outer inner func  # 执行嵌套函数
-        func()                              #: inner func        # 执行装饰器
-        print(func.__name__)                #: modify            # 装饰之后的函数名变了
+                                             #: outer             #: 初始化
+        decorator(lambda : print("func"))()  #: outer inner func  #: 执行嵌套函数
+        func()                               #: inner func        #: 执行装饰器
+        print(func.__name__)                 #: modify            #: 装饰之后的函数名变了
 
 
 不修改被装饰的函数的行为，只是获得它的引用
@@ -59,7 +59,7 @@ decorator
         @decorator
         def func():
             print("func")
-        func() # get_func func
+        func()  # get_func func
 
 
 装饰函数接收参数（再加一层包装函数）
@@ -81,8 +81,8 @@ decorator
         @wrapper()
         def func():
             print("func")
-               #: wrapper outer  # 初始化
-        func() #: inner func     # 执行装饰器
+                #: wrapper outer  #: 初始化
+        func()  #: inner func     #: 执行装饰器
 
 
 装饰器可以连用

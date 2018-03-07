@@ -24,8 +24,8 @@ isinstance(object, class-or-type-or-tuple) -> bool
 
         class Cls: pass
         c = Cls()
-        print(isinstance(c, Cls))  #: 判断实例是否属于类
-        print(isinstance('', str)) #: 判断对象是否是一个已知的类型
+        print(isinstance(c, Cls))   #: 判断实例是否属于类
+        print(isinstance('', str))  #: 判断对象是否是一个已知的类型
 
 
 
@@ -34,8 +34,8 @@ callable(object) -> bool
     - 判断一个对象是否可以被调用
     .. code-block:: python
 
-        print(callable('a string'))  #: False
-        print(callable(lambda x: x)) #: True
+        print(callable('a string'))   #: False
+        print(callable(lambda x: x))  #: True
 
 
 type

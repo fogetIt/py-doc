@@ -14,9 +14,9 @@ python 编码
         import sys
         import locale
 
-        sys.getdefaultencoding()      # ascii              # python 默认文件字符编码
-        locale.getdefaultlocale()     # ('zh_CN', 'UTF-8') # 语言 系统文本数据编码
-        locale.getpreferredencoding() # UTF-8              # 系统文本数据编码
+        sys.getdefaultencoding()       #: ascii               #: python 默认文件字符编码
+        locale.getdefaultlocale()      #: ('zh_CN', 'UTF-8')  #: 语言 系统文本数据编码
+        locale.getpreferredencoding()  #: UTF-8               #: 系统文本数据编码
 
 
 python2.x

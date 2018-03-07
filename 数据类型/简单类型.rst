@@ -30,9 +30,9 @@ bool(x) -> bool
     .. code-block:: python
 
         issubclass(bool, int) is True
-        True == 1        #: True
-        False == 0       #: True
-        True + True == 2 #: True
+        True == 1         #: True
+        False == 0        #: True
+        True + True == 2  #: True
 
     - 关键字
         - python2
@@ -40,7 +40,7 @@ bool(x) -> bool
                 .. code-block:: python
 
                     import keyword
-                    "True" not in keyword.kwlist # True
+                    "True" not in keyword.kwlist  #: True
                     True = "hello"
             - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
                 .. __: while_1.py

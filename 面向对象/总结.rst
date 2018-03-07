@@ -20,8 +20,8 @@
 
             class Cls(object): pass
             class D(Cls): pass
-            print(isinstance(d, D), isinstance(d, Cls)) #: (True, True)
-            print(type(d) is D, type(d) is Cls)         #: (True, False)
+            print(isinstance(d, D), isinstance(d, Cls))  #: (True, True)
+            print(type(d) is D, type(d) is Cls)          #: (True, False)
     :多态:
         - 根据引用对象的不同表现不同的行为方式
         - 在运行时确定其状态，在编译阶段无法确定其类型

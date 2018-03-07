@@ -33,16 +33,16 @@
             不立刻求和，而是返回求和的函数，根据需要再计算求和的结果
             """
             def qiu_he():
-                print("step 2") #: 调用时执行
+                print("step 2")  #: 调用时执行
                 return sum(args)
-            print("step 1")     #: 立刻执行
+            print("step 1")      #: 立刻执行
             return qiu_he
-        f = closure_qiu_he(1, 2, 3, 4, 5)  #: step1
-        f1 = closure_qiu_he(1, 2, 3, 4, 5) #: step1
-        print(f == f1)                     #: False  # 每次调用都会返回一个新的函数（即使传入相同的参数）
-        print(f)                           #: <function ...>
-        print(f())                         #: step2 15
-        print(f() == f1())                 #: step2 step2 True
+        f = closure_qiu_he(1, 2, 3, 4, 5)   #: step1
+        f1 = closure_qiu_he(1, 2, 3, 4, 5)  #: step1
+        print(f == f1)                      #: False  # 每次调用都会返回一个新的函数（即使传入相同的参数）
+        print(f)                            #: <function ...>
+        print(f())                          #: step2 15
+        print(f() == f1())                  #: step2 step2 True
 
     **内层函数不要引用外层循环变量或者后续会发生变化的变量**
         .. code-block:: python
