@@ -35,15 +35,14 @@ bool(x) -> bool
         True + True == 2  #: True
 
     - 关键字
-        - python2
+        - python2__
+            .. __: py2_bool.py
             - **True/False** 不是关键字，可以对其进行任意的赋值
                 .. code-block:: python
 
                     import keyword
                     "True" not in keyword.kwlist  #: True
                     True = "hello"
-            - `每次循环时都需要对 True/False 值进行检查（额外耗时）`__
-                .. __: while_1.py
 
         - python3
             .. code-block:: python
@@ -51,20 +50,34 @@ bool(x) -> bool
                 import keyword
                 "True" in keyword.kwlist
                 # True = "hello"  # SyntaxError
-    - 真值测试
-    .. code-block:: python
+    :真值测试:
+        - 直接判断对象的真假，无需写判断条件
+            - 遵循 ``PEP`` 的规范
+            - 执行效率高
+            - 程序简洁、准确
+        .. code-block:: python
 
-        """
-        对于任意对象，直接判断其真假，无需写判断条件
-        这样既能保证正确性，又能减少代码量
-        """
-        [i for i in (False, '', 0, [], (), {}, set(), None) if i] # []
+            import timeit, dis
+
+            print([i for i in (False, '', 0, [], (), {}, set(), None) if i]) # []
+
+            x = True
+            def if_x(): return None if x else None
+            def if_eq(): return None if x == True else None
+
+            # if_eq 多了一些检查的字节码，执行效率比较低
+            print(timeit.timeit(if_x, "from __main__ import if_x", number=10000000))
+            print(timeit.timeit(if_eq, "from __main__ import if_eq", number=10000000))
+            print(dis.dis(if_x))
+            print("*" * 20)
+            print(dis.dis(if_eq))
+        - ``==`` 具有传递性， ``a==b; b==c`` 会被化简为 ``a==c``
 
 
 None
-====
+----
     - **None** 是一个特殊的常量
-    - **None** 不是 **False** ，不是 **0** ，不是空字符串
-    - **None** 和任何其他的数据类型比较永远返回 **False**
-    - **None** 有自己的数据类型 **<type 'NoneType'>**
-    - 可以将 **None** 赋值给任何变量，但不能创建其他 **NoneType** 对象
+    - **None** 不是 ``False`` ，不是 ``0`` ，不是 ``''``
+    - **None** 和任何其他的数据类型比较永远返回 ``False``
+    - **None** 有自己的数据类型 ``<type 'NoneType'>``
+    - **None** 可以被赋值给任何变量，但不能创建其他 ``NoneType`` 对象
