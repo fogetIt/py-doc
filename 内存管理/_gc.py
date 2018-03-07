@@ -9,9 +9,6 @@ print gc.get_threshold()
 gc.set_threshold()
 gc.get_count()
 """
-
-
-如果循环引用中，两个对象都定义了__del__方法，gc模块不会销毁这些unreachable对象，因为gc模块不知道应该先调用哪个对象的__del__方法，所以为了安全起见，gc模块会把对象放到gc.garbage中，但是不会销毁对象。
 """
 x = 10
 print gc.collect()
