@@ -1,4 +1,4 @@
-gc 模块
+bgc 模块
 =======
     - **python** 内存管理模块
     - 负责跟踪和回收垃圾
@@ -20,7 +20,7 @@ gc.isenabled() -> bool
 
 gc.collect([generation]) -> n
 """""""""""""""""""""""""""""
-    - 显式地执行一次完整的垃圾回收
+    - 显式地执行一次完整的 `垃圾回收（标记-清除、分代回收） <垃圾回收.rst>`_
         - **gc** 模块会根据 **threshold** 阀值自动进行分代回收
         - 如果程序中有 **占用内存较大的对象** ，可以显式地执行垃圾回收
         :``generation``:
@@ -33,12 +33,15 @@ gc.collect([generation]) -> n
 
 gc.get_count() -> (count0, count1, count2)
 """"""""""""""""""""""""""""""""""""""""""
-    获取当前自动执行垃圾回收的计数
+    - 当前自动执行垃圾回收的计数器
+    :``object allocation``:                           **python** 运行时分配对象的次数
+    :``object deallocation``:                         **python** 运行时取消分配对象的次数
+    :``object allocation`` - ``object deallocation``: 没有释放的对象个数
 
 
 gc.get_threshold() -> (threshold0, threshold1, threshold2)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    获取垃圾回收频率的计数阈值
+    垃圾回收频率的计数阈值
 
 
 gc.set_threshold(threshold0, threshold1=None, threshold2=None) -> None

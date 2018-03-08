@@ -3,23 +3,15 @@
 # @Last Modified time: 2018-02-02 13:18:17
 import copy
 
-"""
-容器类型
-    某个对象包含对其它对象的引用
-非容器类型
-    数字、字符串以及其它“原子”类型
-    没有拷贝，产生的都是原对象的引用
-"""
-
 # 赋值操作（包括对象作为参数、返回值）不会开辟新的内存空间
 # 只是复制了新对象的引用
 # 所有复制、被复制的对象数据的操作会互相影响
 list1 = ['nvjf', ['dml'], tuple('koa')]
 list0 = list1
 list0[0] = 'ppp'
-print list1
-print list0
-print
+print(list1)
+print(list0)
+print()
 
 # 浅拷贝会创建新对象，其内容是原对象的引用
 # 不管多么复杂的数据结构，浅拷贝都只会copy一层
@@ -30,8 +22,8 @@ print
 list2 = list1[:]
 list2[2] = 'dml'  # 第一层数据的操作不会互相影响
 list2[1][0] = 'jb'  # 嵌套数据的操作会互相影响
-print list2
-print list1
+print(list2)
+print(list1)
 
 # 工厂函数
 list3 = list(list1)
