@@ -67,15 +67,14 @@
                     def __init__(self): Cls.instance_count += 1
 
                     def __del__(self):
-                        # 不要忘记调用 del
-                        del self
+                        del self  # 不要忘记调用 del
                         Cls.instance_count -= 1
                         print("del %d" % Cls.instance_count)
-                c = Cls()
+                c0 = Cls()
                 c1 = Cls()
-                cc = c
-                del c             #: c 的引用计数：2-1=1，不会执行 __del__
-                del c1  #: del 1  #: c1 的引用计数：1-1=0，执行 __del__
+                cc = c1
+                del c0  #: del 0  #: c0 的引用计数：1-1=0，执行 __del__
+                del c1            #: c1 的引用计数：2-1=1，不会执行 __del__
                 print("*" * 10)
-                        #: del 0  #: 程序执行完毕，自动销毁程序中未销毁的的对象： c
-        - `循环引用 <../内存管理/概述.rst>`_ 或其它原因，让一个实例的引用逗留不去，该对象的 ``__del__()`` 可能永远不会被执行
+                        #: del 1  #: 程序执行完毕，自动销毁程序中未销毁的的对象： c1
+        - `循环引用 <../内存管理/引用计数.rst>`_ 或其它原因，让一个实例的引用逗留不去，该对象的 ``__del__()`` 可能永远不会被执行
