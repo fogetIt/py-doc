@@ -8,7 +8,6 @@ python 异常继承树
         :Exception_:        所有常规错误的基类
 
 
-
 Exception
 -----------
     -                                   所有常规错误的基类
@@ -63,7 +62,7 @@ Exception
     :UnicodeWarning:
     :BytesWarning:
 
-在异常处理程序中，可以捕获基类异常，也可以捕获各种子类异常
+
 
 ---
 [^1]: 如果在一个函数里面用到了yield表达式，那么这个函数就是一个generator函数。当Generator函数调用close()时引发该异常。
