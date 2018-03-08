@@ -1,4 +1,4 @@
-bgc 模块
+gc 模块
 =======
     - **python** 内存管理模块
     - 负责跟踪和回收垃圾
@@ -47,7 +47,7 @@ gc.get_threshold() -> (threshold0, threshold1, threshold2)
 gc.set_threshold(threshold0, threshold1=None, threshold2=None) -> None
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     - 设置垃圾回收频率的计数阈值
-        :``threshold0``: 执行 **1** 次 **0** 代回收的计数阈值
+        :``threshold0``: 执行 **1** 次 **0** 代回收的需要积累多少个没有释放的对象
         :``threshold1``: 执行 **1** 次 **1** 代回收需要经过几次 **0** 代回收
         :``threshold2``: 执行 **1** 次 **2** 代回收需要经过几次 **1** 代回收
 
@@ -67,3 +67,18 @@ gc.set_debug(flags) -> None
         :gc.DEBUG_SAVEALL:
             - 可回收对象不会被真正销毁（ ``free`` ），而是放到 ``gc.garbage``
                 - 利于在线上查找问题
+
+
+gc.get_objects() -> [...]
+""""""""""""""""""""""""""
+    返回所有被垃圾回收器管理的对象
+
+
+gc.get_referents(*obj) -> list
+"""""""""""""""""""""""""""""""
+    返回 obj 直接指向的对象
+
+
+gc.get_referrers(*obj) -> list
+""""""""""""""""""""""""""""""
+    返回所有直接指向obj的对象

@@ -2,6 +2,8 @@
 # @Date:   2016-09-20 09:18:46
 # @Last Modified time: 2018-02-02 13:18:17
 import copy
+import gc
+gc.get_referrers()
 
 # 赋值操作（包括对象作为参数、返回值）不会开辟新的内存空间
 # 只是复制了新对象的引用
