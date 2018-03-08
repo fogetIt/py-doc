@@ -20,9 +20,9 @@
                     :``reachable``:   `root object`_
                     :``unreachable``: 可被回收的对象
                     #. 遍历容器对象引用的对象
-                        1. 被引用对象引用计数都 **-1**
-                        #. ``gc.gc_refs>1`` ，移动到 ``reachable``
-                        #. ``gc.gc_refs=0`` ，移动到 ``unreachable``
+                        1. 被引用对象的引用计数都 **-1**
+                        #. ``gc.gc_refs > 1`` ，移动到 ``reachable``
+                        #. ``gc.gc_refs = 0`` ，移动到 ``unreachable``
                     #. 将 ``reachable`` 对象放入下一代的 **可收集对象链表** 中
                     #. 回收 ``unreachable`` 中剩余的真正的垃圾对象
 
