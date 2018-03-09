@@ -1,8 +1,8 @@
-python 异常继承树
-================
+异常继承树
+=========
     :BaseException:
         -                   所有异常的基类
-        :SystemExit:        解释器请求退出
+        :SystemExit:        解释器退出
         :KeyboardInterrupt: 用户中断执行 **^C**
         :GeneratorExit:     生成器异常，退出
         :Exception_:        所有常规错误的基类

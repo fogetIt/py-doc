@@ -20,11 +20,11 @@ def demo(a=0):
         else:
             sys.exit(10)
     except SystemExit as e:
-        print e
+        print(e)
     finally:
-        print 'finally'
+        print('finally')
 
 
 demo(10)
-print
+print()
 demo()

@@ -1,0 +1,20 @@
+traceback 模块
+==============
+    .. code-block:: python
+
+        import traceback
+
+        def err(): print(1 / 0)
+        try: err()
+        except Exception as e:
+            print(e)               #: division by zero     #: 直接打印异常
+            traceback.print_exc()  #: ...File...line x...  #: 打印异常的详细信息（出错的文件、行）
+
+
+API
+----
+    :``traceback.print_exc(limit=None, file=None, chain=True)``:
+        :``limit=None``: 异常追踪的深度
+        :``file=None``:  异常信息的输出方式，默认 ``sys.stdout``
+    :``traceback.format_exc(limit=None, chain=True)``:
+        - 格式化异常信息，并保存为变量，在必要的时候调用
