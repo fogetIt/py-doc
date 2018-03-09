@@ -13,6 +13,23 @@
     ``__setitem__()``    :索引下标赋值: ``seq[i] = val``
     ``__delitem__()``    :索引下标删除: ``del seq[i]``
     =================  ======
+    .. code-block:: python
+
+        class Fib(object):
+
+            def __init__(self, length):
+                a, b = 0, 1
+                self.fib_seq = []
+                for i in range(length):
+                    self.fib_seq.append(a)
+                    a, b = b, a + b
+
+            def __getitem__(self, index):
+                return self.fib_seq[index]
+        f = Fib(100)
+        print(f[0])
+        print(f[1])
+        print(f[10])
 
 
 迭代
