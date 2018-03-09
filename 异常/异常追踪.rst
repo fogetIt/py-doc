@@ -16,5 +16,4 @@ API
     :``traceback.print_exc(limit=None, file=None, chain=True)``:
         :``limit=None``: 异常追踪的深度
         :``file=None``:  异常信息的输出方式，默认 ``sys.stdout``
-    :``traceback.format_exc(limit=None, chain=True)``:
-        - 格式化异常信息，并保存为变量，在必要的时候调用
+    :``traceback.format_exc(limit=None, chain=True)``: 格式化异常信息，并保存为变量，在必要时调用

@@ -61,11 +61,11 @@ S.strip([chars])
     - `S.format(*args, **kwargs) -> str <str_format.py>`_
     - ``%[(name)][flags][width].[precision]typecode``
         :[(name)]: 指定 **key**
-        :[flags]:
-            - 格式化辅助符号
+        :[flags]:  格式化辅助符号
+
             :`m.n`:
-                :m: 显示的最小宽度
-            :`-`:   左对齐
+                :``m``: 显示的最小宽度
+            :`-`: 左对齐
             :`+`:
                 - 右对齐
                 - 在正数前面显示加号
@@ -73,10 +73,10 @@ S.strip([chars])
                 - 在 **8** 进制前面显示 **0o**
                 - 在 **16** 进制前面显示 **0x** 或 **0X**
             :`0`: 数字前面填充 **0**
-        :[width]: 显示宽度
+        :[width]:     显示宽度
         :[precision]: 小数点后精度
-        :typecode:
-            - 格式化类型
+        :typecode:    格式化类型
+
             :%c:     格式化字符及其 **ascii** 码
             :%s:     格式化字符串
             :%d(%i): 格式化整数

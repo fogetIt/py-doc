@@ -1,21 +1,21 @@
 集合
 ####
-    `set([iterable]) -> new set object`_
-        - 可变集合
+    :`set([iterable]) -> new set object`_:             可变集合
+
         - 不可哈希
-    `frozenset([iterable]) -> new frozenset object`_
-        - 不可变集合
+    :`frozenset([iterable]) -> new frozenset object`_: 不可变集合
+
         - 可哈希
 
 
 set([iterable]) -> new set object
 ---------------------------------
     - 自动过滤重复元素
-        + 可以给列表、元组去重
-        + 可以做字典的键
+        - 可以给列表、元组去重
+        - 可以做字典的键
     - 无序
-        + 没有索引、切片
-        + 只能通过 ``in, not in`` 来判断元素
+        - 没有索引、切片
+        - 只能通过 ``in, not in`` 来判断元素
 
     ========================  ======
     methods                     todo

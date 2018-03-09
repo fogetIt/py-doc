@@ -33,10 +33,10 @@ python 标准模块
         - 按照 **执行入口文件** 所对应的当前路径导入
         - 不能直接运行当前模块，只能在 **入口文件** 中导入
     - 相对路径导入
-        - :package:
-            - 拥有 **__init__.py** 文件的目录，视作 **package**
-            :module:
-                - **package** 下的其他文件、文件夹，视作 **module**
+        :package: 拥有 **__init__.py** 文件的目录，视作 **package**
+
+            :module: **package** 下的其他文件、文件夹，视作 **module**
+
                 - 各个 **module** 之间使用相对路径导入
                     :显式相对路径导入:
                         .. code-block:: python

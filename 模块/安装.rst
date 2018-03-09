@@ -29,7 +29,7 @@
     :setuptools:
         - ``PEAK(Python Enterprise Application Kit)`` 的一个副项目
         - ``Python distutilsde`` 工具的增强
-        - 功能
+        :功能:
             - 更方便地创建和发布那些对其它包具有依赖性的 ``Python`` 包
                 - 创建 ``Python Eggs``
                 - 自动包含包目录内的数据文件

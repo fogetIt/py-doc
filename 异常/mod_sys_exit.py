@@ -2,6 +2,7 @@
 # @Date:   2017-03-01 18:29:02
 # @Last Modified time: 2017-03-01 18:29:10
 import sys
+import os
 """
 os._exit()调用C语言的_exit()，直接退出Python程序，其后的代码都不会执行，用于在线程中退出；
 sys.exit()引发一个SystemExit异常（Exception捕捉不到），用于在主线程中退出；

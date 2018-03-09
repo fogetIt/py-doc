@@ -13,9 +13,9 @@ assert 表达式[, 消息]————声明某个条件是真的，失败的时
 L = ['item']
 try:
     assert len(L) >= 10, '列表参数小于10'
-    print L.pop()
+    print(L.pop())
 except AssertionError as e:
-    print e
+    print(e)
 
 
 import unittest

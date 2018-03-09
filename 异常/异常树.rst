@@ -9,65 +9,81 @@
 
 
 Exception
------------
-    -                                   所有常规错误的基类
-    :StopIteration:                     迭代器没有更多的值（循环到尾部）
-    :StandardError:
-        -                               所有标准异常的基类 2
-        :BufferError:
-        :ArithmeticError:
-            -                           所有数值计算错误的基类
-            :FloatingPointError:        浮点计算错误
-            :OverflowError:             数值运算超出最大限制
-            :ZeroDivisionError:         除数为 **0**
-        :AssertionError:                断言语句失败
-        :AttributeError:                对象没有这个属性
-        :EnvironmentError:
-            -                           操作系统错误的基类
-            :IOError:                   输入/输出操作失败
-            :OSError:
-                -                       操作系统错误
-                :WindowsError:          **windows** 系统调用失败
-                :VMSError:              **VM** 系统调用失败
-        :EOFError:                      没有内建输入 **EOF**
-        :ImportError:                   导入模块/对象失败
-        :LookupError:                   无效数据查询的基类
-            :IndexError:                序列中没有这个索引
-            :KeyError:                  映射中没有这个键
-        :MemoryError:                   内存溢出错误
-        :NameError:                     未声明对象/没有属性
-            :UnboundLocalError:         未初始化本地变量
-        :ReferenceError:                弱引用（试图访问已垃圾回收对象）
-        :RuntimeError:                  运行时错误
-            :NotImplementedError:       尚未实现的方法
-        :SyntaxError:                   语法错误
-            :IndentationError:          缩进错误
-                :TabError:              **Tab** 和空格混用
-        :SystemError:                   一般的解释器系统错误
-        :TypeError:                     对类型无效的操作
-        :ValueError:                    传入无效的参数
-            :UnicodeError:              *Unicode* 相关的错误
-                :UnicodeDecodeError:    *Unicode* 解码时的错误
-                :UnicodeEncodeError:    *Unicode* 编码时错误
-                :UnicodeTranslateError: *Unicode* 转换时错误
-    :Warning:
-        -                               警告的基类
-        :DeprecationWarning:            特性被弃用的警告
-        :PendingDeprecationWarning:     特性将会被废弃的警告
-        :RuntimeWarning:                运行时行为的警告
-        :SyntaxWarning:                 语法的警告
-        :UserWarning:                   用户代码的警告
-        :FutureWarning:                 关于构造将来语义会有改变的警告
+----------
+    :StopIteration:  迭代器结束循环
+    :StandardError_: 所有标准异常的基类
+
+            -        由程序逻辑错误引发
+            -        默认加载，不需要导入 **exception** 模块
+    :Warning_:       警告的基类
     :ImportWarning:
     :UnicodeWarning:
     :BytesWarning:
 
 
+StandardError
+""""""""""""""
+    :BufferError:
+    :ArithmeticError:               所有数值计算错误的基类
+        -
+        :FloatingPointError:        浮点计算错误
+        :OverflowError:             数值运算超出最大限制
+        :ZeroDivisionError:         除数为 **0**
+    :AssertionError:                断言语句失败
+    :AttributeError:                对象没有这个属性
+    :EnvironmentError:
+        -                           操作系统错误的基类
+        :IOError:                   输入/输出操作失败
+        :OSError:
+            -                       操作系统错误
+            :WindowsError:          **windows** 系统调用失败
+            :VMSError:              **VM** 系统调用失败
+    :EOFError:                      没有内建输入 **EOF**
+    :ImportError:                   导入模块/对象失败
+    :LookupError:
+        -                           无效数据查询的基类
+        :IndexError:                序列中没有这个索引
+        :KeyError:                  映射中没有这个键
+    :MemoryError:                   内存溢出错误
+    :NameError:
+        -                           未声明对象/没有属性
+        :UnboundLocalError:         未初始化本地变量
+    :ReferenceError:                弱引用（试图访问已垃圾回收对象）
+    :RuntimeError:
+        -                           运行时错误
+        :NotImplementedError:       尚未实现的方法
+    :SyntaxError:
+        -                           语法错误
+        :IndentationError:
+            -                       缩进错误
+            :TabError:              **Tab** 和空格混用
+    :SystemError:                   一般的解释器系统错误
+    :TypeError:                     对类型无效的操作
+    :ValueError:
+        -                           传入无效的参数
+        :UnicodeError:
+            -                       *Unicode* 相关的错误
+            :UnicodeDecodeError:    *Unicode* 解码时的错误
+            :UnicodeEncodeError:    *Unicode* 编码时错误
+            :UnicodeTranslateError: *Unicode* 转换时错误
 
----
-[^1]: 如果在一个函数里面用到了yield表达式，那么这个函数就是一个generator函数。当Generator函数调用close()时引发该异常。
 
-[^2]： 放置在默认的命名空间中，如果程序上出现逻辑错误，将引发该异常。因此使用IOEroor,EOFError, ImportError等类，不需要导入exception模块。
+Warning
+""""""""
+    :DeprecationWarning:        特性被废弃的警告
+    :PendingDeprecationWarning: 特性将会被废弃的警告
+    :RuntimeWarning:            运行时行为的警告
+    :SyntaxWarning:             语法的警告
+    :UserWarning:               用户代码的警告
+    :FutureWarning:             关于构造将来语义会有改变的警告
+
+-----
+
+如果在一个函数里面用到了yield表达式，那么这个函数就是一个generator函数。当Generator函数调用close()时引发该异常。
+
+
+
+
 
 *Python自动将所有异常名称放在内建命名空间中，所以程序不必导入exceptions模块即可使用异常。如果交互式会话遇到一个未被捕捉的SystemExit异常，会话就会终止。*
 
@@ -79,9 +95,3 @@ Exception
 - 控制面板-->系统和安全-->windows防火墙-->允许程序通过windows防火墙-->更改设置-->允许运行另一程序；
 - 点击浏览选择python安装目录下的pythonw.exe文件后点击添加按钮将pwthonw.exe添加到防火墙允许列表中；
 - 再次启动idle时正常启动。
-
-#### 退出程序
-- exit(0)：无错误退出
-- exit(1)：有错误退出
-
-退出代码是告诉解释器的（或操作系统），是为了实现程序的功能，比如已经得到所要的结果，这个程序就返回了，不要浪费CPU。有的时候没有这个跳出会导致死循环，也就是所谓的死机。

@@ -50,11 +50,11 @@ bool(x) -> bool
                 import keyword
                 "True" in keyword.kwlist
                 # True = "hello"  # SyntaxError
-    :真值测试:
-        - 直接判断对象的真假，无需写判断条件
-            - 遵循 ``PEP`` 的规范
-            - 执行效率高
-            - 程序简洁、准确
+    :真值测试: 直接判断对象的真假，无需写判断条件
+
+        - 遵循 ``PEP`` 的规范
+        - 执行效率高
+        - 程序简洁、准确
         .. code-block:: python
 
             import timeit, dis
