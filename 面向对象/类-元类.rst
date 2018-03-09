@@ -16,25 +16,27 @@
         - 类会调用元类的 **__new__()** 来进行初始化
     - 所有类的默认元类是 **type**
         - 定义元类
-        .. code-block:: python
 
-            class MetaClass(type):
-                """（1）"""
-                def __new__(cls, what, bases, attrs):
+            .. code-block:: python
+
+                class MetaClass(type):
+                    """（1）"""
+                    def __new__(cls, what, bases, attrs):
+                        # ...
+                        return type.__new__(name, bases, attrs)
+
+
+                def MetaClass(name, bases, attrs):
+                    """（2） __metaclass__ 可以被任意调用，并不需要一个正式的类"""
                     # ...
-                    return type.__new__(name, bases, attrs)
-
-
-            def MetaClass(name, bases, attrs):
-                """（2） __metaclass__ 可以被任意调用，并不需要一个正式的类"""
-                # ...
-                return type(name, bases, attrs)
+                    return type(name, bases, attrs)
         - 指定元类
-        .. code-block:: python
 
-            class New(object): __metaclass__ = MetaClass  #: python2
-            # __metaclass__ 属性也可以写在父类中
-            class New(object, metaclass=MetaClass): pass  #: python3
+            .. code-block:: python
+
+                class New(object): __metaclass__ = MetaClass  #: python2
+                # __metaclass__ 属性也可以写在父类中
+                class New(object, metaclass=MetaClass): pass  #: python3
 
 
 类
@@ -45,6 +47,7 @@
     - 创建类
         :一个标准的类定义:
             :``new_class = metaclass(name, bases, attrs)``:
+
                 .. code-block:: python
 
                     Cls = type('Cls', (object), {"a": 1})

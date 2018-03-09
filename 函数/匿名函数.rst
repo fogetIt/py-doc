@@ -4,11 +4,12 @@ labmda *args: expression
     :*args:      可以接受任意个参数，包括可选参数
     :expression: 表达式，只有 **1** 个
     - 可以赋值给一个变量，返回表达式的结果
-    .. code-block:: python
 
-        f = lambda a, b=1: a + b
-        print(f)     # in PY2 <type 'function'>, in PY3 <class 'function'>
-        print(f(2))  # 3
+        .. code-block:: python
+
+            f = lambda a, b=1: a + b
+            print(f)     # in PY2 <type 'function'>, in PY3 <class 'function'>
+            print(f(2))  # 3
 
 
 嵌套 lambda

@@ -32,9 +32,11 @@
         print(c.__class__.__name__)            #: Cls
         print(type('').__name__)               #: str
     - 判断是直接执行还是导入执行
-        :**import xxx**: ``__name__ == 文件名``
-        :**python xxx.py**:
-            - 直接运行模块
+        :**import xxx**:    导入执行模块
+
+            - ``__name__ == 文件名``
+        :**python xxx.py**: 直接运行模块
+
             - ``__name__ == "__main__"``
 
 

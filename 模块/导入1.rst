@@ -18,6 +18,7 @@ python 标准模块
                 - 这样 **.pth** 文件中指明的库就可以被 **python** 运行环境找到
     - 注册新的类库
         - 临时添加
+
             .. code-block:: python
 
                 import sys
@@ -39,20 +40,21 @@ python 标准模块
 
                 - 各个 **module** 之间使用相对路径导入
                     :显式相对路径导入:
-                        .. code-block:: python
+                            .. code-block:: python
 
-                            from .module_xxx import xxx
+                                from .module_xxx import xxx
                         - 不能直接运行当前模块，只能在 **入口文件** 中导入
                     :隐式相对路径导入:
-                        .. code-block:: python
+                            .. code-block:: python
 
-                            from module_xxx import xxx
+                                from module_xxx import xxx
                         - 可以单独运行
                         - **python3** 中已废弃
                         - 禁用隐式相对路径导入
-                        .. code-block:: python
 
-                            from __future__ import absolute_import
+                            .. code-block:: python
+
+                                from __future__ import absolute_import
 
 
 模块加载
@@ -65,5 +67,5 @@ python 标准模块
         - 如果在函数中导入, 那么它的作用域是局部的
     - 局部绑定
         - 尽量避免使用 ***form** 导入
-            - **from xxx import xxx** 引入的函数，引用的 **外部变量** 绑定了模块里的对象（局部绑定）
-            - **import xxx; xxx.xxx** 引入的函数，引用的 **外部变量** 绑定的是最近作用域的对象
+            - ``from xxx import xxx`` 引入的函数，引用的 **外部变量** 绑定了模块里的对象（局部绑定）
+            - ``import xxx; xxx.xxx`` 引入的函数，引用的 **外部变量** 绑定的是最近作用域的对象

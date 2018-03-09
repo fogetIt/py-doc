@@ -24,10 +24,10 @@ python2.x
     - 纯英文的 **str**
         - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
 
-        .. code-block:: python
+            .. code-block:: python
 
-            s = "hello".encode("gbk")
-            print(s, len(s)) # b'hello' 5
+                s = "hello".encode("gbk")
+                print(s, len(s)) # b'hello' 5
 
     - 含中文的 **str**
         - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
@@ -38,13 +38,13 @@ python2.x
             (1) 设置 **python2** 默认编码: setdefaultencoding_
             (2) 直接转码
 
-            .. code-block:: python
+                .. code-block:: python
 
-                """
-                s.encode("gbk") == s.decode("utf8").encode("gbk")
-                """
-                s = "中国".encode("gbk")
-                print(s, len(s))
+                    """
+                    s.encode("gbk") == s.decode("utf8").encode("gbk")
+                    """
+                    s = "中国".encode("gbk")
+                    print(s, len(s))
 
     - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
 

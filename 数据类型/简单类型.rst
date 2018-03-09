@@ -27,17 +27,19 @@
 bool(x) -> bool
 ---------------
     - **int** 的子类
-    .. code-block:: python
 
-        issubclass(bool, int) is True
-        True == 1         #: True
-        False == 0        #: True
-        True + True == 2  #: True
+        .. code-block:: python
+
+            print(issubclass(bool, int) is True)  #: True
+            True == 1                             #: True
+            False == 0                            #: True
+            True + True == 2                      #: True
 
     - 关键字
         - python2__
             .. __: py2_bool.py
             - **True/False** 不是关键字，可以对其进行任意的赋值
+
                 .. code-block:: python
 
                     import keyword
@@ -45,6 +47,7 @@ bool(x) -> bool
                     True = "hello"
 
         - python3
+
             .. code-block:: python
 
                 import keyword

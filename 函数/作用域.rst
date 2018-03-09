@@ -62,36 +62,38 @@ nonlocal
 ---------
     - **python3 新增**
     - 在函数或其他作用域中使用外层（非全局）变量（不可变类型）
-    .. code-block:: python
 
-        i = 0
-        def outer():
-            j = 0
-            nonlocal i       #: SyntaxError
-            def inner():
-                nonlocal j
-                j += 1
-                print(i, j)  #: 1 1  # 后执行
-            print(i, j)      #: 0 0  # 先执行
-            return inner
-        outer()()
+        .. code-block:: python
+
+            i = 0
+            def outer():
+                j = 0
+                nonlocal i       #: SyntaxError
+                def inner():
+                    nonlocal j
+                    j += 1
+                    print(i, j)  #: 1 1  # 后执行
+                print(i, j)      #: 0 0  # 先执行
+                return inner
+            outer()()
 
 
 global
 ------
     - 在局部对全局变量（不可变类型）修改
-    .. code-block:: python
 
-        i = j = 0
-        def outer():
-            print(i, j)      #: 0 0
-            global i
-            i += 1
-            print(i, j)      #: 1 0
-            def inner():
-                global i, j
+        .. code-block:: python
+
+            i = j = 0
+            def outer():
+                print(i, j)      #: 0 0
+                global i
                 i += 1
-                print(i, j)  #: 2 0
-            return inner
-        outer()()
-        print(i, j)          #: 2 0  # 全局变量也随之改变
+                print(i, j)      #: 1 0
+                def inner():
+                    global i, j
+                    i += 1
+                    print(i, j)  #: 2 0
+                return inner
+            outer()()
+            print(i, j)          #: 2 0  # 全局变量也随之改变

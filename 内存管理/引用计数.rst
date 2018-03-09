@@ -20,19 +20,21 @@
 循环引用
 --------
     - 一组对象相互引用
-    .. code-block:: python
 
-        a = []
-        b = [a]
-        a.append(b)
-        print(a, getrefcount(a))  #: [[[...]]] 4
-        print(b, getrefcount(b))  #: [[[...]]] 4
+        .. code-block:: python
+
+            a = []
+            b = [a]
+            a.append(b)
+            print(a, getrefcount(a))  #: [[[...]]] 4
+            print(b, getrefcount(b))  #: [[[...]]] 4
     - 一个对象自己引用自己，也能构成循环引用
-    .. code-block:: python
 
-        c = []
-        c.append(c)               #: [[...]] 4
-        print(c, getrefcount(c))
+        .. code-block:: python
+
+            c = []
+            c.append(c)               #: [[...]] 4
+            print(c, getrefcount(c))
 
 
 回收循环引用的对象
@@ -43,23 +45,24 @@
         - 这组对象所占用的内存空间，永远不会被回收释放
     - gc 模块使用 `标记-清除 + 分代回收 <垃圾回收.rst>`_ 可以自动清除循环引用的对象
     - 手动回收循环引用对象
-    .. code-block:: python
 
-        import gc
-        gc.set_debug(gc.DEBUG_STATS)
-        class Cls(object): pass
-        x = 10
-        c1 = Cls()
-        c2 = Cls()
-        c1.t = c2
-        c2.t = c1
-        print(gc.collect())  #: 106  #: 回收干扰对象
-        del x
-        print(gc.collect())  #: 0    #: 非循环引用，没有回收
-        del c1
-        print(gc.collect())  #: 0    #: 循环引用未解除，没有回收
-        del c2
-        print(gc.collect())  #: 4    #: 显式地回收循环引用对象（提前执行分代回收动作）
+        .. code-block:: python
+
+            import gc
+            gc.set_debug(gc.DEBUG_STATS)
+            class Cls(object): pass
+            x = 10
+            c1 = Cls()
+            c2 = Cls()
+            c1.t = c2
+            c2.t = c1
+            print(gc.collect())  #: 106  #: 回收干扰对象
+            del x
+            print(gc.collect())  #: 0    #: 非循环引用，没有回收
+            del c1
+            print(gc.collect())  #: 0    #: 循环引用未解除，没有回收
+            del c2
+            print(gc.collect())  #: 4    #: 显式地回收循环引用对象（提前执行分代回收动作）
     :内存泄露风险:
         :带有显式 ``__del__`` 的对象:
             - 如果循环引用中，两个对象都定义了 ``__del__``

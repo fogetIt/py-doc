@@ -4,8 +4,8 @@
 @property
 ----------
     - 把一个方法变成属性调用
-        :``getter``:
-            - 只能访问，不能修改
+        :``getter``: 只能访问，不能修改
+
             .. code-block:: python
 
                 class Cls(onject):

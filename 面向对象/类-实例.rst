@@ -4,20 +4,21 @@
 
 实例方法
 -------
-    :self:
-        - 类的函数比正常函数多一个额外的第一参数 **self** （惯例），代表 **调用时的** 类的实例
-        - 自动转化 ``instance.method(*arg, **kwargs) -> Cls.method(instance, *arg, **kwargs)``
+    :self: 类的函数比正常函数多一个额外的第一参数 **self** （惯例），代表 **调用时的** 类的实例
+
+        :自动绑定实例: ``instance.method(*arg, **kwargs) -> Cls.method(instance, *arg, **kwargs)``
     :绑定:
         - 使用实例访问实例方法时，方法是绑定的
         - 使用类名访问实例方法时，方法是未绑定的 ``<unbound method Cls.func>``
         - 调用非绑定方法
             :手动绑定实例和方法:
-                - 需要传递一个实例对象作为参数： ``Cls.method(instance, *arg, **kwargs)``
+                :需要传递一个实例对象作为参数: ``Cls.method(instance, *arg, **kwargs)``
                 - 比如：调用一个还没有任何实例的类中的方法
-                .. code-block:: python
 
-                    Cls.__init__(self, *args, **kwargs)
-                    super(Cls, self).__init__(*args, **kwargs)
+                    .. code-block:: python
+
+                        Cls.__init__(self, *args, **kwargs)
+                        super(Cls, self).__init__(*args, **kwargs)
 
 
 类属性/实例属性
@@ -34,15 +35,17 @@
     覆盖       不可以                              不可以
     ======  ==================================  ==============
     - 类属性的修改会影响到所有的实例
-    .. code-block:: python
 
-        Cls.name = 'class name'
-        Cls.func = lambda cls, x: x ** 2
+        .. code-block:: python
+
+            Cls.name = 'class name'
+            Cls.func = lambda cls, x: x ** 2
 
     - 给实例绑定属性、方法，不会影响到类和其它实例
-    .. code-block:: python
 
-        from types import MethodType
-        c = Cls()
-        c.name = 'instance name'
-        c.func = MethodType(lambda self, x: x ** 2, a)
+        .. code-block:: python
+
+            from types import MethodType
+            c = Cls()
+            c.name = 'instance name'
+            c.func = MethodType(lambda self, x: x ** 2, a)
