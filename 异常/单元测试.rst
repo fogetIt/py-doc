@@ -21,7 +21,7 @@ unittest 模块
             pass
 
 
-        def test_xxxx(self):
+        def test_xxx(self):
             """
             测试项
             first, second  用来比较的两个值
