@@ -10,7 +10,7 @@
 
 Exception
 ----------
-    :StopIteration:  迭代器结束循环
+    :StopIteration:  迭代器结束
     :StandardError_: 所有标准异常的基类
 
             -        由程序逻辑错误引发
@@ -77,21 +77,12 @@ Warning
     :UserWarning:               用户代码的警告
     :FutureWarning:             关于构造将来语义会有改变的警告
 
------
 
-如果在一个函数里面用到了yield表达式，那么这个函数就是一个generator函数。当Generator函数调用close()时引发该异常。
-
-
-
-
-
-*Python自动将所有异常名称放在内建命名空间中，所以程序不必导入exceptions模块即可使用异常。如果交互式会话遇到一个未被捕捉的SystemExit异常，会话就会终止。*
-
-#### python idle启动时Subprocess Startup Error
-错误信息：IDLE's subprocess didn't make connection.Either IDLE cant't start a subprocess or personal firewall software is blocking the connection.
-
-解决：
-
-- 控制面板-->系统和安全-->windows防火墙-->允许程序通过windows防火墙-->更改设置-->允许运行另一程序；
-- 点击浏览选择python安装目录下的pythonw.exe文件后点击添加按钮将pwthonw.exe添加到防火墙允许列表中；
-- 再次启动idle时正常启动。
+python idle 启动时 Subprocess Startup Error
+-------------------------------------------
+    :错误信息: IDLE's subprocess didn't make connection.Either IDLE cant't start a subprocess or personal firewall software is blocking the connection.
+    :解决:
+        - 控制面板-->系统和安全-->windows防火墙-->允许程序通过windows防火墙-->更改设置-->允许运行另一程序
+        - 点击浏览选择 python 安装目录下的 pythonw.exe 文件
+        - 点击添加按钮将 pwthonw.exe 添加到防火墙允许列表中
+        - 再次启动 idle 时正常启动

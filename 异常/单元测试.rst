@@ -24,7 +24,7 @@ unittest 模块
         def test_xxxx(self):
             """
             测试项
-            first, second  期望值--被测试的代码返回的实际值
+            first, second  用来比较的两个值
             msg            发生错误时报告的消息
             """
             self.assertEqual(first, second, msg=None)
