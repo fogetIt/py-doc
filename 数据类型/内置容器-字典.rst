@@ -63,34 +63,29 @@
     ====================  ================  ======
 
 
-迭代
-----
-    =========  ====================  ========
-    pattern      methods               return
-    =========  ====================  ========
+迭代_
+-----
+    =================================  ====================  ========
+    pattern                              methods               return
+    =================================  ====================  ========
     列表模式
-     -           ``D.items()``         ``[(key, value), ...]``
-     -           ``D.keys()``          ``[key, ...]``
-     -           ``D.values()``        ``[value, ...]``
+     -                                   ``D.items()``         ``[(key, value), ...]``
+     -                                   ``D.keys()``          ``[key, ...]``
+     -                                   ``D.values()``        ``[value, ...]``
     视图模式_
-     -           ``D.viewitems()``     ``dict_items([(key, value), ...])``
-     -           ``D.viewkeys()``      ``dict_keys([key, ...])``
-     -           ``D.viewvalues()``    ``dict_values([value, ...])``
-    迭代模式_
-     -           ``D.itervalues()``    ``D.values() iterator``
-     -           ``D.iterkeys()``      ``D.keys() iterator, equals iter(D)``
-     -           ``D.iteritems()``     ``D.items() iterator``
-    =========  ====================  ========
+     -                                   ``D.viewitems()``     ``dict_items([(key, value), ...])``
+     -                                   ``D.viewkeys()``      ``dict_keys([key, ...])``
+     -                                   ``D.viewvalues()``    ``dict_values([value, ...])``
+    `迭代模式 <../迭代/迭代器1.rst>`_
+     -                                   ``D.itervalues()``    ``D.values() iterator``
+     -                                   ``D.iterkeys()``      ``D.keys() iterator, equals iter(D)``
+     -                                   ``D.iteritems()``     ``D.items() iterator``
+    =================================  ====================  ========
 
 
 视图模式
 >>>>>>>
-    - 字典的动态视图
-    - 与字典实时同步
+    - 字典的动态视图，与字典实时同步
     - 支持 **len(), iter(), in()** 等
     - **viewitems, viewkeys** 还支持 **set-like** 操作
 
-
-迭代模式
->>>>>>>
-    可以通过 **next(),for** 循环取值

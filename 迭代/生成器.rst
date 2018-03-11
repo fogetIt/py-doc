@@ -1,3 +1,44 @@
+生成器
+=====
+    - 一种特殊的迭代器
+        - 不需要再在类中写 ``__iter__()`` 和 ``__next__()`` 方法
+        - 只需要一个 **yiled** 关键字
+    - 生成器一定是迭代器（反之不成立）
+
+
+生成器表达式
+-----------
+    .. code-block:: python
+
+        g = (i ** 2 for i in range(5))
+
+        print(g)                  #: <generator object <genexpr> at 0x7f652ce70d58>
+        print(list(g))            #: [0, 1, 4, 9, 16]
+        print([i for i in g])     #: []                #: 每个 generator 只能迭代一次
+
+        fg = lambda: (i ** 2 for i in range(5))
+        print([i for i in fg()])  #: [0, 1, 4, 9, 16]
+        print(list(fg()))         #: [0, 1, 4, 9, 16]  #: 反复生成
+
+
+
+
+
+    * 特性
+        - 惰性计算的序列；
+        - 当序列长度很大时，可以减少内存消耗（每次只需要记录一个值）；
+        - 迭代器是`一次性`消耗品，使用完了以后就空了；
+        - 无法通过直接赋值的形式把迭代器保存起来，需要使用copy.deepcopy；
+    * 方法
+        - iterator.next()、next(iterator, default)；
+            + 每次调用时，使用上一次所保留下的参数，执行下一次的迭代（计算出下一个元素的值）；
+            + 直到最后一个元素，没有元素时，抛出StopIteration；
+        - for循环；
+
+生成器（generator）通过 yield 语句快速生成迭代器————生成器都是Iterator；
+
+
+
 列表、列表推导————整个列表一次性加载于内存之中（内存占用高）
 #### 可迭代对象iterable————可用for循环迭代（无论有无下标）的（容器）对象
 - 方法
@@ -5,21 +46,7 @@
     + dict迭代的是key，如果要迭代value，可以用for value in d.values()；
 - 包含
     + 内置数据类型（str、list、tuple、dict、set）；
-    + **迭代器iterator————可作用于next()函数的（容器）对象**
-        * 特性
-            - 惰性计算的序列；
-            - 当序列长度很大时，可以减少内存消耗（每次只需要记录一个值）；
-            - 迭代器是`一次性`消耗品，使用完了以后就空了；
-            - 无法通过直接赋值的形式把迭代器保存起来，需要使用copy.deepcopy；
-        * 方法
-            - iterator.next()、next(iterator, default)；
-                + 每次调用时，使用上一次所保留下的参数，执行下一次的迭代（计算出下一个元素的值）；
-                + 直到最后一个元素，没有元素时，抛出StopIteration；
-            - for循环；
-        * 创建迭代器
-            1. 为容器对象添加 __iter__() 和 next() 方法；
-            2. iter([str、list、tuple、dict、set])————将iterable转化为iterator；
-            3. 生成器（generator）通过 yield 语句快速生成迭代器————生成器都是Iterator；
+
 
 ### 生成器
 - 创建generator后，基本上不会调用next()，而是通过for循环迭代，并且不需要关心StopIteration错误；

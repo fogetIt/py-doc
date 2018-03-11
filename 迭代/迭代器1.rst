@@ -1,0 +1,82 @@
+迭代器
+=====
+    :iterator:
+
+        :创建:
+            1. 构造一个容器
+            #. :构造 ``__iter__()``: 返回迭代（容器）对象
+            #. :构造 ``__next__()``: 返回容器的下一个元素
+
+                :python2: ``next()``
+                :python3: ``__next__()``
+            - 判断对象是否可迭代
+
+                .. code-block:: python
+
+                    from collections import Iterable
+
+                    class Cls(object):
+                        def __iter__(self): pass
+                        def __next__(self): pass
+                    print(isinstance(Cls(), Iterable))      #: True  #: collections.Iterable 可迭代对象基类
+                    print(isinstance("abc", Iterable))      #: True
+                    print(isinstance([1, 2, 3], Iterable))  #: True
+                    print(isinstance({"a": 1}, Iterable))   #: True
+                    print(isinstance(123, Iterable))        #: False
+
+
+索引下标
+-------
+    =================  ======
+    method               todo
+    =================  ======
+    ``__getitem__()``    :索引下标查询: ``print(seq[i])``
+    ``__setitem__()``    :索引下标赋值: ``seq[i] = value``
+    ``__delitem__()``    :索引下标删除: ``del seq[i]``
+    =================  ======
+
+
+for 循环遍历
+-----------
+    :迭代器: 存在 ``__iter__(), __next__()``
+
+        - 调用对象的 ``__iter__()`` 生成可迭代对象
+        - 不断调用 ``__next__()`` 拿到下一个值，直到 ``raise StopIteration()`` ，退出循环
+    :非迭代器: 不存在 ``__iter__(), __next__()``
+
+        - 不断调用 ``__getitem__()`` 拿到下一个值，直到超出序列长度，退出循环
+    - 同时存在 ``__iter__(), __getitem__()``，优先调用 ``__iter()``
+
+        .. code-block:: python
+
+            class Fib(object):
+
+                def __init__(self, length):
+                    a, b = 0, 1
+                    self.i = 0
+                    self.fib_seq = []
+                    for i in range(length):
+                        self.fib_seq.append(a)
+                        a, b = b, a + b
+
+                def __getitem__(self, index): return "getitem", self.fib_seq[index]
+
+
+            class FibIterator(Fib):
+
+                def __iter__(self): return self
+
+                def __next__(self):
+                    if self.i < len(self.fib_seq):
+                        value = self.__getitem__(self.i)
+                        self.i += 1
+                        return "next", value
+                    else:
+                        raise StopIteration
+            f, fi = Fib(10), FibIterator(10)
+            for i in f: print(i, end=" ")   #: ('getitem', 0) ...
+            for i in fi: print(i, end=" ")  #: ('next', ('getitem', 0)) ...  #: 优先调用 __iter()
+            print()
+            print(f[0])   #: ('getitem', 0)
+            print(fi[0])  #: ('getitem', 0)
+

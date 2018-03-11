@@ -1,0 +1,39 @@
+iter
+-----
+    :``iter(collection) -> iterator``: 转化 **iterable** -> **iterator**
+
+        .. code-block:: python
+
+            S = "abc"
+            IS = iter(S)
+            print(IS)               #: <str_iterator object at 0x7f5fe2f39a20>
+            print(S.__next__())     #: AttributeError
+            print(IS.__next__())    #: a
+            print([i for i in IS])  #: ['b', 'c']
+            print([i for i in IS])  #: []  #: 迭代器只能一次性使用
+    :``iter(callable, sentinel) -> iterator``: 转化 **iterable** -> **iterator**
+
+        :``callable``: 一个可调用对象
+        :``sentinel``: 哨兵
+
+            - 当枚举到的值等于哨兵时，就会抛出 ``StopIteration``
+
+
+reversed(sequence) -> reverse iterator
+---------------------------------------
+    - 返回一个反序的迭代器
+
+        .. code-block:: python
+
+            S = "abc"
+            IS = reversed(S)
+            print(IS)               #: <reversed object at 0x7f215764aa20>
+            print(IS.__next__())    #: c
+            print([i for i in IS])  #: ['b', 'a']
+            print([i for i in IS])  #: []
+
+
+字典迭代模式
+-----------
+    - 迭代的是字典的键
+    - ``iter, reversed`` 作用的也是字典的键

@@ -14,5 +14,5 @@
         .. _内存管理: 内存管理/README.rst
     - 异常_
         .. _异常: 异常/README.rst
-    - 迭代器_
-        .. _迭代器: 迭代器/README.rst
+    - 迭代_
+        .. _迭代: 迭代/README.rst
