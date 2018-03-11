@@ -18,11 +18,14 @@
                     class Cls(object):
                         def __iter__(self): pass
                         def __next__(self): pass
-                    print(isinstance(Cls(), Iterable))      #: True  #: collections.Iterable 可迭代对象基类
+                    print(isinstance(Cls(), Iterable))      #: True  #: collections.Iterable: 可迭代对象基类
                     print(isinstance("abc", Iterable))      #: True
                     print(isinstance([1, 2, 3], Iterable))  #: True
                     print(isinstance({"a": 1}, Iterable))   #: True
                     print(isinstance(123, Iterable))        #: False
+        :特点:
+            - 只能迭代一次
+            - 拥有 ``next()/__next__()`` 方法
 
 
 索引下标

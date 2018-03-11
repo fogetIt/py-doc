@@ -6,11 +6,11 @@ iter
 
             S = "abc"
             IS = iter(S)
-            print(IS)               #: <str_iterator object at 0x7f5fe2f39a20>
+            print(IS)               #: <str_iterator object ...>
             print(S.__next__())     #: AttributeError
-            print(IS.__next__())    #: a
+            print(IS.__next__())    #: a           #: 拥有 __next__()
             print([i for i in IS])  #: ['b', 'c']
-            print([i for i in IS])  #: []  #: 迭代器只能一次性使用
+            print([i for i in IS])  #: []          #: 只能迭代一次
     :``iter(callable, sentinel) -> iterator``: 转化 **iterable** -> **iterator**
 
         :``callable``: 一个可调用对象
@@ -28,12 +28,12 @@ reversed(sequence) -> reverse iterator
             S = "abc"
             IS = reversed(S)
             print(IS)               #: <reversed object at 0x7f215764aa20>
-            print(IS.__next__())    #: c
+            print(IS.__next__())    #: c           #: 拥有 __next__()
             print([i for i in IS])  #: ['b', 'a']
-            print([i for i in IS])  #: []
+            print([i for i in IS])  #: []          #: 只能迭代一次
 
 
 字典迭代模式
 -----------
     - 迭代的是字典的键
-    - ``iter, reversed`` 作用的也是字典的键
+    - ``iter(), reversed()`` 作用的也是字典的键

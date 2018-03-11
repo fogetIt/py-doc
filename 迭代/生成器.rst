@@ -1,29 +1,33 @@
 生成器
 =====
-    - 一种特殊的迭代器
-        - 不需要再在类中写 ``__iter__()`` 和 ``__next__()`` 方法
+    :一种特殊的迭代器:
+        - 不需要实现 ``__iter__(), __next__()`` 方法
         - 只需要一个 **yiled** 关键字
-    - 生成器一定是迭代器（反之不成立）
 
 
-生成器表达式
+生成器推导式
 -----------
     .. code-block:: python
 
-        g = (i ** 2 for i in range(5))
+        g = (i ** 2 for i in range(5)); print(g)  #: <generator object ... at ...>
 
-        print(g)                  #: <generator object <genexpr> at 0x7f652ce70d58>
-        print(list(g))            #: [0, 1, 4, 9, 16]
-        print([i for i in g])     #: []                #: 每个 generator 只能迭代一次
+
+生成器一定是迭代器，反之不成立
+--------------------------
+    .. code-block:: python
+
+        g = (i ** 2 for i in range(5))
+        print(g.__next__())    #: 0              #: 拥有 __next__()
+        print(list(g))         #: [1, 4, 9, 16]
+        print([i for i in g])  #: []             #: 只能迭代一次
 
         fg = lambda: (i ** 2 for i in range(5))
         print([i for i in fg()])  #: [0, 1, 4, 9, 16]
-        print(list(fg()))         #: [0, 1, 4, 9, 16]  #: 反复生成
+        print(list(fg()))         #: [0, 1, 4, 9, 16]  #: 使用函数，反复生成
 
 
 
-
-
+------
     * 特性
         - 惰性计算的序列；
         - 当序列长度很大时，可以减少内存消耗（每次只需要记录一个值）；
