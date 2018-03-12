@@ -51,10 +51,7 @@
             return inner
         outer()()
         print(i1, l1)              #: 0 [1]              #: 最后执行
-
-
-`lambda 函数直接修改外部的不可变对象`__
-
+    - `lambda 函数直接修改外部的不可变对象`__
 .. __: lambda.rst
 
 

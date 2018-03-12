@@ -35,6 +35,7 @@
             c = []
             c.append(c)               #: [[...]] 4
             print(c, getrefcount(c))
+    - 只有 `容器 <容器.rst>`_ 才有循环引用问题
 
 
 回收循环引用的对象

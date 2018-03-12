@@ -34,4 +34,8 @@
         print({i: j for i, j in [("name", "kitty"), ("age", 2)]})  #: {'age': 2, 'name': 'kitty'}
 
 
-`生成器推导式 <生成器.rst>`_
+生成器推导式
+-----------
+    .. code-block:: python
+
+        g = (i ** 2 for i in range(5)); print(g)  #: <generator object ... at ...>

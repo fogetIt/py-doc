@@ -1,36 +1,58 @@
-iter
------
-    :``iter(collection) -> iterator``: 转化 **iterable** -> **iterator**
+for 循环遍历
+-----------
+    :迭代器: 存在 ``__iter__(), __next__()``
+
+        - 调用对象的 ``__iter__()`` 生成可迭代对象
+        - 不断调用 ``__next__()`` 拿到下一个值，直到 ``raise StopIteration()`` ，退出循环
+    :非迭代器: 不存在 ``__iter__(), __next__()``
+
+        - 不断调用 ``__getitem__()`` 拿到下一个值，直到超出序列长度，退出循环
+    - 同时存在 ``__iter__(), __getitem__()``，优先调用 ``__iter__()``
 
         .. code-block:: python
 
-            S = "abc"
-            IS = iter(S)
-            print(IS)               #: <str_iterator object ...>
-            print(S.__next__())     #: AttributeError
-            print(IS.__next__())    #: a           #: 拥有 __next__()
-            print([i for i in IS])  #: ['b', 'c']
-            print([i for i in IS])  #: []          #: 只能迭代一次
-    :``iter(callable, sentinel) -> iterator``: 转化 **iterable** -> **iterator**
+            class Fib(object):
 
-        :``callable``: 一个可调用对象
-        :``sentinel``: 哨兵
+                def __init__(self, length):
+                    a, b = 0, 1
+                    self.i = 0
+                    self.fib_seq = []
+                    for i in range(length):
+                        self.fib_seq.append(a)
+                        a, b = b, a + b
 
-            - 当枚举到的值等于哨兵时，就会抛出 ``StopIteration``
+                def __getitem__(self, index): return "getitem", self.fib_seq[index]
 
 
-reversed(sequence) -> reverse iterator
----------------------------------------
-    - 返回一个反序的迭代器
+            class FibIterator(Fib):
 
-        .. code-block:: python
+                def __iter__(self): return self
 
-            S = "abc"
-            IS = reversed(S)
-            print(IS)               #: <reversed object at 0x7f215764aa20>
-            print(IS.__next__())    #: c           #: 拥有 __next__()
-            print([i for i in IS])  #: ['b', 'a']
-            print([i for i in IS])  #: []          #: 只能迭代一次
+                def __next__(self):
+                    if self.i < len(self.fib_seq):
+                        value = self.__getitem__(self.i)
+                        self.i += 1
+                        return "next", value
+                    else:
+                        raise StopIteration
+            f, fi = Fib(10), FibIterator(10)
+            for i in f: print(i, end=" ")   #: ('getitem', 0) ...
+            for i in fi: print(i, end=" ")  #: ('next', ('getitem', 0)) ...  #: 优先调用 __iter__()
+            print()
+            print(f[0])   #: ('getitem', 0)
+            print(fi[0])  #: ('getitem', 0)
+
+
+迭代可变对象
+-----------
+    - 在迭代可变对象时候， **循环体** 只是记录当前到达了序列中的第几个元素
+    - 如果在迭代过程中改变了序列的元素，更新会立即反应到所迭代的条目上
+    .. code-block:: python
+
+        c = [1, 2, 3, 4, 5]
+        for i in c:
+            print(i, c, end="---")  #: 1 [1, 2, 3, 4]---3 [2, 3, 4]---
+            c.remove(i)
 
 
 字典迭代模式
