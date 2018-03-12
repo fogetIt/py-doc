@@ -1,0 +1,122 @@
+built in
+========
+
+|function |含义                          |example                    |
+|:--------|:----------------------------|:--------------------------|
+|eval(str)|计算字符串中的表达式，并返回对象   |print eval('1+2')          |
+|exec(str)|执行储存在字符串或文件中的程序语句|exec('print "hello world"')|
+
+
+##### map(function, sequence[, sequence, ...]) -> list
+- 将传入的函数依次作用到序列的每个元素
+- 把函数返回值作为新的`list`元素
+    + 函数可以用`None`替代
+        * 如果有 1 个序列，返回`list`
+        * 如果有多个序列，返回值先组成`tuple`，再放入`list`
+        * `tuple`个数取最大序列长，以`None`补齐
+- e.g.
+    ```python
+    print map(lambda x, y: x + y, range(10), range(10, 20))
+    print map(lambda x: x.title(), ['adam', 'LISA', 'barT'])
+    print map(None, range(5))
+    print map(None, range(5), range(10, 20))
+    ```
+
+##### filter(function or None, sequence) -> list, tuple or string
+- 接收一个函数和一个序列
+- 将传入的函数依次作用到序列的每个元素
+- 和`map()`不同的是
+    + `filter()`根据函数作用于每个元素的返回值`True/False`决定保留还是丢弃该元素
+    + e.g.
+        ```python
+        seq = (12, 50, 8, 17, 65, 14, 9, 6, 14, 5)
+        print filter(lambda x: 5 < x < 10, seq)
+        print map(lambda x: x if 5 < x < 10 else None, seq)
+        ```
+
+##### sum(sequence[, start]) -> value
+- 求`sequence`多个对象和，再加上`start`
+- `start`默认是 0
+- When the sequence is empty, return start.
+- e.g.
+    ```python
+    l = [1, 3, 5, 7, 9]
+    print sum(l)       # 25
+    print sum(l, 10)   # 35
+    print sum([], 10)  # 10
+    ```
+
+##### sorted(iterable, cmp=None, key=None, reverse=False) --> new sorted list
+- `key`指定的函数将作用于每一个元素上，并根据函数返回的结果进行排序
+- e.g.
+    ```python
+    l1 = l2 = [1, 3, 2, 7, 0]
+    l1.sort()
+    print l1 == sorted(l2)
+    print sorted(
+        ['bob', 'about', 'Zoo', 'Credit'],
+        key=str.lower,
+        reverse=True
+    )
+    ```
+
+##### zip(seq1 [, seq2 [...]]) -> [(seq1[0], seq2[0] ...), (...)]
+- 元组个数取最小序列长
+- e.g.
+    ```python
+    print zip('nvfgjnh', range(10))
+    # 使用 zip 生成字典
+    print dict(zip('nvfgjnh', range(10)))
+    ```
+
+##### enumerate(iterable[, start])
+- 下标循环
+- 把一个`iterable`变成`索引, 元素`对，可以在`for`循环中同时迭代索引和元素本身
+- e.g.
+    ```python
+    print[(i, value) for i, value in enumerate([4, 7, 0])]
+    ```
+
+##### reduce(function, sequence[, initial]) -> value
+```python
+if initial:
+    result = function(initial, sequence[0])
+    result = function(result, sequence[1])
+    ...
+else:
+    result = function(sequence[0], sequence[1])
+    result = function(result, sequence[2])
+    ...
+return result
+
+# e.g.
+print reduce(lambda x, y: x + y, [1, 3, 5, 7, 9], 100)
+```
+
+##### any(iterable) -> bool
+- 判断序列中是否`含有``非空、非否`值
+- e.g.
+    ```python
+    print any(['', [], {}, 0, False, ()]) # False
+    print any(['', [], {}, 0, False, (), ('', )]) # True
+    ```
+
+##### all(iterable) -> bool
+- 判断序列中是否`都是``非空、非否`值
+- e.g.
+    ```python
+    print all([1, '']) # False
+    ```
+
+##### apply(object[, args[, kwargs]]) -> value
+- 这个函数将来会逐步淘汰
+- 传递参数元组和参数字典，间接地调用函数
+    + 不带参数
+        ```python
+        apply(func)
+        ```
+    + 参数元组为空，参数字典非空时
+        ```python
+        apply(func, (), {'a': 1})
+        # 也可以使用参数元组，替代参数字典
+        ```
