@@ -14,7 +14,7 @@
     :iterator:
         :迭代器: 实现了 ``__iter__(), __next__()`` 的容器对象
 
-            :特点: 单向向前，只能迭代一次，无法复制
+            :特点: 单向向前，只能迭代一次，无法复制或赋值保存（需要 ``copy.deepcopy`` ）
     .. code-block:: python
 
         from collections import Iterable, Iterator
