@@ -1,43 +1,72 @@
 生成器
 =====
-    :一种特殊的迭代器: **惰性计算** 的序列
+    :创建:
+        :`yield <yield.rst>`_:      把一个函数变成一个生成器
+        :`生成器推导式 <推导式.rst>`_: 把一个序列变成一个生成器
+    - 一种特殊的迭代器
+        - 生成器一定是迭代器，反之不成立
 
+            .. code-block:: python
+
+                g = (i ** 2 for i in range(5))
+                print(g.__next__())    #: 0              #: 拥有 __next__()
+                print(list(g))         #: [1, 4, 9, 16]
+                print([i for i in g])  #: []             #: 只能迭代一次
+
+                fg = lambda: (i ** 2 for i in range(5))
+                print([i for i in fg()])  #: [0, 1, 4, 9, 16]
+                print(list(fg()))         #: [0, 1, 4, 9, 16]  #: 使用函数，反复生成
+    - 惰性计算的序列
         :生成器方法调用:
 
             - 调用时不会立即执行
             - 需要调用 **__next__()** 或者使用 **for** 循环来执行
-                - 每次调用时，使用上一次所保留的参数，执行下一次的计算
-                - 执行到 yield_ xxx 时，函数就返回下一个元素的迭代值
-                - 直到最后一个元素，没有元素时，抛出 **StopIteration**
-                    - `使用 for 循环不用处理 StopIteration <迭代器2.rst>`_
-        - 不能提前知道序列的长度
-        - 可以表示一个无限大的数据流，例如全体自然数
-    - `生成器推导式 <推导式.rst>`_
+                - 每次调用时，使用上次保留的参数，从上次返回的 **yield** 语句处，执行下一次计算
+                - 执行到 ``yield xxx`` 时，函数就返回下一个元素的迭代值
+                - 直到最后一个元素
+                    - 没有元素时，抛出 **StopIteration**
+                        - `使用 for 循环不用处理 StopIteration <迭代器2.rst>`_
+                    - 遇到 **return** ，则直接抛出 **StopIteration** 终止迭代
+                        - **return** 的值为 **StopIteration** 异常的说明，不是程序的返回值
+    - 不能提前知道序列的长度
+    - 可以表示一个无限大的数据流，例如全体自然数
     ========  ===========  ==========
      -          普通序列      生成器对象
     ========  ===========  ==========
     保存内容     整个列表      算法和当前迭代位置
     内存占用     高           低
     ========  ===========  ==========
-        - 除非序列非常大，否则生成器与普通序列（列表、列表推导式...）看不出明显的区别
-        - 但是应该尽量使用 generator
+        - 除非序列非常大，否则生成器与普通序列（列表、列表推导式...）看不出明显的区别，但是应该尽量使用 generator
 
 
-生成器一定是迭代器，反之不成立
---------------------------
-    .. code-block:: python
+range
+-----
+    :python2:
+        :``range([start, ]stop[, step]) -> list of integers``: 返回一个列表
+        :``xrange([start, ]stop[, step]) -> xrange object``: 返回一个生成器
 
-        g = (i ** 2 for i in range(5))
-        print(g.__next__())    #: 0              #: 拥有 __next__()
-        print(list(g))         #: [1, 4, 9, 16]
-        print([i for i in g])  #: []             #: 只能迭代一次
+            - 不能用于切片
+            - 没有 ``next()`` 方法
+        .. code-block:: python
 
-        fg = lambda: (i ** 2 for i in range(5))
-        print([i for i in fg()])  #: [0, 1, 4, 9, 16]
-        print(list(fg()))         #: [0, 1, 4, 9, 16]  #: 使用函数，反复生成
+            l = range(10)
+            print(l)              #: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+            print(l.__iter__())   #: <listiterator object at 0x7f7fb35febd0>
+            print(l[:5])          #: [0, 1, 2, 3, 4]
+            xl = xrange(10)
+            print(xl)             #: range(0, 10)
+            print(xl.__iter__())  #: <rangeiterator object at 0x7f6a675112a0>
+            print(xl[:5])         #: TypeError
+    :python3:
+        :``range([start, ]stop[, step]) -> range object``: 返回一个生成器
 
+                - 可以用于切片
+                - 没有 ``__next__()`` 方法
+            - 本质上是 **python2** 的 **xrange**
+            - 如果想使用列表形式： ``list(range(xxx))```
+        .. code-block:: python
 
-yield
-------
-    - 把一个函数变成一个生成器
-        - 不需要自己实现 ``__iter__(), __next__()``
+            l = range(10)
+            print(l)             #: range(0, 10)
+            print(l.__iter__())  #: <range_iterator object at 0x7f5dc8aa18d0>
+            print(l[:5])         #: range(0, 5)

@@ -73,7 +73,34 @@
     - `迭代器中的魔法函数 <../迭代/迭代器1.rst>`_
 
 
-获取元素个数
------------
-    :``__len__() -> integer``: ``len()`` 的内部实现
-    - ``len(decimal) -> Error``
+with 语句
+---------
+    - 方便处理一些事先需要设置，事后做清理工作的场景
+    :``__enter__() -> context_object``: 在进入代码块之前被 **with** 调用
+
+        - 返回一个可供上下文使用的对象，赋值给 **as** 后面的变量
+    :``__exit__(error_type, error_msg, trace_info)``: 在离开代码块之后被 **with** 调用
+
+        :正常退出: 清理被使用的资源（比如：关闭文件）
+        :抛出异常: 接收关联的异常信息
+
+
+属性查找
+-------
+    1. :``__getattribute__(self, attr)``:
+        - 属性查找优先调用
+        - ``getattr(obj, attr)`` 的内部实现
+    #. :``__getattr__(self, attr)``:
+        - 属性查找的最后一步
+            - 当属性不能在实例、类、祖先类的 ``__dict__`` 中找到时，才调用
+        - ``getattr(obj, attr), hasattr(obj, attr)`` 的内部实现
+            :``hasattr(object, name) -> bool``: 判断对象的属性
+            :``getattr(object, name[, default]) -> value``:
+                - 获对象的属性值，如果不存在，返回指定的提示字符串
+                - 只有在不知道对象信息的时候，才会去获取对象信息
+            :``delattr(object, name) == del object.name``:
+                - 删除对象的属性
+                - ``object`` 是实例时，不能用来删除类属性
+            :``setattr(object, name, value)``:
+                - 设置对象的属性值
+                - 如果属性不存在，自动创建并赋值
