@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 # @Date:   2016-09-20 09:18:47
 # @Last Modified time: 2018-03-09 18:37:34
-#
-# 函数是顺序执行，遇到return语句或者最后一行函数语句就返回
-# generator函数，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行
 
 
 def odd():
@@ -42,10 +39,22 @@ def count(n):
         if value is not None:
             print(value, end=" ")
         x += 1
-
-
 gen = count(5)
 print(gen.__next__())     #: 0
 print(gen.send('Hello'))  #: Hello 1  #: 传参给生成器函数，并执行一次迭代
-print(gen.send(None))     #: 2        #: next() == send(None)
+print(gen.send(None))     #: 2        #: __next__() == send(None)
 print("*" * 20)
+
+
+def throw_gen():
+    try:
+        yield "Normal"
+    except ValueError:
+        yield "Error"
+    finally:
+        print("Finally")
+gen = throw_gen()
+print(gen.__next__())         #: Normal
+# print(gen.__next__())         #: Finally, then StopIteration
+print(gen.throw(ValueError))  #: Error    #: 传递 ValueError 异常给向生成器函数，并执行一次迭代
+                              #: Finally
