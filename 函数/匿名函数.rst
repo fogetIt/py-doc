@@ -20,7 +20,7 @@ labmda *args: expression
         print(f(2)(3))  # 6
 
 
-lambda 函数直接修改外部的不可变对象
+lambda 函数直接给外部的对象重新赋值
 -------------------------------
     .. code-block:: python
 

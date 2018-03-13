@@ -42,18 +42,18 @@
             i2, l2 = 0, [0]
             def inner():
                 print(i1, i2)      #: 0 0                #: 外部不可变对象，直接访问
-                # i1 += 1          #: UnboundLocalError  #: 外部不可变对象，无法重新绑定作用域，赋值、修改
+                # i1 += 1          #: UnboundLocalError  #: 外部不可变对象，无法重新赋值、绑定作用域
                 # i2 += 1          #: UnboundLocalError
                 print(l1, l2)      #: [0] [0]            #: 外部可变对象，直接访问
                 l1[0] += 1
                 l2.append(123)
                 print(l1, l2)      #: [1] [0, 123]       #: 外部可变对象，直接修改
-                # l1 += [1]        #: UnboundLocalError  #: 外部可变对象，无法重新绑定作用域，赋值、修改
+                # l1 += [1]        #: UnboundLocalError  #: 外部可变对象，无法重新赋值、绑定作用域
             print(i1, i2, l1, l2)  #: 0 0 [0] [0]        #: 最先执行
             return inner
         outer()()
         print(i1, l1)              #: 0 [1]              #: 最后执行
-    - `lambda 函数直接给外部的对象赋值、修改`__
+    - `lambda 函数直接给外部的对象重新赋值`__
 .. __: lambda.rst
 
 
