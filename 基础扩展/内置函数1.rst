@@ -1,0 +1,49 @@
+builtin functions
+==================
+    :``eval(source[, globals[, locals]]) -> value``: 计算字符串中的表达式，并返回对象
+
+        .. code-block:: python
+
+            print(eval('1+2'))  # 3
+    :``exec(str)``: 执行储存在字符串或文件中的程序语句
+
+        .. code-block:: python
+
+            exec('print("hello world")')  # hello world
+    :``hash(object) -> integer``: 计算一个对象的哈希值
+
+        .. code-block:: python
+
+            print(hash(123))              #: 123
+            print(hash('abc'))            #: 1453079729188098211
+            print(hash(lambda x: x + 1))  #: 8793711148549
+    :``enumerate(iterable[, start]) -> iterator for index, value of iterable``: 下标循环
+
+        - 把一个 **iterable** 的元素变成 ``(索引, 元素)`` ，同时迭代索引和元素本身
+        .. code-block:: python
+
+            print(enumerate([4, 7, 0]))                              #: <enumerate object at 0x7fa2d6bf7b90>
+            print([(i, v) for i, v in enumerate([4, 7, 0])])         #: [(0, 4), (1, 7), (2, 0)]
+            print([(i, v) for i, v in enumerate({"a": 1, "b": 2})])  #: [(0, 'a'), (1, 'b')]
+    :``map(function, sequence[, sequence, ...]) -> list``:
+        - 将所有序列一起迭代，序列长度取最大序列长，以 **None** 补齐其余的序列
+        - 将每一步迭代的各个序列的元素，作为函数的参数，计算出结果
+            - 可以用 **None** 替代函数，直接返回参数
+        - 将每一步计算结果放入 **list** ，最终返回
+        .. code-block:: python
+
+            print(map(lambda x, y: x + y, range(5), range(5, 10)))  #: [5, 7, 9, 11, 13]
+            print(map(lambda x: x.title(), ["adm", "LIS", "baT"]))  #: ['Adm', 'Lis', 'Bat']
+            print(map(None, range(5)))                              #: [0, 1, 2, 3, 4]
+            print(map(None, range(3), range(3, 7)))                 #: [(0, 3), (1, 4), (2, 5), (None, 6)]
+            #: python3 map() 返回的是一个生成器
+    :``zip(seq1 [, seq2 [...]]) -> [(seq1[0], seq2[0] ...), (...)]``:
+        - 将所有序列一起迭代，序列长度取最小序列长
+        - 将每一步迭代的各个序列的元素，放入一个元组
+        - 将每一步计算结果放入 **list** ，最终返回
+        .. code-block:: python
+
+            print(zip('abc', range(10)))        #: [('a', 0), ('b', 1), ('c', 2)]
+            print(zip("hello"))                 #: [('h',), ('e',), ('l',), ('l',), ('o',)]
+            print(dict(zip('abc', range(10))))  #: {'a': 0, 'c': 2, 'b': 1}
+            #: python3 zip() 返回的是一个生成器
