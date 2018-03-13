@@ -48,12 +48,12 @@
                 fs = []
                 for i in range(4):
                     def f(x):
-                        return i * x  # 返回的内层函数引用了变量i，但它并非立刻执行
+                        return i * x  # 返回的内层函数引用了变量 i ，但它并非立刻执行
                     fs.append(f)
                 return fs
             # multi_fun = lambda : [lambda x: i * x for i in range(4)]
             print(multi_fun())                 # [<function ...>, ...]
-            print([f(2) for f in multi_fun()]) # [6, 6, 6, 6]  # 内层函数都返回时，它们所引用的变量i都已经变了
+            print([f(2) for f in multi_fun()]) # [6, 6, 6, 6]  # 内层函数都返回时，它们所引用的变量b i 都已经变了
 
     **引用循环变量**
         .. code-block:: python
