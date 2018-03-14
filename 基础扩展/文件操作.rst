@@ -28,60 +28,65 @@
                 :``rU``: 带有标准换行符的读
                 :``Ua``: 带有标准换行符的写
             :buffering: 缓冲
-    :python3:
-        - ``open(file, mode='r', buffering=None, encoding=None,
-                errors=None, newline=None, closefd=True)``
+    :python3: open(file, mode='r', buffering=None,
+        encoding=None, errors=None, newline=None, closefd=True)
+
             - 返回一个文件流对象
     :``codecs.open``: 替代 **python2 open()** 打开文件（读取 **unicode** 字符串），避免中文乱码
 
         - ``open(filename, mode='r', encoding=None, errors='strict', buffering=1)``
 
 
-f.read(size=None)
-f.close()
-
-
 **对一个不存在的文件进行操作，如果权限是 读权限 会报错，如果是 写权限 会创建文件。**
 
 
-读取文件
+文件操作
 -------
     .. code-block:: python
 
         # 打开一个一次性消耗对象
         f = open("xxx", mode="r")
         # 通过赋值保存读取的对象
-        s = f.read([size])       # -> string
-        s1 = f.readline([size])  # -> string
-        l = f.readlines([size])  # -> list of strings
+        s = f.read([size=-1])    #: -> string
+        s1 = f.readline([size])  #: -> string
+        l = f.readlines([size])  #: -> list of strings
 
-# 在for循环中直接使用文件对象进行迭代
-for line in open("***"):
-    print line
-```
+        # 在 for 循环中直接使用文件对象进行迭代
+        for line in f: print(line)
 
-##### 写(mode='a'/'w')
-```python
-f = open("***", "w")
-f.write(str)                      # -> None
-f.writelines(sequence_of_strings) # -> None
-```
+        f = open("xxx", mode="w")
+        f.write(str)            #: -> None
+        f.writelines(str_list)  #: -> None
 
-##### 关闭并保存文件
-```python
-f = open("***")
-"""
-多次关闭不报错
-如果不close()，就要等垃圾回收时，自动释放资源。程序执行很长时间，或并发很大时可能耗尽资源，会导致死锁。
-"""
-f.close()  # -> None/integer
-
-# 使用with，不用写关闭语句
-with open("***") as file:
-    data = file.read()
-```
+        #: 关闭并保存文件
+        #: 如果不关闭，就要等垃圾回收时，自动释放资源
+        #: 如果程序执行很长时间，或并发很大时，不关闭文件，可能耗尽资源，会导致死锁
+        f.close()  # -> None/integer
 
 
-##### truncate – 清空文件，请小心使用该命令。
-##### seek(offset[, whence]) -> None. 移动文件对象当中的指针0 开头，1 当前，2 尾部
-##### tell() -> current file position, an integer (may be a long integer).返回当前指针位置
+
+使用 with_ ，不用写关闭语句
+-------------------------
+    .. _with: ../面向对象/魔法函数.rst
+    .. code-block:: python
+
+        with open("xxx", "r") as file:
+            data = file.read()
+
+
+truncate
+---------
+    清空文件，请小心使用该命令
+
+
+seek(offset[, whence]) -> None
+--------------------------------
+    - 移动文件对象中的指针
+        :``0``: 开头
+        :``1``: 当前
+        :``2``: 尾部
+
+
+tell() -> current file position, an integer (may be a long integer)
+--------------------------------------------------------------------
+    返回当前指针位置
