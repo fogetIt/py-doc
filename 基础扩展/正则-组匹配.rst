@@ -12,44 +12,60 @@
         import re
         S = "a1b2c3mn"
         reg = re.compile("(\w)\d")
-        print(re.findall(reg, S))      #: ['a', 'b', 'c']
-        print(reg.search(S).group())   #: a1  #: group() 默认参数是 0
-        print(reg.search(S).group(0))  #: a1  #: 获取匹配的内容
-        print(reg.search(S).group(1))  #: a   #: 只获取组内的内容
-        # print(reg.search(S).group(2))  #: IndexError
+        print(re.findall(reg, S))       #: ['a', 'b', 'c']
+
+        print(reg.search(S).group())    #: a1  #:
+        print(reg.search(S).group(0))   #: a1  #: 获取匹配的内容 group() 默认参数是 0
+        print(reg.search(S).group(1))   #: a   #: 只获取组匹配的内容
+        print(reg.search(S).group(2))   #: IndexError
 
 
 命名组匹配
 ---------
-- 普通组与命名组混合，先忽略命名组
-```python
-import re
-str1 = 'bnjbnjn\nk85h mbr*67k?";ngmbo'
+    .. code-block:: python
 
-"""
-命名组：(?P<name>...)
-"""
-sre = re.compile('(?P<name>\w)\d')
-# 只获取组内的内容
-print sre.search(str1).group()
-print sre.search(str1).group(1)
-print sre.search(str1).group('name')
-# 获取组内容dict
-print sre.search(str1).groupdict()
-print sre.search(str1).groupdict(1)
-print sre.search(str1).groupdict('name')
+        import re
+        S = "a1b2c3mn"
+        reg = re.compile("(?P<nm>\w)\d")
+        print(re.findall(reg, S))             #: ['a', 'b', 'c']
 
-"""
-引用组：(?P=name...)
-不捕获：(?:...)
-不捕获()里内容，不能使用反向引用，可以提高程序执行速度
-"""
-sre = re.compile('(?P<name>\w)\w+(?P=name)')
-print sre.search(str1).group()
-print sre.search(str1).group(1)
-print sre.search(str1).group('name')
+        print(reg.search(S).group())          #: a1           #: 获取匹配的内容
+        print(reg.search(S).group(1))         #: a            #: 以索引获取组匹配的内容
+        print(reg.search(S).group("nm"))      #: a            #: 以键获取组匹配的内容
 
-print sre.search(str1).expand('\g<name>')
-print sre.search(str1).expand('\g<id>')
-print sre.search(str1).expand('\id>')
-```
+        print(reg.search(S).groupdict())      #: {'nm': 'a'}  #: 获取匹配的内容字典
+        print(reg.search(S).groupdict(1))     #: {'nm': 'a'}  #: 以索引获取组匹配的内容字典
+        print(reg.search(S).groupdict("nm"))  #: {'nm': 'a'}  #: 以键获取组匹配的内容字典
+
+
+捕获组匹配
+---------
+    :引用组: ``(?P=name...)``
+
+        .. code-block:: python
+
+            import re
+            S = "a1b2c3amn"
+            reg = re.compile('(?P<nm>\w)\w+(?P=nm)')
+            print(re.findall(reg, S))              #: ['a']
+
+            print(reg.search(S).group())           #: a1b2c3a      #: 获取匹配的内容
+            print(reg.search(S).group(1))          #: a            #: 以索引获取组匹配的内容
+            print(reg.search(S).group("nm"))       #: a            #: 以键获取组匹配的内容
+
+            print(reg.search(S).expand("\g<0>"))   #: a1b2c3a
+            print(reg.search(S).expand("\g<1>"))   #: a
+            print(reg.search(S).expand("\g<nm>"))  #: a
+
+            print(reg.search(S).groupdict())       #: {'nm': 'a'}  #: 获匹配的内容字典
+            print(reg.search(S).groupdict(1))      #: {'nm': 'a'}  #: 以索引获取组匹配的内容字典
+            print(reg.search(S).groupdict("nm"))   #: {'nm': 'a'}  #: 以键获取组匹配的内容字典
+    :不捕获: ``(?:...)``
+
+        - 不捕获 ``()`` 里的内容，不能使用反向引用
+        - 可以提高程序执行速度
+
+
+普通组与命名组混合
+----------------
+    先忽略命名组
