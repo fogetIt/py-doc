@@ -14,7 +14,7 @@
         reg = re.compile("(\w)\d")
         print(re.findall(reg, S))       #: ['a', 'b', 'c']
 
-        print(reg.search(S).group())    #: a1  #:
+        print(reg.search(S).group())    #: a1
         print(reg.search(S).group(0))   #: a1  #: 获取匹配的内容 group() 默认参数是 0
         print(reg.search(S).group(1))   #: a   #: 只获取组匹配的内容
         print(reg.search(S).group(2))   #: IndexError
@@ -22,20 +22,21 @@
 
 命名组匹配
 ---------
-    .. code-block:: python
+    :``(?P<name>...)``:
+        .. code-block:: python
 
-        import re
-        S = "a1b2c3mn"
-        reg = re.compile("(?P<nm>\w)\d")
-        print(re.findall(reg, S))             #: ['a', 'b', 'c']
+            import re
+            S = "a1b2c3mn"
+            reg = re.compile("(?P<nm>\w)\d")
+            print(re.findall(reg, S))             #: ['a', 'b', 'c']
 
-        print(reg.search(S).group())          #: a1           #: 获取匹配的内容
-        print(reg.search(S).group(1))         #: a            #: 以索引获取组匹配的内容
-        print(reg.search(S).group("nm"))      #: a            #: 以键获取组匹配的内容
+            print(reg.search(S).group())          #: a1           #: 获取匹配的内容
+            print(reg.search(S).group(1))         #: a            #: 以索引获取组匹配的内容
+            print(reg.search(S).group("nm"))      #: a            #: 以键获取组匹配的内容
 
-        print(reg.search(S).groupdict())      #: {'nm': 'a'}  #: 获取匹配的内容字典
-        print(reg.search(S).groupdict(1))     #: {'nm': 'a'}  #: 以索引获取组匹配的内容字典
-        print(reg.search(S).groupdict("nm"))  #: {'nm': 'a'}  #: 以键获取组匹配的内容字典
+            print(reg.search(S).groupdict())      #: {'nm': 'a'}  #: 获取匹配的内容字典
+            print(reg.search(S).groupdict(1))     #: {'nm': 'a'}  #: 以索引获取组匹配的内容字典
+            print(reg.search(S).groupdict("nm"))  #: {'nm': 'a'}  #: 以键获取组匹配的内容字典
 
 
 捕获组匹配
