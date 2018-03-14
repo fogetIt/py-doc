@@ -1,0 +1,55 @@
+普通组匹配
+---------
+    - 整个表达式作为 ``group(0)``
+    - 如果不引入括号
+        - 只有 ``group(0)``
+    - 如果引入括号
+        - ``()`` 内作为一个整体，匹配次数放后
+        - 组编号从 1 开始，嵌套部分从 ``(`` 算起
+        - 返回`()`内的匹配内容，`()` 外只作为条件
+    .. code-block:: python
+
+        import re
+        S = "a1b2c3mn"
+        reg = re.compile("(\w)\d")
+        print(re.findall(reg, S))      #: ['a', 'b', 'c']
+        print(reg.search(S).group())   #: a1  #: group() 默认参数是 0
+        print(reg.search(S).group(0))  #: a1  #: 获取匹配的内容
+        print(reg.search(S).group(1))  #: a   #: 只获取组内的内容
+        # print(reg.search(S).group(2))  #: IndexError
+
+
+命名组匹配
+---------
+- 普通组与命名组混合，先忽略命名组
+```python
+import re
+str1 = 'bnjbnjn\nk85h mbr*67k?";ngmbo'
+
+"""
+命名组：(?P<name>...)
+"""
+sre = re.compile('(?P<name>\w)\d')
+# 只获取组内的内容
+print sre.search(str1).group()
+print sre.search(str1).group(1)
+print sre.search(str1).group('name')
+# 获取组内容dict
+print sre.search(str1).groupdict()
+print sre.search(str1).groupdict(1)
+print sre.search(str1).groupdict('name')
+
+"""
+引用组：(?P=name...)
+不捕获：(?:...)
+不捕获()里内容，不能使用反向引用，可以提高程序执行速度
+"""
+sre = re.compile('(?P<name>\w)\w+(?P=name)')
+print sre.search(str1).group()
+print sre.search(str1).group(1)
+print sre.search(str1).group('name')
+
+print sre.search(str1).expand('\g<name>')
+print sre.search(str1).expand('\g<id>')
+print sre.search(str1).expand('\id>')
+```
