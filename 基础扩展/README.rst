@@ -4,3 +4,5 @@
         .. _命令行颜色: 命令行颜色.rst
     - pythonic_
         .. _pythonic: pythonic.rst
+    - math_
+        .. _math: math.rst

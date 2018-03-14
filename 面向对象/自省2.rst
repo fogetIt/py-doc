@@ -1,15 +1,3 @@
-help
-----
-    .. code-block:: python
-
-        help(xxx.xxx)     #: 查看属性、方法
-        help('modules')   #: 列出所有已安装模块
-        help('keywords')  #: 列出所有关键字
-        help()            #: 进入help交互式
-                          #: q 退出
-                          #: 输入 list、keywords 等，可以查看对象信息
-
-
 ipython
 --------
     .. code-block:: shell

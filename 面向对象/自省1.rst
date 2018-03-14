@@ -2,13 +2,6 @@
 =============================
 
 
-python 之禅
------------
-    .. code-block:: python
-
-        import this
-
-
 issubclass(C, B) -> bool
 -------------------------
     - 判断类参数 ``C`` 是否是类型参数 ``B`` 的子类
@@ -75,3 +68,15 @@ pprint
         from pprint import pprint
         print(__builtins__.__dict__)
         pprint(__builtins__.__dict__, indent=2)
+
+
+help
+----
+    .. code-block:: python
+
+        help(xxx.xxx)     #: 查看属性、方法
+        help('modules')   #: 列出所有已安装模块
+        help('keywords')  #: 列出所有关键字
+        help()            #: 进入help交互式
+                          #: q 退出
+                          #: 输入 list、keywords 等，可以查看对象信息
