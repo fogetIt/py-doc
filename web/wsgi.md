@@ -1,19 +1,3 @@
-```
-python(Django, Flask, Tornado, ...)
-                |
-                V
-WSGI packages(wsgiref, werkzeug, eventlet, gevent, ...)
-                |
-                V
-Gateway Interface(CGI(mod_python), FastCGI(flup), WSGI(mod_wsgi, guicorn, uwsgi) ...)
-                |
-                V
-static server(nginx, apache, ...)
-                |
-                V
-browers(chrome, FireFox, IE, ...)
-```
-
 ##### web application
 - 浏览器发送一个`HTTP`请求
 - 服务器收到请求，生成一个`HTML`文档
