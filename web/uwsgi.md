@@ -1,4 +1,3 @@
-##### nginx--->uwsgi--->django/flask
 `nginx`处理所有静态请求，然后将所有非静态请求通过`uwsgi`传递给`python`程序来进行处理
 
 ##### install

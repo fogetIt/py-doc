@@ -16,7 +16,10 @@
         .. _异常: 异常/README.rst
     - 迭代_
         .. _迭代: 迭代/README.rst
-    - *基础扩展_
+    - * 基础扩展_
         .. _基础扩展: 基础扩展/README.rst
     - 内建模块_
         .. _内建模块: 内建模块/README.rst
+    - * web_
+        .. _web: web/README.rst
+
