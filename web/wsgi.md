@@ -1,6 +1,5 @@
 ##### WSGI(Web Server Gateway Interface)
 - `Python Web`服务器网关接口
-    + 位于`web`应用程序与服务器之间，所在层的位置低于`CGI`
     + 基于`CGI`标准，提升可移植`Web`应用开发的共同点
     + 只要求`Web`开发者`实现一个函数，就可以响应HTTP请求`
     + 只是一份`静态服务器`与`Web`框架之间的接口标准，并没有定义如何去实现
@@ -18,7 +17,7 @@
 - 2009：Perl PSGI
 
 
-##### [流程示意图（draw.io 文件）](wsgi.xml)
+##### [流程示意图](wsgi.png)
 
 
 ##### Python Paste
