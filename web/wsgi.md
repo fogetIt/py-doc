@@ -17,7 +17,11 @@
 - 2009：Javs JSGI
 - 2009：Perl PSGI
 
-### Python Paste
+
+##### [流程示意图（draw.io 文件）](wsgi.xml)
+
+
+##### Python Paste
 - `WSGI`底层工具集
     + 包括多线程、SSL和基于Cookies、sessions等的验证库
 - 可以用Paste方便地搭建自己的Web框架

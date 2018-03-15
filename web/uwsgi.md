@@ -7,27 +7,8 @@ uwsgi --version
 killall -9 uwsgi
 ```
 
-##### uwsgi.ini
-```ini
-[uwsgi]
-; http = host:port   # connect browser
-; stats = host:port  # stats server
-socket = host:port   # connect nginx
-chdir = ...          # path to project
-module = ...         # wsgi file
-; wsgi-file = ...
-callable = app       # wsgi callable func
-virtualenv = ...     # virtualenv dir
-master = true        # main process
-processes = 2        # processes number
-; workers = 2
-gevent = 100         # gevent greenlets number
-; threads = 100      # threads number
-pidfile = ...        # which pid file
-vacuum = true        # autoremove unix-socket-file and pid-file if close
-daemonize = ...      # backstage run, print log to file or UDP server
-py-autoreload = 1    # autoreload if *.py be modified
-```
+##### [uwsgi 配置文件](uwsgi.ini)
+##### [nginx 配置文件](uwsgi.conf)
 
 ##### Django + uwsgi
 ```shell
