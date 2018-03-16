@@ -39,8 +39,9 @@
         - 除非序列非常大，否则生成器与普通序列（列表、列表推导式...）看不出明显的区别，但是应该尽量使用 generator
 
 
-range
------
+range_
+-------
+    .. _range: range.py
     :python2:
         :``range([start, ]stop[, step]) -> list of integers``: 返回一个列表
         :``xrange([start, ]stop[, step]) -> xrange object``: 返回一个生成器
