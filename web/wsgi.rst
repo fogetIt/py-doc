@@ -23,8 +23,7 @@ WSGI 标准的 HTTP 处理
         - 返回 **iterable** 作为 ``response Body``
     - 无论多么复杂的 ``python Web`` 应用，入口都是一个 **WSGI** 处理函数
     - `流程示意图 <wsgi.png>`_
-    - `wsgi application <wsgi_application.py>`_ 实现示意
-    - `wsgi server <wsgi_server.py>`_ 实现示意
+    - `wsgi application & server <wsgi.py>`_ 实现
 
 
 其它语言中的类似接口
