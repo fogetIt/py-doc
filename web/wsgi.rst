@@ -23,8 +23,8 @@ WSGI 标准的 HTTP 处理
         - 返回 **iterable** 作为 ``response Body``
     - 无论多么复杂的 ``python Web`` 应用，入口都是一个 **WSGI** 处理函数
     - `流程示意图 <wsgi.png>`_
-    - `wsgi 应用实现示意 <wsgi_application.py>`_
-    - `wsgi 服务器实现示意 <wsgi_server.py>`_
+    - `wsgi application <wsgi_application.py>`_ 实现示意
+    - `wsgi server <wsgi_server.py>`_ 实现示意
 
 
 其它语言中的类似接口
@@ -36,8 +36,7 @@ WSGI 标准的 HTTP 处理
     :2009: Perl PSGI
 
 
-Python Paste
--------------
-    - **WSGI** 底层工具集
-        - 包括多线程、SSL和基于Cookies、sessions等的验证库
-        - 可以方便地搭建自己的Web框架
+:Python Paste: **WSGI** 底层工具集
+
+    - 包括多线程、SSL和基于Cookies、sessions等的验证库
+    - 可以方便地搭建自己的Web框架

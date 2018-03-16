@@ -22,4 +22,5 @@
         .. _内建模块: 内建模块/README.rst
     - `*web`_
         .. _`*web`: web/README.rst
-
+    - `*并发`_
+        .. _`*并发`: 并发/README.rst
