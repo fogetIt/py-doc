@@ -22,7 +22,8 @@ WSGI 标准的 HTTP 处理
                     - ``response headers list`` ，每个 **Header** 用一个包含两个 **str** 的 **tuple** 表示
         - 返回 **iterable** 作为 ``response Body``
     - 无论多么复杂的 ``python Web`` 应用，入口都是一个 **WSGI** 处理函数
-    - `流程示意图 <wsgi.png>`_
+    - 流程示意图
+        .. image:: wsgi.png
     - `wsgi application & server <wsgi.py>`_ 实现
 
 
