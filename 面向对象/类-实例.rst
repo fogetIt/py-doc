@@ -48,4 +48,4 @@
             from types import MethodType
             c = Cls()
             c.name = 'instance name'
-            c.func = MethodType(lambda self, x: x ** 2, a)
+            c.func = MethodType(lambda self, x: x ** 2, c)
