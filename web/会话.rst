@@ -20,6 +20,19 @@ cookie
     - **http** 协议中定义在 **header** 中的字段
         - 无法跨域
         - 某些移动应用（比如微信小程序）不支持 **cookie**
+    - e.g.
+        ``name=xxx; path=/; domain=xxx; HttpOnly; Expires=Tue, 19 Jan 2038 03:14:07 GMT;``
+
+        :domain: 表示 **cookie** 所在的域，默认为请求的地址
+
+            :``.xxx.com``: 能被 ``*.xxx.com`` 访问
+            :``xxx.xxx.com``: 只能被 ``xxx.xxx.com`` 访问
+        :path: 表示 **cookie** 所在的目录（能访问 **cookie** 的页面的目录）
+
+            :``/``: 默认，根目录
+        :HttpOnly: 通过程序（JS脚本、Applet等）将无法读取 **cookie** ，能有效的防止 **XSS** 攻击
+        :Secure: 只能在 **HTTPS** 连接中被浏览器传递到服务器端进行会话验证，如果是 **HTTP** 连接则不会传递
+        :Expires: 失效时间
 
 
 cookie/session 交互流程
