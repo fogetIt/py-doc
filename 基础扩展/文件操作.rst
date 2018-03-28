@@ -1,11 +1,11 @@
-=========  ====
-换行符        OS
-=========  ====
-``\n``       Unix
-``\r``       Mac
-``\r\n``     Windows
-``U, rU``    Unix, Mac, Windows
-=========  ====
+换行符
+-----
+    =========  ====
+    ``\n``       Unix
+    ``\r``       Mac
+    ``\r\n``     Windows
+    ``U, rU``    Unix, Mac, Windows
+    =========  ====
 
 
 打开文件

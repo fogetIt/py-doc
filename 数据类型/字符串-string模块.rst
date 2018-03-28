@@ -1,21 +1,19 @@
 string 模块
 ===========
-====================  ========
-attrs                   return
-====================  ========
-``letters``             ``[a-z],[A-Z]``
-``ascii_letters``       ``[a-z],[A-Z]``
-``lowercase``           ``[a-z]``
-``ascii_lowercase``     ``[a-z]``
-``uppercase``           ``[A-Z]``
-``ascii_uppercase``     ``[A-Z]``
-``digits``              ``[0-9]``
-``hexdigits``           ``[0-9],[a-f],[A-F]``
-``octdigits``           ``[0-7]``
-``punctuation``         ``!"#$%&'()*+,-./:;<=>?@[\]^_`{&#124;}~``
-``printable``           上述所有
-``whitespace``          ``\s,\n,\t``
-====================  ========
+    ====================  ========
+    ``letters``             ``[a-z],[A-Z]``
+    ``ascii_letters``       ``[a-z],[A-Z]``
+    ``lowercase``           ``[a-z]``
+    ``ascii_lowercase``     ``[a-z]``
+    ``uppercase``           ``[A-Z]``
+    ``ascii_uppercase``     ``[A-Z]``
+    ``digits``              ``[0-9]``
+    ``hexdigits``           ``[0-9],[a-f],[A-F]``
+    ``octdigits``           ``[0-7]``
+    ``punctuation``         ``!"#$%&'()*+,-./:;<=>?@[\]^_`{&#124;}~``
+    ``printable``           上述所有
+    ``whitespace``          ``\s,\n,\t``
+    ====================  ========
 
 
 methods

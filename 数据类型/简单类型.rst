@@ -11,17 +11,15 @@
         + complex > float > long > int
     - 整形、浮点、长整形都可以互相转化
     - 工厂函数
-    =========================  ========
-    methods                      return
-    =========================  ========
-    ``int(x[, base=10])``        ``int or long``
-     -                           :base: **x** 原本的进制
-     -                           如果带 **base** 参数， **x** 要以字符串的形式进行输入
-    ``long(x[, base=10])``       ``long``
-    ``float(x)``                 ``floating point number``
-    ``complex(real[, imag])``    ``complex number``
-    `bool(x) -> bool`_           ``bool``
-    =========================  ========
+        =========================  =============
+        ``int(x[, base=10])``        ``-> int or long``
+         -                           :base: **x** 原本的进制
+         -                           如果带 **base** 参数， **x** 要以字符串的形式进行输入
+        ``long(x[, base=10])``       ``-> long``
+        ``float(x)``                 ``-> floating point number``
+        ``complex(real[, imag])``    ``-> complex number``
+        `bool(x) -> bool`_           ``-> bool``
+        =========================  =============
 
 
 bool(x) -> bool

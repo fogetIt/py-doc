@@ -8,24 +8,22 @@
 
 函数的魔法属性
 -------------
-    ===================================  =======
-    attrs                                  todo
-    ===================================  =======
-    func.func_defaults -> tuple/None       函数默认参数
-     -                                     不包括 ``**kwargs``
-    func.func_globals -> {...}             当前的全局命名空间
-    func().func_closure -> tuple/None      闭包的内部函数，引用外部函数的变量
-    func.func_code                         函数对应的 ``code`` 对象
-    func.func_code.co_argcount             普通参数的总数
-     -                                     不包括 ``*args,**kwargs``
-    func.func_code.co_varnames -> tuple    所有局部变量名
-     -                                     包括 ``args,kwargs``
-    func.func_code.co_filename             源代码所在的文件名
-    func.func_code.co_flags                函数信息的二进制数值
-    cls_func.im_func                       指向函数对象
-    cls_func.im_self                       指向实例的类/None
-    cls_func.im_class                      指向类
-    ===================================  =======
+    =======================================  =======
+    ``func.func_defaults -> tuple/None``       函数默认参数
+     -                                         不包括 ``**kwargs``
+    ``func.func_globals -> {...}``             当前的全局命名空间
+    ``func().func_closure -> tuple/None``      闭包的内部函数，引用外部函数的变量
+    ``func.func_code``                         函数对应的 ``code`` 对象
+    ``func.func_code.co_argcount``             普通参数的总数
+     -                                         不包括 ``*args,**kwargs``
+    ``func.func_code.co_varnames -> tuple``    所有局部变量名
+     -                                         包括 ``args,kwargs``
+    ``func.func_code.co_filename``             源代码所在的文件名
+    ``func.func_code.co_flags``                函数信息的二进制数值
+    ``cls_func.im_func``                       指向函数对象
+    ``cls_func.im_self``                       指向实例的类/None
+    ``cls_func.im_class``                      指向类
+    =======================================  =======
 
 
 面向过程编程
