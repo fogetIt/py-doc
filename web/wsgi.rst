@@ -1,5 +1,5 @@
-WSGI(Web Server Gateway Interface)
-==================================
+W(eb )S(erver )G(ateway )I(nterface)
+====================================
     - 一份 **静态服务器** 与 **Web** 框架之间的接口标准，并没有定义如何去实现
         + 基于 **CGI** 标准，提升可移植 **Web** 应用开发的共同点
         + 最 **pythonic** 的接口标准，类似于 **Java servlet API**

@@ -1,5 +1,5 @@
-JSON WEB Token
-==============
+J(SON )W(EB )T(oken)
+====================
     :头信息: header
 
         - 指定 JWT 使用的签名算法
