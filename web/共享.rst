@@ -1,15 +1,16 @@
 http 共享
 ---------
-    .. code-block:: bash
+    :py2:
+        .. code-block:: bash
 
-        # 任意目录下执行
-        python -m SimpleHTTPServer xxxx
-        # 默认断口是 8000
+            # 任意目录下执行
+            python -m SimpleHTTPServer xxxx
+            # 默认断口是 8000
 
-    :浏览器访问: ``http://ip:port``
+        :浏览器访问: ``http://ip:port``
 
-        - 如果目录中包含 **index.html** 会展示这一页面
-        - 如果目录中没有包含 **index.html** ，打印整个目录
+            - 如果目录中包含 **index.html** 会展示这一页面
+            - 如果目录中没有包含 **index.html** ，打印整个目录
 
 
 

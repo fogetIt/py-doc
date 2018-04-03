@@ -10,3 +10,5 @@
         .. _会话: 会话.rst
     - JWT_
         .. _JWT: JWT.rst
+    - HTTPS_
+        .. _HTTPS: HTTPS.rst
