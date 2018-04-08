@@ -97,3 +97,106 @@ UTF(UCS Transfer Format)
     - 用记事本编辑的时候，从文件读取的 **UTF-8** 字符被转换为 **unicode** 字符到内存里
     - 编辑完成后，保存的时候再把 **unicode** 转换为 **UTF-8** 保存到文件
     - 浏览网页的时候，服务器会把动态生成的 **unicode** 内容转换为 **UTF-8** 再传输到浏览器
+
+
+python 编码
+===========
+    :内存中的字符编码格式: unicode
+    :默认文件字符编码格式: 查看编码_
+
+        :`python2.x`_: ascii
+        :python3.x: unicode
+
+
+查看编码
+--------
+    .. code-block:: python
+
+        import sys
+        import locale
+
+        sys.getdefaultencoding()       #: ascii               #: python 默认文件字符编码
+        locale.getdefaultlocale()      #: ('zh_CN', 'UTF-8')  #: 语言 系统文本数据编码
+        locale.getpreferredencoding()  #: UTF-8               #: 系统文本数据编码
+
+
+python2.x
+----------
+    - 纯英文的 **str**
+        - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
+
+            .. code-block:: python
+
+                s = "hello".encode("gbk")
+                print(s, len(s)) # b'hello' 5
+
+    - 含中文的 **str**
+        - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
+            (1) 将其他编码的字符串解码成 **unicode**  `utf8 -> unicode`_
+            (2) 从 unicode 转码成另一种编码　`unicode -> gbk`_
+
+        - 或者
+            (1) 设置 **python2** 默认编码: setdefaultencoding_
+            (2) 直接转码
+
+                .. code-block:: python
+
+                    """
+                    s.encode("gbk") == s.decode("utf8").encode("gbk")
+                    """
+                    s = "中国".encode("gbk")
+                    print(s, len(s))
+
+    - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
+
+
+utf8 -> unicode
+:::::::::::::::
+    .. code-block:: python
+
+        # coding: utf-8
+        u = unicode("中国", "utf-8")
+        u = u"中国"
+        u = "中国".decode("utf-8")
+        print(u, len(u))
+
+
+unicode -> gbk
+::::::::::::::
+    .. code-block:: python
+
+        # coding: utf-8
+        s = u.encode("gbk")
+
+
+setdefaultencoding
+:::::::::::::::::::
+    **方法1**
+        .. code-block:: python
+
+            import sys
+            """
+            python 解释器启动时会自动加载 Lib/site.py
+            in site.main()
+                del sys.setdefaultencoding
+            """
+            reload(sys)
+            sys.setdefaultencoding('utf-8')
+
+    **方法2**
+        .. code-block:: bash
+
+            # sitecustomize.py is a special script;
+            # Python will try to import it on startup, so any code in it will be run automatically.
+            touch Lib/site-packages/sitecustomize.py
+
+
+避免中文乱码
+-----------
+    1. 使用 **utf-8** ，跨平台通用
+    #. 打开文件的时候，用 **codecs.open()** ，替代 **open()**
+    #. ``decode early, unicode everywhere, encode late:``
+        - 在输入或者声明字符串的时候，尽早地使用 **decode()** 将 **str** 转化成 **unicode**
+        - 在程序内统一使用 **unicode** 处理字符串
+            + 比如：字符串拼接、字符串替换、获取字符串的长度等操作
+        - 在输出字符串的时候（控制台/网页/文件），通过 **encode()** 将字符串转化为想要的编码格式

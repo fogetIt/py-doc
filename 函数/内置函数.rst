@@ -80,3 +80,91 @@ sum(sequence[, start=0]) -> value
         print(sum(l))       # 25
         print(sum(l, 10))   # 35
         print(sum([], 10))  # 10
+
+
+builtin functions
+==================
+
+
+--------------------------------------
+`iter, reversed <../迭代/迭代器1.rst>`_
+--------------------------------------
+
+
+enumerate(iterable[, start]) -> iterator for index, value of iterable
+----------------------------------------------------------------------
+    - 下标循环
+        - 把一个 **iterable** 的元素变成 ``(索引, 元素)`` ，同时迭代索引和元素本身
+    .. code-block:: python
+
+        print(enumerate([4, 7, 0]))                              #: <enumerate object at 0x7fa2d6bf7b90>
+        print([(i, v) for i, v in enumerate([4, 7, 0])])         #: [(0, 4), (1, 7), (2, 0)]
+        print([(i, v) for i, v in enumerate({"a": 1, "b": 2})])  #: [(0, 'a'), (1, 'b')]
+
+
+sorted(iterable, key=None, reverse=False) --> new sorted list
+--------------------------------------------------------------
+    :key: 函数作用于每一个元素上，并根据函数计算结果进行排序，生成一个新的排序后的 **list**
+    :reverse: 是否反转排序
+    .. code-block:: python
+
+        l1 = [1, 3, 2, 7, 0]
+        l2 = [1, 3, 2, 7, 0]
+        l1.sort()
+        print(l1 == sorted(l2))
+        print(l1, l2)                                  #: [0, 1, 2, 3, 7] [1, 3, 2, 7, 0]
+        l = ['bob', 'about', 'Zoo', 'Credit']
+        print(sorted(l, key=str.lower, reverse=True))  #: ['Zoo', 'Credit', 'bob', 'about']
+
+
+any(iterable) -> bool
+----------------------
+    - 判断序列中是否 **含有** 非空、非否值
+    .. code-block:: python
+
+        print(any(['', [], {}, 0, False, ()])          #: False
+        print(any(['', [], {}, 0, False, (), ('', )])  #: True
+
+
+all(iterable) -> bool
+----------------------
+    - 判断序列中是否 **都是** 非空、非否值
+    .. code-block:: python
+
+        print(all([1, '']))  # False
+
+
+apply(object[, args[, kwargs]]) -> value
+-----------------------------------------
+    - 传递参数元组和参数字典，间接地调用函数
+        - **python3** 中已废弃此函数
+    .. code-block:: python
+
+        f = lambda : 123
+        print(apply(f))                    #: 123
+        f = lambda x, y, z=1: x + y + z
+        print(apply(f, (1, 2), {"z": 3}))  #: 6
+        print(apply(f, (1, 2, 3)))         #: 6
+
+
+functools
+----------
+    :``reduce(function, sequence[, initial]) -> value``:
+        .. code-block:: python
+
+            if initial:
+                result = function(initial, sequence[0])
+                result = function(result, sequence[1])
+                ...
+            else:
+                result = function(sequence[0], sequence[1])
+                result = function(result, sequence[2])
+                ...
+            return result
+        - e.g.
+
+            .. code-block:: python
+
+                from functools import reduce
+                print(reduce(lambda x, y: x + y, [1, 3, 5, 7, 9], 100))  #: 125
+        - **reduce** 在 **python2** 中是内建函数，不需要导入
