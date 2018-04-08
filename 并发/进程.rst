@@ -38,3 +38,89 @@ python 多进程
     - 主进程结束，子进程没结束，子进程不能自己释放空间，导致：
         - 内存无法释放
         - 新的进程无法开始
+
+
+Process VS Thread
+------------------
+    - Process 更稳定
+    - Process 对多核 CPU 的利用率更高
+        - 使用进程池，可以跑满多核CPU
+    - Process 可以分布到多台机器上
+        - Thread 只能利用到一个 CPU
+    - 使用多进程，一定要在非多进程的环境下先调试确认，多进程很多时候程序有问题，却不报错或者报的错误信息很难把握
+
+
+API
+----
+    :multiprocessing:
+        - python 多进程包，像线程一样管理进程
+        :警告:
+            - 在 Windows 上，子进程会自动 import 主进程文件
+            - import 会执行 python 语句，就会无限递归创建子进程报错
+            - 所以必须把创建子进程的部分用 ``if __name__ == '__main__'`` 保护起来
+    .. code-block:: python
+
+        from multiprocessing import Process, current_process
+        p = Process(
+            group=None,
+            target=None,  #: 执行函数
+            args=(),      #: target 参数
+            kwargs={}     #: target 字典参数
+            name=None,    #: 别名
+        )
+        p.daemon = True   #: 默认 False
+        p.start()
+        p.join(timeout=None)
+        p.is_alive()
+        p.terminate()  #: 结束工作进程，不再处理未完成的任务
+        current_process().authkey
+        current_process().exitcode  #: 进程运行时为 None； -N 表示被信号 N 结束
+        current_process().name      #: 获取进程 name
+        current_process().pid       #: 获取进程 id
+
+
+进程池
+------
+    - ``multiprocessing.Pool, multiprocessing.Process`` 有冲突
+    .. code-block:: python
+
+        import multiprocessing
+        num = multiprocessing.cpu_count()  # 计算机核数（双核四线程 == 4 ）
+        pool = multiprocessing.Pool(
+            processes=None,        #: 工作进程数（默认 == cpu_count() ）
+            initializer=None,      #: 子进程的初始化函数
+            initargs=(),           #: initializer 参数
+            maxtasksperchild=None  #: 子进程的最大任务数
+        )
+        """
+        maxtasksperchild=None    只要 Pool 存在工作进程就会一直存活
+        maxtasksperchild=number  工作进程完成一定数量的任务后退出，用一个新的工作进程来替代原进程，释放闲置的资源
+        """
+        """
+        批量创建子进程
+        """
+        pool.apply(func, args=(), kwds={})                       #: 同步进程池
+        pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池
+        """
+        同步进程池  阻塞主进程，直到函数执行结束
+        异步进程池  不阻塞主进程，且支持对返回结果进行回调
+        """
+        pool.close()      #: 不再接受新的任务，等待池中的工作进程执行结束，关闭 pool
+        pool.terminate()  #: 不再处理未完成的任务，关闭 pool
+        pool.join()
+        """
+        在调用 join() 前，必须调用 close() 或 terminate()
+        这样是因为被终止的进程需要被父进程等待，否则进程会成为僵尸进程
+        """
+
+
+管道
+----
+    :mutiprocessing.Pipe(duplex):
+        :duplex:
+            :True: 双向管道（只允许从管道一端的进程输入）
+            :False: 单向管道（允许从管道两端的进程输入）
+        - 返回一个含有两个元素的表，每个元素代表管道的一端（Connection对象）
+            - 把两个元素分配给两个进程
+            - 一个进程从管道一端输入（ **send()** ）对象
+            - 另一个进程从管道另一端接收（ **recv()** ）对象

@@ -58,25 +58,30 @@ multiprocessing.dummy
             :Pool().map(func, iterable): 将序列分配到不同线程上，分别执行函数
 
 
-其它 API
---------
+API
+----
     .. code-block:: python
 
-        import threading, _thread
-        t = threading.Thread(
+        import  _thread, threading
+        from threading import Thread, current_thread
+        t = Thread(
             group=None,
             target=None,  #: 执行函数
             args=(),      #: target 参数
             kwargs=None,  #: target 字典参数
             name=None,    #: 别名
         )
-        t.is_alive()   #: 判断线程是否活动
+        t.setDaemon()  #: t.daemon = True/False
+        t.start()
+        t.join()
         t.getName()    #: 返回线程名
         t.setName("")  #: 设置线程名
-        threading.get_ident()       #: 返回当前线程标识（start() 之后，非 0）
-        _thread.get_ident()         #: 返回当前线程标识（start() 之后，非 0）
-        threading.current_thread()  #: 返回当前线程对象
-        threading.enumerate()       #: 返回正在运行的线程列表
-        threading.active_count()    #: 返回正在运行的线程数
-        _thread.interrupt_main()    #: 在子线程中终止主线程
+        threading.get_ident()            #: 返回当前线程标识（start() 之后，非 0）  #: _thread.get_ident()
+        current_thread()                 #: 返回当前线程对象
+        current_thread().is_alive()      #: 判断线程是否活动
+        current_thread().getName()       #: 返回线程名
+        current_thread().setName("xxx")  #: 设置线程名
+        threading.enumerate()            #: 返回正在运行的线程列表
+        threading.active_count()         #: 返回正在运行的线程数
+        _thread.interrupt_main()         #: 在子线程中终止主线程
 

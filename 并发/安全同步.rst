@@ -1,0 +1,123 @@
+安全同步
+========
+    - 多进程/线程访问同一数据空间，存在多份缓存数据一致性和状态同步的困难，会产生不确定的结果
+    :解决:
+        - `解释器全局锁`_
+        - 使用 `进程安全数据`_
+        - 使用 `线程安全数据`_
+        - 给 **共享全局变量** 加 `锁`_
+
+
+解释器全局锁
+-----------
+    :``CPython G(lobal )I(nterpreter )L(ock)``:
+        - 任何线程执行前，必须先获得 **GIL** ，其他的线程需要等待这个线程释放之后才可以访问
+        - 每执行 **100** 条字节码，解释器就自动释放 **GIL** ，让别的线程有机会执行
+        - 任意时间只有一个 **python** 解释器（进程）在解释字节码，多线程只能交替执行
+            - 即使 ``线程数 <= CPU 核心数`` ，也只能用到 **1** 个核
+            - 在 ``解释器级别`` 实现了对共享资源访问的互斥
+
+
+进程安全数据
+-----------
+    - python 容器都不是进程安全的，不能在进程间通信
+    :进程间共享对象:
+        :multiprocessing.Queue():
+        :multiprocessing.Manager():
+            - 普通容器的单例模式实现不了数据共享，所以
+                - 控制一个包含l python 对象的进程
+                - 其他的进程可以通过 proxies 访问此进程
+                - 从而达到多进程间数据通信且安全
+                :API:
+                    - Manager().list()
+                    - Manager().dict()
+                    - Manager().Namespace()
+                        - 没有公共的方法，可以添加属性属性
+                        - **_xxx** 属性值属于 proxy ，跟原来的 namespace 没有关系
+                    - `锁`_
+                        - Manager().Lock()
+                        - Manager().RLock()
+                        - Manager().Semaphore()
+                        - Manager().BoundedSemaphore()
+                        - Manager().Condition()
+                        - Manager().Event()
+                    - 队列
+                        - Manager().Queue()
+                    - Manager().Barrier()
+                    - Manager().Value()
+                    - Manager().Array()
+            - *django 会启动多进程来监听 http 请求*
+    :应用程序间通信对象: 比如 redis
+
+
+线程安全数据
+-----------
+    :模块: 一个模块只会被实例化一次
+    :容器:
+        :类对象: 在多线程下释放不完全，没释放的那部分内存，可以重复利用
+        :单例对象: 在多线程下可以保证唯一性（id 相同）
+        - 容器内部最内层的原子对象，不是线程安全的
+        - 共享的容器对象，不能覆盖赋值
+        - 可以修改的共享数据，尽量用锁来保护
+    :线程全局变量:
+        :threading.local()/_thread._local():
+            - 用于管理线程相关的数据，避免局部变量传递麻烦
+            - 在线程中定义，绑定变量
+                - 只在该线程中为全局变量
+                - 对于其他线程来说是局部变量，不可更改
+        - Flask 底层 Werkzeug 的 LocalStack ，就是基于线程全局变量，每个线程处理一个 HTTP 请求
+    :线程队列: Queue
+
+
+锁
+---
+    - 进程锁不常用（锁定进程之间的全局变量），因为进程的内存是各自独立的
+    :互斥（同步）锁:
+        :multiprocessing.Lock()/threading.Lock():
+            :应用场景:
+                - 多进程修改共享数据
+                - 多线程修改共享数据
+                    - **I/O** 密集型多线程任务
+                    - 一个线程复制数据与修改数据期间发生了阻塞，其它线程也复制修改了原数据
+            :acquire(): 申请锁
+            :release(): 释放锁
+            - 第一个  **执行单元** （进程/线程）申请到锁，会在执行公共数据的过程中持续阻塞后续  **执行单元**
+            - 后续  **执行单元** 只能等待第一个  **执行单元** 释放锁
+            - 当第一个  **执行单元** 将锁释放，后续的  **执行单元** 会进行争抢
+            :死锁:
+                - 由于 **2~*** 个  **执行单元** 之间相互等待对方结束而引起阻塞的情况
+                - 当有多个互斥锁对象存在的时候，可能会导致死锁
+    :多重（递归）锁:
+        :multiprocessing.RLock()/threading.RLock():
+            - 锁对象可被同一线程多次 **acquire()/release()**
+            - 除了 ``locked, unlocked`` 状态外还记录了当前 **执行单元** 和递归层数
+            - **acquire()/release()** 必须成对出现
+            - 当 **release()** 次数等于 **acquire()** 次数时，释放锁
+    :信号量:
+        :multiprocessing.Semaphore(n)/threading.Semaphore(n):
+            - 限制线程的并发量
+                - 每次允许指定数量的 **执行单元** 访问某段程，其它 **执行单元** 处于等待
+                - 当并发量限制为 **1** 时，就相当于 ``RLock()``
+            - 管理一个内置的计数器
+                :acquire(): 计数 -1
+                - 计数 ==0 时，自动阻塞，等待 **release()**
+                :release(): 计数 +1
+        :multiprocessing.BoundedSemaphore(n)/threading.BoundedSemaphore(n):
+            - 在调用 **release()** 时，会检查增加的计数是否超过上限
+    :条件变量（关联锁）:
+        :multiprocessing.Condition()/threading.Condition():
+            - 在内部维护一个多重锁对象
+            :acquire()/release(): 含义同 **RLock()**
+            :wait([timeout]):     **release()** 锁对象，同时挂起 **执行单元**
+
+                :适合场景: 队列为空或队列已满
+            :notify():     唤醒一个挂起的 **执行单元** （如果存在），但不会释放锁
+            :notify_all(): 唤醒所有挂起的 **执行单元** ，但不会释放锁
+    :事件:
+        :multiprocessing.Event()/threading.Event():
+            - 通过维护内部的标识符来实现 **执行单元** 间的同步
+            - 一个 **执行单元** 通知事件，其他 **执行单元** 等待事件
+            :wait([timeout]): 挂起 **执行单元** （直到标识符为 True 或超时，如果是守护线程，不会阻塞主线程）
+            :set():           标识符设为 True
+            :clear():         标识符设为 False
+            :isSet():         判断标识符
