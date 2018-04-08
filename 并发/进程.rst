@@ -52,6 +52,7 @@ Process VS Thread
 
 API
 ----
+    :os.getpid(): 获取进程 ID
     :multiprocessing:
         - python 多进程包，像线程一样管理进程
         :警告:
@@ -100,7 +101,7 @@ API
         批量创建子进程
         """
         pool.apply(func, args=(), kwds={})                       #: 同步进程池
-        pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池
+        pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池（效率更高）
         """
         同步进程池  阻塞主进程，直到函数执行结束
         异步进程池  不阻塞主进程，且支持对返回结果进行回调
