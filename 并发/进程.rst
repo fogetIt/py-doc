@@ -38,6 +38,9 @@ python 多进程
     - 主进程结束，子进程没结束，子进程不能自己释放空间，导致：
         - 内存无法释放
         - 新的进程无法开始
+    - 当某个进程终结之后，该进程需要被其父进程等待，否则进程成为僵尸进程
+        - 有必要对每个子进程调用 **join()**
+        - 对于多线程来说，由于只有一个进程，所以 **join()** 不必须
 
 
 Process VS Thread
@@ -88,7 +91,7 @@ API
         import multiprocessing
         num = multiprocessing.cpu_count()  # 计算机核数（双核四线程 == 4 ）
         pool = multiprocessing.Pool(
-            processes=None,        #: 工作进程数（默认 == cpu_count() ）
+            processes=None,        #: 允许并发量（默认 == cpu_count() ）
             initializer=None,      #: 子进程的初始化函数
             initargs=(),           #: initializer 参数
             maxtasksperchild=None  #: 子进程的最大任务数
@@ -103,8 +106,11 @@ API
         pool.apply(func, args=(), kwds={})                       #: 同步进程池（建议废弃）
         pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池（效率更高）
         """
-        同步进程池  阻塞主进程（等待子进程运行结束，再切换到另外一个子进程）
-        异步进程池  不阻塞主进程（等到操作系统进行进程切换的时候，再交给子进程运行），支持对返回结果进行回调
+        同步进程池
+            阻塞主进程（等待子进程运行结束，再切换到另外一个子进程）
+        异步进程池
+            不阻塞主进程（等到操作系统进行进程切换的时候，再交给子进程运行）
+            支持对返回结果进行回调
         """
         pool.close()      #: 不再接受新的任务，等待池中的工作进程执行结束，关闭 pool
         pool.terminate()  #: 不再处理未完成的任务，关闭 pool
@@ -113,15 +119,3 @@ API
         在调用 join() 前，必须调用 close() 或 terminate()
         这样是因为被终止的进程需要被父进程等待，否则进程会成为僵尸进程
         """
-
-
-管道
-----
-    :mutiprocessing.Pipe(duplex):
-        :duplex:
-            :True: 双向管道（只允许从管道一端的进程输入）
-            :False: 单向管道（允许从管道两端的进程输入）
-        - 返回一个含有两个元素的表，每个元素代表管道的一端（Connection对象）
-            - 把两个元素分配给两个进程
-            - 一个进程从管道一端输入（ **send()** ）对象
-            - 另一个进程从管道另一端接收（ **recv()** ）对象

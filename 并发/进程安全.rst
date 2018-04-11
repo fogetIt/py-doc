@@ -1,0 +1,85 @@
+进程安全对象
+--------------
+    - python 容器不是进程安全的，不能在进程间通信
+
+    :进程间通信:
+
+        ================  =======================
+        `共享内存`_          multiprocessing.Value()
+         -                  multiprocessing.RawValue()
+         -                  multiprocessing.Array()
+         -                  multiprocessing.RawArray()
+        `系统内核对象`_       mutiprocessing.Pipe(duplex)
+         -                  mutiprocessing.Queue()
+         -                  mutiprocessing.JoinableQueue()
+        `服务进程对象`_       Manager().list()
+         -                  Manager().dict()
+         -                  Manager().Namespace()
+         -                  Manager().Lock()
+         -                  Manager().RLock()
+         -                  Manager().Semaphore()
+         -                  Manager().BoundedSemaphore()
+         -                  Manager().Condition()
+         -                  Manager().Event()
+         -                  Manager().Queue()
+         -                  Manager().Barrier()
+         -                  Manager().Value()
+         -                  Manager().Array()
+        ================  =======================
+
+        :效率: 共享内存 > 系统内核对象  > 服务进程对象
+        :继承:
+            - 本质上不是一种对象共享机制
+            - 父进程 **fork** 出的子进程自动继承父进程的内存状态和对象描述符
+                - 子进程从父进程继承来的对象并不一定是共享的
+                - 子进程复制了一份父进程的对象
+                    - 当这个对象包装了一些系统内核对象的描述符的时候，拷贝这个对象（及其包装的描述符）实现了对象的共享
+            - 因此，只有系统内核对象和基于这些对象实现的对象，才能够通过继承来共享
+            - 通过继承共享对象
+                - 在 linux 平台上没有任何限制
+                - 在 Windows 上面由于没有实现 fork ，继承方式几乎无法共享对象
+
+    :应用程序间通信: ``Redis, RabbitMQ``
+
+
+共享内存
+"""""""""
+    - 内部实现了锁机制，不会堵塞进程
+    - 支持 **ctypes** 当中的类型
+    - 这种共享方式，依赖于继承
+        - 由于缺少命名机制，在一个进程当中创建的对象，无法在另外一个进程当中通过名字来引用
+        - 因此，这种共享方式依赖于继承，对象应该由父进程创建，然后由子进程引用
+    - 使用共享内存和必要的同步锁，性能比其它共享方式提升很大
+
+
+系统内核对象
+""""""""""""""
+    - 在主进程中共享数据
+
+    :mutiprocessing.Pipe(duplex):
+        :duplex:
+            :True: 双向管道（只允许从管道一端的进程输入）
+            :False: 单向管道（允许从管道两端的进程输入）
+
+        - 返回一个含有两个元素的表，每个元素代表管道的一端（Connection对象）
+            - 把两个元素分配给两个进程
+            - 一个进程从管道一端输入（ **send()** ）对象
+            - 另一个进程从管道另一端接收（ **recv()** ）对象
+    :mutiprocessing.JoinableQueue: 强化版本的队列
+
+        - 新增两个方法
+            :task_done(): 给消费者每完成队列中的一个任务，调用一次该方法
+            :join():      当所有的 tasks 都完成之后，交给调用 join() 的进程执行
+
+
+服务进程对象
+""""""""""""""
+    - 控制一个子进程，其他的进程通过 proxies 访问此子进程的容器对象
+    - 典型的RPC（远程过程调用）调用方式
+        - 可以实现不同主机、不同主进程创建的子进程之间共享数据
+
+    :Manager().Namespace():
+        - 没有公共方法，可以添加属性
+        - **_xxx** 属性值属于 proxy ，跟原来的 namespace 没有关系
+
+*django 会启动多进程来监听 http 请求*
