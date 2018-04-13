@@ -1,163 +1,204 @@
 子进程
 =======
-    :os.getpid(): 获取进程 ID
-    :multiprocessing:
-        - python 多进程包，像线程一样管理进程
-        :警告:
-            - 在 Windows 上，子进程会自动 import 主进程文件
-            - import 会执行 python 语句，就会无限递归创建子进程报错
-            - 所以必须把创建子进程的部分用 ``if __name__ == '__main__'`` 保护起来
-    .. code-block:: python
 
-        from multiprocessing import Process, current_process
-        p = Process(
-            group=None,
-            target=None,  #: 执行函数
-            args=(),      #: target 参数
-            kwargs={}     #: target 字典参数
-            name=None,    #: 别名
-        )
-        p.daemon = True   #: 默认 False
-        p.start()
-        p.join(timeout=None)
-        p.is_alive()
-        p.terminate()  #: 结束工作进程，不再处理未完成的任务
-        current_process().authkey
-        current_process().exitcode  #: 进程运行时为 None； -N 表示被信号 N 结束
-        current_process().name      #: 获取进程 name
-        current_process().pid       #: 获取进程 id
+:os.getpid(): 获取进程 ID
+:multiprocessing: python 多进程包，像线程一样管理进程
+
+    :警告:
+        - 在 Windows 上，子进程会自动 import 主进程文件
+        - import 会执行 python 语句，就会无限递归创建子进程报错
+        - 所以必须把创建子进程的部分用 ``if __name__ == '__main__'`` 保护起来
+.. code-block:: python
+
+    from multiprocessing import Process, current_process
+    p = Process(
+        group=None,
+        target=None,  #: 执行函数
+        args=(),      #: target 参数
+        kwargs={}     #: target 字典参数
+        name=None,    #: 别名
+    )
+    p.daemon = True   #: 默认 False
+    p.start()
+    p.join(timeout=None)
+    p.is_alive()
+    p.terminate()  #: 结束工作进程，不再处理未完成的任务
+    current_process().authkey
+    current_process().exitcode  #: 进程运行时为 None； -N 表示被信号 N 结束
+    current_process().name      #: 获取进程 name
+    current_process().pid       #: 获取进程 id
 
 
 进程池
 =======
-    - ``multiprocessing.Pool, multiprocessing.Process`` 有冲突
-    .. code-block:: python
+- ``multiprocessing.Pool, multiprocessing.Process`` 有冲突
 
-        import multiprocessing
-        num = multiprocessing.cpu_count()  # 计算机核数（双核四线程 == 4 ）
-        pool = multiprocessing.Pool(
-            processes=None,        #: 允许并发量（默认 == cpu_count() ）
-            initializer=None,      #: 子进程的初始化函数
-            initargs=(),           #: initializer 参数
-            maxtasksperchild=None  #: 子进程的最大任务数
-        )
-        """
-        maxtasksperchild=None    只要 Pool 存在工作进程就会一直存活
-        maxtasksperchild=number  工作进程完成一定数量的任务后退出，用一个新的工作进程来替代原进程，释放闲置的资源
-        """
-        """
-        批量创建子进程
-        """
-        pool.apply(func, args=(), kwds={})                       #: 同步进程池（建议废弃）
-        pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池（效率更高）
-        """
-        同步进程池
-            阻塞主进程（等待子进程运行结束，再切换到另外一个子进程）
-        异步进程池
-            不阻塞主进程（等到操作系统进行进程切换的时候，再交给子进程运行）
-            支持对返回结果进行回调
-        """
-        pool.close()      #: 不再接受新的任务，等待池中的工作进程执行结束，关闭 pool
-        pool.terminate()  #: 不再处理未完成的任务，关闭 pool
-        pool.join()
-        """
-        在调用 join() 前，必须调用 close() 或 terminate()
-        这样是因为被终止的进程需要被父进程等待，否则进程会成为僵尸进程
-        """
+.. code-block:: python
+
+    import multiprocessing
+    num = multiprocessing.cpu_count()  # 计算机核数（双核四线程 == 4 ）
+    pool = multiprocessing.Pool(
+        processes=None,        #: 允许并发量（默认 == cpu_count() ）
+        initializer=None,      #: 子进程的初始化函数
+        initargs=(),           #: initializer 参数
+        maxtasksperchild=None  #: 子进程的最大任务数
+    )
+    """
+    maxtasksperchild=None    只要 Pool 存在工作进程就会一直存活
+    maxtasksperchild=number  工作进程完成一定数量的任务后退出，用一个新的工作进程来替代原进程，释放闲置的资源
+    """
+    """
+    批量创建子进程
+    """
+    pool.apply(func, args=(), kwds={})                       #: 同步进程池（建议废弃）
+    pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池（效率更高）
+    """
+    同步进程池
+        阻塞主进程（等待子进程运行结束，再切换到另外一个子进程）
+    异步进程池
+        不阻塞主进程（等到操作系统进行进程切换的时候，再交给子进程运行）
+        支持对返回结果进行回调
+    """
+    pool.close()      #: 不再接受新的任务，等待池中的工作进程执行结束，关闭 pool
+    pool.terminate()  #: 不再处理未完成的任务，关闭 pool
+    pool.join()
+    """
+    在调用 join() 前，必须调用 close() 或 terminate()
+    这样是因为被终止的进程需要被父进程等待，否则进程会成为僵尸进程
+    """
 
 
 僵尸进程
 --------
-    - 主进程结束，子进程没结束，子进程不能自己释放空间，导致：
-        - 内存无法释放
-        - 新的进程无法开始
-    - 当某个进程终结之后，该进程需要被其父进程等待，否则进程成为僵尸进程
-        - 有必要对每个子进程调用 **join()**
-        - 对于多线程来说，由于只有一个进程，所以 **join()** 不必须
+- 主进程结束，子进程没结束，子进程不能自己释放空间，导致：
+    - 内存无法释放
+    - 新的进程无法开始
+- 当某个进程终结之后，该进程需要被其父进程等待，否则进程成为僵尸进程
+    - 有必要对每个子进程调用 **join()**
+    - 对于多线程来说，由于只有一个进程，所以 **join()** 不必须
 
 
-进程安全对象
-===============
-    - python 容器不是进程安全的，不能在进程间通信
+通信
+=====
+- python 容器不是进程安全的，不能在进程间通信
 
-    :进程间通信:
+:应用程序间通信: ``Redis, RabbitMQ``
+:进程间通信:
+
+    :进程安全对象:
 
         ================  =======================
-        `共享内存`_          multiprocessing.Value()
-         -                  multiprocessing.RawValue()
-         -                  multiprocessing.Array()
-         -                  multiprocessing.RawArray()
-        `系统内核对象`_       mutiprocessing.Pipe(duplex)
-         -                  mutiprocessing.Queue()
-         -                  mutiprocessing.JoinableQueue()
-        `服务进程对象`_       Manager().list()
-         -                  Manager().dict()
-         -                  Manager().Namespace()
-         -                  Manager().Lock()
-         -                  Manager().RLock()
-         -                  Manager().Semaphore()
-         -                  Manager().BoundedSemaphore()
-         -                  Manager().Condition()
-         -                  Manager().Event()
-         -                  Manager().Queue()
-         -                  Manager().Barrier()
-         -                  Manager().Value()
-         -                  Manager().Array()
+        `共享内存`_          ``multiprocessing.Value()``
+         -                  ``multiprocessing.RawValue()``
+         -                  ``multiprocessing.Array()``
+         -                  ``multiprocessing.RawArray()``
+        `系统内核对象`_       ``multiprocessing.Pipe(duplex)``
+         -                  ``multiprocessing.Queue()``
+         -                  ``multiprocessing.JoinableQueue()``
+        `服务进程对象`_       ``multiprocessing.Manager().list()``
+         -                  ``multiprocessing.Manager().dict()``
+         -                  ``multiprocessing.Manager().Namespace()``
+         -                  ``multiprocessing.Manager().Lock()``
+         -                  ``multiprocessing.Manager().RLock()``
+         -                  ``multiprocessing.Manager().Semaphore()``
+         -                  ``multiprocessing.Manager().BoundedSemaphore()``
+         -                  ``multiprocessing.Manager().Condition()``
+         -                  ``multiprocessing.Manager().Event()``
+         -                  ``multiprocessing.Manager().Queue()``
+         -                  ``multiprocessing.Manager().Barrier()``
+         -                  ``multiprocessing.Manager().Value()``
+         -                  ``multiprocessing.Manager().Array()``
         ================  =======================
 
-        :效率: 共享内存 > 系统内核对象  > 服务进程对象
-        :继承:
-            - 本质上不是一种对象共享机制
-            - 父进程 **fork** 出的子进程自动继承父进程的内存状态和对象描述符
+    :效率: 共享内存 > 系统内核对象  > 服务进程对象
+
+    :用法: **进程安全对象** 必须在 **主进程** 中实例化，然后被 **子进程** 引用（
+        在 **子进程** 中实例化的 **进程安全对象** 是各自独立的）
+
+        :实例化:
+            1. 在 **主进程** 中直接实例化 **进程安全对象**
+            #. 将 **进程安全对象** 实例封装成类属性，在 **主进程** 中定义或导入类对象
+
+            :通过继承实现对象的共享:
+
+                - 继承本质上不是一种对象共享机制
+                - 父进程 **fork** 出的子进程
+                - 子进程自动继承父进程的内存状态和对象描述符
                 - 子进程从父进程继承来的对象并不一定是共享的
                 - 子进程复制了一份父进程的对象
-                    - 当这个对象包装了一些 **进程安全对象** 的时候，拷贝这个对象（及其包装的描述符）实现了对象的共享
-            - 因此，只有 **进程安全对象** 和基于这些对象实现的对象，才能够通过继承来共享
-            - 通过继承共享对象
-                - 在 linux 平台上没有任何限制
-                - 在 Windows 上面由于没有实现 fork ，继承方式几乎无法共享对象
+                - 当这个对象包装了一些 **进程安全对象** 时，拷贝这个对象实现了对象的共享
+                - 因此，只有 **进程安全对象** 和基于这些对象实现的对象，才能够通过继承来共享
+                - 通过继承共享对象
+                    - 在 linux 平台上没有任何限制
+                    - 在 Windows 上面由于没有实现 fork ，继承方式几乎无法共享对象
 
-    :应用程序间通信: ``Redis, RabbitMQ``
+        :引用:
 
+            1. 在 **子进程** 中直接引用
+            #. 在创建 **子进程** 时，传递过去
+
+                :给进程池传递进程安全对象:
+
+                    - **进程安全对象** 无法像普通参数那样传入 apply/apply_async
+                    - **进程安全对象** 必须在进程池实例化的时候通过 initializer,initargs 设置成进程间全局对象
+                    .. code-block:: python
+
+                        from multiprocessing import Pool, Lock
+
+                        def init(l):
+                            global lock
+                            lock = l
+                        pool = Pool(
+                            4,
+                            initializer=init,
+                            initargs=(Lock(),)
+                        )
 
 共享内存
-"""""""""
-    - 内部实现了锁机制，不会堵塞进程
-    - 支持 **ctypes** 当中的类型
-    - 这种共享方式，依赖于继承
-        - 由于缺少命名机制，在一个进程当中创建的对象，无法在另外一个进程当中通过名字来引用
-        - 因此，这种共享方式依赖于继承，对象应该由父进程创建，然后由子进程引用
-    - 使用共享内存和必要的同步锁，性能比其它共享方式提升很大
+--------------
+- 内部实现了锁机制，不会堵塞进程
+- 支持 **ctypes** 当中的类型
+- 这种共享方式，依赖于继承
+    - 由于缺少命名机制，在一个进程当中创建的对象，无法在另外一个进程当中通过名字来引用
+    - 因此，这种共享方式依赖于继承，对象应该由父进程创建，然后由子进程引用
+- 使用共享内存和必要的同步锁，性能比其它共享方式提升很大
+- 区别
+
+    :multiprocessing.RawValue(), multiprocessing.RawArray(): 可以传入一个 **锁** 对象，用于同步
+    :multiprocessing.Value(), multiprocessing.Array(): 不存在锁定
 
 
 系统内核对象
-""""""""""""""
-    - 在主进程中共享数据
+---------------
+- 在主进程中共享数据
 
-    :mutiprocessing.Pipe(duplex):
-        :duplex:
-            :True: 双向管道（只允许从管道一端的进程输入）
-            :False: 单向管道（允许从管道两端的进程输入）
+:mutiprocessing.Pipe(duplex):
+    :duplex:
+        :True: 双向管道（只允许从管道一端的进程输入）
+        :False: 单向管道（允许从管道两端的进程输入）
 
-        - 返回一个含有两个元素的表，每个元素代表管道的一端（Connection对象）
-            - 把两个元素分配给两个进程
-            - 一个进程从管道一端输入（ **send()** ）对象
-            - 另一个进程从管道另一端接收（ **recv()** ）对象
-    :mutiprocessing.JoinableQueue: 强化版本的队列
+    - 返回一个含有两个元素的表，每个元素代表管道的一端（Connection对象）
+        - 把两个元素分配给两个进程
+        - 一个进程从管道一端输入（ **send()** ）对象
+        - 另一个进程从管道另一端接收（ **recv()** ）对象
 
-        - 新增两个方法
-            :task_done(): 给消费者每完成队列中的一个任务，调用一次该方法
-            :join():      当所有的 tasks 都完成之后，交给调用 join() 的进程执行
+:mutiprocessing.JoinableQueue: 强化版本的队列
+
+    - 新增两个方法
+
+        :task_done(): 给消费者每完成队列中的一个任务，调用一次该方法
+        :join():      当所有的 tasks 都完成之后，交给调用 join() 的进程执行
 
 
 服务进程对象
-""""""""""""""
-    - 控制一个子进程，其他的进程通过 proxies 访问此子进程的容器对象
-    - 典型的RPC（远程过程调用）调用方式
-        - 可以实现不同主机、不同主进程创建的子进程之间共享数据
+--------------------
+- 控制一个子进程，其他的进程通过 proxies 访问此子进程的容器对象
+- 典型的RPC（远程过程调用）调用方式
+    - 可以实现不同主机、不同主进程创建的子进程之间共享数据
 
-    :Manager().Namespace():
-        - 没有公共方法，可以添加属性
-        - **_xxx** 属性值属于 proxy ，跟原来的 namespace 没有关系
+:Manager().Namespace():
+
+    - 没有公共方法，可以添加属性
+    - **_xxx** 属性值属于 proxy ，跟原来的 namespace 没有关系
 
 *django 会启动多进程来监听 http 请求*

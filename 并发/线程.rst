@@ -1,69 +1,72 @@
 python 伪线程/定时器
 ===================
-    - **CPython** 由于 **解释器全局锁** ，线程在 **1** 个进程内定时切换
-        - 所以无法利用多核的优势
-        - 所以更适合 **I/O** 密集型应用
+- **CPython** 由于 **解释器全局锁** ，线程在 **1** 个进程内定时切换
+    - 所以无法利用多核的优势
+    - 所以更适合 **I/O** 密集型应用
 
 
 阻塞
 -----
-    :threading.Timer(seconds, func): 异步阻塞一段时间，后面的代码会不间断执行
-    :time.sleep(n):                  同步阻塞一段时间，可以模拟 **I/O** 阻塞
+
+:threading.Timer(seconds, func): 异步阻塞一段时间，后面的代码会不间断执行
+:time.sleep(n):                  同步阻塞一段时间，可以模拟 **I/O** 阻塞
 
 
 multiprocessing.dummy
 ----------------------
-    - 精确克隆了 **mulprocessing** 的 **API** （线程版）
-    - 可以方便地切换并发/并行
-    :Pool:
-        - 线程池
-            :Pool().map(func, iterable): 将序列分配到不同线程上，分别执行函数
+- 精确克隆了 **mulprocessing** 的 **API** （线程版）
+- 可以方便地切换并发/并行
+
+:multiprocessing.dummy.Pool:
+    - 线程池
+        :Pool().map(func, iterable): 将序列分配到不同线程上，分别执行函数
 
 
 API
 ====
-    .. code-block:: python
+.. code-block:: python
 
-        import  _thread, threading
-        from threading import Thread, current_thread
-        t = Thread(
-            group=None,
-            target=None,  #: 执行函数
-            args=(),      #: target 参数
-            kwargs=None,  #: target 字典参数
-            name=None,    #: 别名
-        )
-        t.setDaemon()  #: t.daemon = True/False
-        t.start()
-        t.join()
-        t.getName()    #: 返回线程名
-        t.setName("")  #: 设置线程名
-        threading.get_ident()            #: 返回当前线程标识（start() 之后，非 0）  #: _thread.get_ident()
-        current_thread()                 #: 返回当前线程对象
-        current_thread().is_alive()      #: 判断线程是否活动
-        current_thread().getName()       #: 返回线程名
-        current_thread().setName("xxx")  #: 设置线程名
-        threading.enumerate()            #: 返回正在运行的线程列表
-        threading.active_count()         #: 返回正在运行的线程数
-        _thread.interrupt_main()         #: 在子线程中终止主线程
+    import  _thread, threading
+    from threading import Thread, current_thread
+    t = Thread(
+        group=None,
+        target=None,  #: 执行函数
+        args=(),      #: target 参数
+        kwargs=None,  #: target 字典参数
+        name=None,    #: 别名
+    )
+    t.setDaemon()  #: t.daemon = True/False
+    t.start()
+    t.join()
+    t.getName()    #: 返回线程名
+    t.setName("")  #: 设置线程名
+    threading.get_ident()            #: 返回当前线程标识（start() 之后，非 0）  #: _thread.get_ident()
+    current_thread()                 #: 返回当前线程对象
+    current_thread().is_alive()      #: 判断线程是否活动
+    current_thread().getName()       #: 返回线程名
+    current_thread().setName("xxx")  #: 设置线程名
+    threading.enumerate()            #: 返回正在运行的线程列表
+    threading.active_count()         #: 返回正在运行的线程数
+    _thread.interrupt_main()         #: 在子线程中终止主线程
 
 
 线程安全对象
 ============
-    :模块: 一个模块只会被实例化一次
-    :容器:
-        :类对象:   在多线程下释放不完全，没释放的那部分内存，可以重复利用
-        :单例对象: 在多线程下可以保证唯一性（id 相同）
 
-        - 容器内部最内层的原子对象，不是线程安全的
-        - 共享的容器对象，不能覆盖赋值
-        - 可以修改的共享数据，尽量用锁来保护
-    :线程全局变量:
-        :threading.local()/_thread._local():
-            - 用于管理线程相关的数据，避免局部变量传递麻烦
-            - 在线程中定义，绑定变量
-                - 只在该线程中为全局变量
-                - 对于其他线程来说是局部变量，不可更改
+:模块: 一个模块只会被实例化一次
+:容器:
+    :类对象:   在多线程下释放不完全，没释放的那部分内存，可以重复利用
+    :单例对象: 在多线程下可以保证唯一性（id 相同）
 
-        - Flask 底层 Werkzeug 的 LocalStack ，就是基于线程全局变量，每个线程处理一个 HTTP 请求
-    :线程队列: Queue
+    - 容器内部最内层的原子对象，不是线程安全的
+    - 共享的容器对象，不能覆盖赋值
+    - 可以修改的共享数据，尽量用锁来保护
+:线程全局变量:
+    :threading.local()/_thread._local():
+        - 用于管理线程相关的数据，避免局部变量传递麻烦
+        - 在线程中定义，绑定变量
+            - 只在该线程中为全局变量
+            - 对于其他线程来说是局部变量，不可更改
+
+    - Flask 底层 Werkzeug 的 LocalStack ，就是基于线程全局变量，每个线程处理一个 HTTP 请求
+:线程队列: Queue
