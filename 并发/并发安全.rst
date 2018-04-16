@@ -1,18 +1,18 @@
 并发安全对象
 ================
-    - 在 **子执行** 中实例化的 **并发安全对象** 是各自独立的
-    - **并发安全对象** 必须在 **主执行单元** 中 ``实例化`` ，然后被 **子执行单元** ``引用``
+- 在 **子执行** 中实例化的 **并发安全对象** 是各自独立的
+- **并发安全对象** 必须在 **主执行单元** 中 ``实例化`` ，然后被 **子执行单元** ``引用``
 
-    :用法:
+:用法:
 
-        :实例化:
-            1. 在 **主执行单元** 中直接实例化 **并发安全对象**
-            #. 将 **并发安全对象** 实例封装成类属性，在 **主执行单元** 中定义或导入类对象
+    :实例化:
+        1. 在 **主执行单元** 中直接实例化 **并发安全对象**
+        #. 将 **并发安全对象** 实例封装成类属性，在 **主执行单元** 中定义或导入类对象
 
-        :引用:
+    :引用:
 
-            1. 在 **子执行单元** 中通过变量名引用
-            #. 在创建 **子执行单元** 时，作为初始化参数，传递过去
+        1. 在 **子执行单元** 中通过变量名引用
+        #. 在创建 **子执行单元** 时，作为初始化参数，传递过去
 
 
 锁
@@ -27,7 +27,7 @@
         - 即使 ``线程数 <= CPU 核心数`` ，也只能用到 **1** 个核
         - 在 ``解释器级别`` 实现了对共享资源访问的互斥
 
-:进程锁/线程锁: **multiprocessing/multiprocessing.Manager()/threading** 都实现了下列对象
+:进程锁/线程锁: **multiprocessing, multiprocessing.Manager(). threading** 都实现了下列对象
 
     :``Lock()``:              `互斥（同步）锁`_
     :``RLock()``:             `多重（递归）锁`_
@@ -123,49 +123,76 @@
 :进程队列: 进程与进程之间进行通讯
 :协程队列: 在同一个进程下的协程间通讯（对线程队列进行了优化）
 :消息队列: 程序与程序之间进行通讯
-:API:
 
-    .. code-block:: python
 
-        import Queue
+API
+"""""
+.. code-block:: python
 
-        Q = Queue.Queue()
+    import Queue
 
-        # 在队尾插入一个对象
-        Q.put(item, block=True, timeout=None)
-        """
-        timeout  设置等待超时时间
-                 None  一直等待（阻塞）
-        block    True   如果队列已满，阻塞，直至超时，引发 Queue.Full
-                 False  如果队列已满，不阻塞，立即引发 Queue.Full
-        Q.put_nowait(item) == Q.put(item, block=False)
-        """
+    Q = Queue.Queue()
 
-        # 从队列中删除并返回一个对象
-        Q.get(block=True, timeout=None)
-        """
-        timeout  设置等待超时时间
-                 None  一直等待（阻塞）
-        block    True   如果队列已空，阻塞，直至超时，引发 Queue.Empty
-                 False  如果队列已空，不阻塞，立即引发 Queue.Empty
-        Q.get_nowait() == Q.get(block=False)
-        """
+    # 在队尾插入一个对象
+    Q.put(item, block=True, timeout=None)
+    """
+    timeout  设置等待超时时间
+             None  一直等待（阻塞）
+    block    True   如果队列已满，阻塞，直至超时，引发 Queue.Full
+             False  如果队列已满，不阻塞，立即引发 Queue.Full
+    Q.put_nowait(item) == Q.put(item, block=False)
+    """
 
-        Q.empty()       # -> True/False 判断队列是否为空
-        Q.qsize()       # -> 队列的大小
-        Q.full()        # -> True/False 判断队列是否满了
+    # 从队列中删除并返回一个对象
+    Q.get(block=True, timeout=None)
+    """
+    timeout  设置等待超时时间
+             None  一直等待（阻塞）
+    block    True   如果队列已空，阻塞，直至超时，引发 Queue.Empty
+             False  如果队列已空，不阻塞，立即引发 Queue.Empty
+    Q.get_nowait() == Q.get(block=False)
+    """
 
-        Q.task_done()
-        """
-        向队列发送一个信号，unfinished_tasks-1
-        要在一项任务完成后，才调用task_done()
-        """
-        Q.join()
-        """
-        阻塞调用线程，直到队列的任务数为0，再执行别的操作
-        join() 判空标准： unfinished_tasks==0
-            unfinished_tasks保存了当前队列中的数目
-            只要有数据被加入队列，unfinished_tasks就会增加
-            while self.unfinished_tasks:
-                self.all_tasks_done.wait()  # 阻塞
-        """
+    Q.empty()       # -> True/False 判断队列是否为空
+    Q.qsize()       # -> 队列的大小
+    Q.full()        # -> True/False 判断队列是否满了
+
+:``task_done(), join()``:
+    - 未实现 ``task_done(), join()`` 的模块方法
+        - ``gevent.queue.Queue``
+        - ``gevent.queue.LifoQueue``
+        - ``gevent.queue.PriorityQueue``
+        - ``multiprocessing.Queue``
+    - 实现了 ``task_done(), join()`` 的模块方法
+        - ``Queue.Queue``
+        - ``Queue.LifoQueue``
+        - ``Queue.PriorityQueue``
+        - ``gevent.queue.JoinableQueue``
+        - ``multiprocessing.JoinableQueue``
+        - ``multiprocessing.Manager().Queue``
+        - API
+            .. code-block:: python
+
+                Q.put(item, block=True, timeout=None)
+                """
+                原理：
+                     unfinished_tasks += 1
+                        unfinished_tasks 保存了当前队列中的数目
+                        只要有数据被加入队列，unfinished_tasks 就会增加
+                """
+                Q.task_done()
+                """
+                用法： 在一项任务完成后，调用
+                原理：
+                    unfinished_tasks -= 1
+                        调用 get() 获取并删除了元素，但 unfinished_tasks 并没有减少
+                        只有调用 task_done() 时才减少 unfinished_tasks
+                        当 unfinished_tasks == 0 ，向队列发送一个信号
+                """
+                Q.join()
+                """
+                用法： 阻塞当前执行单元，直到队列的任务数为 0 ，再执行别的操作
+                原理
+                    使用 wait() 挂起（阻塞）执行单元
+                    直到 task_done() 判断 unfinished_tasks == 0 ，向队列发送一个信号
+                """
