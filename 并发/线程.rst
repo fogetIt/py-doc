@@ -69,4 +69,4 @@ API
             - 对于其他线程来说是局部变量，不可更改
 
     - Flask 底层 Werkzeug 的 LocalStack ，就是基于线程全局变量，每个线程处理一个 HTTP 请求
-:线程队列: Queue
+- 线程 `队列和锁 <并发安全.rst>`_
