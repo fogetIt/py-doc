@@ -89,9 +89,7 @@
 
         ================  =======================
         `共享内存`_          ``multiprocessing.Value()``
-         -                  ``multiprocessing.RawValue()``
          -                  ``multiprocessing.Array()``
-         -                  ``multiprocessing.RawArray()``
         `系统内核对象`_       ``multiprocessing.Pipe(duplex)``
          -                  ``multiprocessing.Queue()``
          -                  ``multiprocessing.JoinableQueue()``
@@ -157,13 +155,11 @@
 共享内存
 --------------
 - 支持 **ctypes** 当中的类型
-- 内核不会对共享内存的访问进行同步
-    - 接收一个 **锁** 对象，用于同步
-        - ``multiprocessing.RawValue()``
-        - ``multiprocessing.RawArray()``
-    - 不存在锁定
-        - ``multiprocessing.Value()``
-        - ``multiprocessing.Array()``
+- 接收一个 **锁** 对象，用于同步
+- **python3** 已废弃的 **API**
+    - ``multiprocessing.RawValue(), multiprocessing.RawArray()``
+        - 不存在锁定
+        - 内核不会对共享内存的访问进行同步
 - 这种共享方式，依赖于继承
     - 由于缺少命名机制，在一个进程当中创建的对象，无法在另外一个进程当中通过名字来引用
     - 因此，这种共享方式依赖于继承，对象应该由父进程创建，然后由子进程引用
