@@ -18,8 +18,6 @@
         .. _迭代: 迭代/README.rst
     - `*基础扩展`_
         .. _`*基础扩展`: 基础扩展/README.rst
-    - 内建模块_
-        .. _内建模块: 内建模块/README.rst
     - `*web`_
         .. _`*web`: web/README.rst
     - `*并发`_
