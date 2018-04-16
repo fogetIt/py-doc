@@ -173,6 +173,14 @@ API
         - API
             .. code-block:: python
 
+                """
+                用 task_done() 与 join() 配合，来判断队列是否已经结束
+                    get() 不知道队列空了，因此就需要在 get() 前判断 empty()
+                        用 while 循环检查 empty()
+                        empty() 会立马返回
+                        如果队列为空，会一直死循环，循环等待很耗 CPU
+                """
+
                 Q.put(item, block=True, timeout=None)
                 """
                 原理：
@@ -182,7 +190,12 @@ API
                 """
                 Q.task_done()
                 """
-                用法： 在一项任务完成后，调用
+                用法：
+                    在一项任务完成后，调用（为了配合 join ，阻塞/重启某个执行单元）
+                        如果在 get() 之后立即调用
+                        get() 之后还有耗时任务
+                        在耗时任务未完成时切换到了被 join() 执行单元
+                        被 join() 的执行单元会在耗时任务未完成前就执行下一步程序
                 原理：
                     unfinished_tasks -= 1
                         调用 get() 获取并删除了元素，但 unfinished_tasks 并没有减少
@@ -191,7 +204,7 @@ API
                 """
                 Q.join()
                 """
-                用法： 阻塞当前执行单元，直到队列的任务数为 0 ，再执行别的操作
+                用法： 阻塞当前执行单元（通常是主执行单元），直到队列的任务数为 0 ，再执行别的操作
                 原理
                     使用 wait() 挂起（阻塞）执行单元
                     直到 task_done() 判断 unfinished_tasks == 0 ，向队列发送一个信号
