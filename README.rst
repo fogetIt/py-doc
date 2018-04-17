@@ -16,8 +16,6 @@
         .. _异常: 异常/README.rst
     - 迭代_
         .. _迭代: 迭代/README.rst
-    - `*基础扩展`_
-        .. _`*基础扩展`: 基础扩展/README.rst
     - `*web`_
         .. _`*web`: web/README.rst
     - `*并发`_

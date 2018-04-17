@@ -1,183 +1,186 @@
 作用域
 ======
-    - 变量（标识符）起作用的范围（所处的命名空间）
-    :赋值: 产生标识符
+- 变量（标识符）起作用的范围（所处的命名空间）
 
-        :显式赋值:
-            - 直接赋值
-            - 链式赋值
-            - 序列解包赋值
-        :隐式赋值:
-            - 模块导入
-            - 函数和类的定义
-            - 循环变量
-            - 函数参数
-        - 赋值的地点决定标识符作用域
-    :定义函数: 产生新的作用域
+:赋值: 产生标识符
+
+    :显式赋值:
+        - 直接赋值
+        - 链式赋值
+        - 序列解包赋值
+    :隐式赋值:
+        - 模块导入
+        - 函数和类的定义
+        - 循环变量
+        - 函数参数
+    - 赋值的地点决定标识符作用域
+:定义函数: 产生新的作用域
 
 
 标识符的搜索顺序
 --------------
-    - ``L(local) ---> E(enclosing function) ---> G(global) ---> B(builtin)``
-    :`L`: 局部作用域
+- ``L(local) ---> E(enclosing function) ---> G(global) ---> B(builtin)``
 
-        - 在一个函数中，而且这个函数里没有再包含函数
-    :`E`: 嵌套作用域
+:`L`: 局部作用域
 
-        - 在一个函数中，但这个函数里面还包含有函数定义
-        - L 层和 E 层只是相对的
-    :`G`: 全局作用域
-    :`B`: 内建作用域
+    - 在一个函数中，而且这个函数里没有再包含函数
+:`E`: 嵌套作用域
 
-        - 在解释器启动时就自动载入 **__builtin__** 模块（包含 **list(),str()** 等内置函数）
+    - 在一个函数中，但这个函数里面还包含有函数定义
+    - L 层和 E 层只是相对的
+:`G`: 全局作用域
+:`B`: 内建作用域
+
+    - 在解释器启动时就自动载入 **__builtin__** 模块（包含 **list(),str()** 等内置函数）
 
 
 函数内部无法修改外部的对象
 ----------------------
-    - 在某个作用域内为变量赋值时，变量被解释器自动视作该作用域的本地变量
-    .. code-block:: python
+- 在某个作用域内为变量赋值时，变量被解释器自动视作该作用域的本地变量
+.. code-block:: python
 
-        i1, l1 = 0, [0]
-        def outer():
-            i2, l2 = 0, [0]
-            def inner():
-                print(i1, i2)      #: 0 0                #: 外部不可变对象，直接访问
-                # i1 += 1          #: UnboundLocalError  #: 外部不可变对象，无法修改
-                # i2 += 1          #: UnboundLocalError
-                print(l1, l2)      #: [0] [0]            #: 外部可变对象，直接访问
-                l1[0] += 1
-                l2.append(123)
-                print(l1, l2)      #: [1] [0, 123]       #: 外部可变对象，修改其内层引用
-                # l1 += [1]        #: UnboundLocalError  #: 外部可变对象，无法修改
-            print(i1, i2, l1, l2)  #: 0 0 [0] [0]        #: 最先执行
-            return inner
-        outer()()
-        print(i1, l1)              #: 0 [1]              #: 最后执行
-    - `lambda 函数直接修改外部的对象`__
+    i1, l1 = 0, [0]
+    def outer():
+        i2, l2 = 0, [0]
+        def inner():
+            print(i1, i2)      #: 0 0                #: 外部不可变对象，直接访问
+            # i1 += 1          #: UnboundLocalError  #: 外部不可变对象，无法修改
+            # i2 += 1          #: UnboundLocalError
+            print(l1, l2)      #: [0] [0]            #: 外部可变对象，直接访问
+            l1[0] += 1
+            l2.append(123)
+            print(l1, l2)      #: [1] [0, 123]       #: 外部可变对象，修改其内层引用
+            # l1 += [1]        #: UnboundLocalError  #: 外部可变对象，无法修改
+        print(i1, i2, l1, l2)  #: 0 0 [0] [0]        #: 最先执行
+        return inner
+    outer()()
+    print(i1, l1)              #: 0 [1]              #: 最后执行
+- `lambda 函数直接修改外部的对象`__
 .. __: 匿名函数.rst
 
 
 nonlocal
 ---------
-    - **python3 新增**
-    - 在函数或其他作用域中使用外层（非全局）变量
+- **python3 新增**
+- 在函数或其他作用域中使用外层（非全局）变量
 
-        .. code-block:: python
+    .. code-block:: python
 
-            i1, l1 = 0, [0]
-            def outer():
-                # nonlocal i1  #: SyntaxError
-                # nonlocal l1  #: SyntaxError
-                i2, l2 = 0, [0]
-                def inner():
-                    nonlocal i2, l2
-                    i2 += 1
-                    l2 += [1]
-                    print(i1, l1, i2, l2)  #: 0 [0] 1 [0, 1]  #: 后执行
-                print(i1, l1, i2, l2)      #: 0 [0] 0 [0]     #: 先执行
-                return inner
+        i1, l1 = 0, [0]
+        def outer():
+            # nonlocal i1  #: SyntaxError
+            # nonlocal l1  #: SyntaxError
+            i2, l2 = 0, [0]
+            def inner():
+                nonlocal i2, l2
+                i2 += 1
+                l2 += [1]
+                print(i1, l1, i2, l2)  #: 0 [0] 1 [0, 1]  #: 后执行
+            print(i1, l1, i2, l2)      #: 0 [0] 0 [0]     #: 先执行
+            return inner
 
 
 global
 ------
-    - 在局部对全局变量（不可变类型）修改
+- 在局部对全局变量（不可变类型）修改
 
-        .. code-block:: python
+    .. code-block:: python
 
-            i = j = 0
-            def outer():
-                print(i, j)      #: 0 0
-                global i
+        i = j = 0
+        def outer():
+            print(i, j)      #: 0 0
+            global i
+            i += 1
+            print(i, j)      #: 1 0
+            def inner():
+                global i, j
                 i += 1
-                print(i, j)      #: 1 0
-                def inner():
-                    global i, j
-                    i += 1
-                    print(i, j)  #: 2 0
-                return inner
-            outer()()
-            print(i, j)          #: 2 0  # 全局变量也随之改变
+                print(i, j)  #: 2 0
+            return inner
+        outer()()
+        print(i, j)          #: 2 0  # 全局变量也随之改变
 
 
 嵌套函数
 =======
-    - **outer** 必须 **return inner** ，才能 ``在外部`` 执行 **inner**
-    :闭包: 由函数和与其相关的引用环境组合而成的实体
+- **outer** 必须 **return inner** ，才能 ``在外部`` 执行 **inner**
 
-        - **inner** 引用了 **outer** 的变量（包括参数）
-        - **outer** 的局部变量被 **inner** 引用，并返回 **inner**
-        - 返回的函数并没有立刻执行，而是执行 迟绑定机制_
-        - 被引用的 **outer 变量** 将和 **inner 函数** 一同存在，即使已经离开了创造它的环境
-    :闭包的作用:
-        - 加强模块化
-        - 增强抽象
-        - 在闭包的基础上实现了 `装饰器 <装饰器.rst>`_
+:闭包: 由函数和与其相关的引用环境组合而成的实体
+
+    - **inner** 引用了 **outer** 的变量（包括参数）
+    - **outer** 的局部变量被 **inner** 引用，并返回 **inner**
+    - 返回的函数并没有立刻执行，而是执行 迟绑定机制_
+    - 被引用的 **outer 变量** 将和 **inner 函数** 一同存在，即使已经离开了创造它的环境
+:闭包的作用:
+    - 加强模块化
+    - 增强抽象
+    - 在闭包的基础上实现了 `装饰器 <装饰器.rst>`_
 
 
 迟绑定机制
 ---------
-    :late binding: 闭包中变量的值只有在内部函数被调用时才会进行查询
+:late binding: 闭包中变量的值只有在内部函数被调用时才会进行查询
 
-        .. code-block:: python
+    .. code-block:: python
 
-            def qiu_he(*args): return sum(args)
-            print(qiu_he(1, 2, 3, 4, 5))  #: 15  #: 立刻求和
+        def qiu_he(*args): return sum(args)
+        print(qiu_he(1, 2, 3, 4, 5))  #: 15  #: 立刻求和
 
 
-            def closure_qiu_he(*args):
-                """
-                不立刻求和，而是返回求和的函数，根据需要再计算求和的结果
-                """
-                def qiu_he():
-                    print("step 2", end=" "); return sum(args)  #: 调用时执行
-                print("step 1"); return qiu_he                  #: 立刻执行
+        def closure_qiu_he(*args):
+            """
+            不立刻求和，而是返回求和的函数，根据需要再计算求和的结果
+            """
+            def qiu_he():
+                print("step 2", end=" "); return sum(args)  #: 调用时执行
+            print("step 1"); return qiu_he                  #: 立刻执行
 
-            f = closure_qiu_he(1, 2, 3, 4, 5)   #: step1
-            f1 = closure_qiu_he(1, 2, 3, 4, 5)  #: step1
-            print(f == f1)                      #: False  # 每次调用都会返回一个新函数（即使入参相同）
-            print(f)                            #: <function ...>
-            print(f())                          #: step2 15
-            print(f() == f1())                  #: step2 step2 True
+        f = closure_qiu_he(1, 2, 3, 4, 5)   #: step1
+        f1 = closure_qiu_he(1, 2, 3, 4, 5)  #: step1
+        print(f == f1)                      #: False  # 每次调用都会返回一个新函数（即使入参相同）
+        print(f)                            #: <function ...>
+        print(f())                          #: step2 15
+        print(f() == f1())                  #: step2 step2 True
 
-        - **multi_fun = lambda : [lambda x: i * x for i in range(4)]**
-            - 内层函数不要引用外层循环变量或者后续会发生变化的变量
+    - **multi_fun = lambda : [lambda x: i * x for i in range(4)]**
+        - 内层函数不要引用外层循环变量或者后续会发生变化的变量
 
-                .. code-block:: python
+            .. code-block:: python
 
-                    def multi_fun():
-                        fs = []
-                        for i in range(4):
-                            def f(x):
-                                return i * x  # 返回的内层函数引用了变量 i ，但它并非立刻执行
-                            fs.append(f)
-                        return fs
-                    print(multi_fun())                 # [<function ...>, ...]
-                    print([f(2) for f in multi_fun()]) # [6, 6, 6, 6]
-                    # 内层函数都返回时，它们所引用的变量 i 都已经变了
-            - 引用循环变量
+                def multi_fun():
+                    fs = []
+                    for i in range(4):
+                        def f(x):
+                            return i * x  # 返回的内层函数引用了变量 i ，但它并非立刻执行
+                        fs.append(f)
+                    return fs
+                print(multi_fun())                 # [<function ...>, ...]
+                print([f(2) for f in multi_fun()]) # [6, 6, 6, 6]
+                # 内层函数都返回时，它们所引用的变量 i 都已经变了
+        - 引用循环变量
 
-                .. code-block:: python
+            .. code-block:: python
 
-                    def multi_fun():
-                        def f(i):
+                def multi_fun():
+                    def f(i):
+                        """
+                        创建一个函数，参数绑定循环变量当前的值
+                        f() 函数与 for 循环分离，可以写在任意能调用到的地方
+                        """
+                        def g(x):
                             """
-                            创建一个函数，参数绑定循环变量当前的值
-                            f() 函数与 for 循环分离，可以写在任意能调用到的地方
+                            无论该循环变量后续如何更改，已绑定到函数参数的值不变
                             """
-                            def g(x):
-                                """
-                                无论该循环变量后续如何更改，已绑定到函数参数的值不变
-                                """
-                                return i * x
-                            return g
-                        fs = []
-                        for i in range(4):
-                            fs.append(f(i))
-                        return fs
-                    print([f(2) for f in multi_fun()])
-            - 引用循环变量
-                .. code-block:: python
+                            return i * x
+                        return g
+                    fs = []
+                    for i in range(4):
+                        fs.append(f(i))
+                    return fs
+                print([f(2) for f in multi_fun()])
+        - 引用循环变量
+            .. code-block:: python
 
-                    multi_fun = lambda : [lambda x, i=i: i * x for i in range(4)]
-                    print([f(2) for f in multi_fun()]) # [0, 2, 4, 6]
-                    # 使用默认参数，在函数初始化时绑定当时的 i
+                multi_fun = lambda : [lambda x, i=i: i * x for i in range(4)]
+                print([f(2) for f in multi_fun()]) # [0, 2, 4, 6]
+                # 使用默认参数，在函数初始化时绑定当时的 i

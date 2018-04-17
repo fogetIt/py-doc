@@ -1,39 +1,39 @@
 集合
-####
-    :`set([iterable]) -> new set object`_:             可变集合
+########
+:`set([iterable]) -> new set object`_:             可变集合
 
-        - 不可哈希
-    :`frozenset([iterable]) -> new frozenset object`_: 不可变集合
+    - 不可哈希
+:`frozenset([iterable]) -> new frozenset object`_: 不可变集合
 
-        - 可哈希
+    - 可哈希
 
 
 set([iterable]) -> new set object
 ---------------------------------
-    - 自动过滤重复元素
-        - 可以给列表、元组去重
-        - 可以做字典的键
-    - 无序
-        - 没有索引、切片
-        - 只能通过 ``in, not in`` 来判断元素
+- 自动过滤重复元素
+    - 可以给列表、元组去重
+    - 可以做字典的键
+- 无序
+    - 没有索引、切片
+    - 只能通过 ``in, not in`` 来判断元素
 
-    ========================  =================
-    ``s.add(element)``          添加 **1** 个参数
-    ``s.remove(element)``       删除 **1** 个元素
-    ``s.update([iterable])``    添加 **0~*** 个元素
-    ========================  =================
+========================  =================
+``s.add(element)``          添加 **1** 个参数
+``s.remove(element)``       删除 **1** 个元素
+``s.update([iterable])``    添加 **0~*** 个元素
+========================  =================
 
-    **运算**
-        .. code-block:: python
+**运算**
+    .. code-block:: python
 
-            s1 = set('2kp8rvUA')
-            # error: s + s1
-            s | s1 == s.union(s1)                 #: 并集
-            s - s1 == s.difference(s1)            #: 补集
-            s & s1 == s.intersection(s1)          #: 交集
-            s ^ s1 == s.symmetric_difference(s1)  #: 补集之和
+        s1 = set('2kp8rvUA')
+        # error: s + s1
+        s | s1 == s.union(s1)                 #: 并集
+        s - s1 == s.difference(s1)            #: 补集
+        s & s1 == s.intersection(s1)          #: 交集
+        s ^ s1 == s.symmetric_difference(s1)  #: 补集之和
 
 
 frozenset([iterable]) -> new frozenset object
 ---------------------------------------------
-    ``has't add(), update(), remove()``
+``has't add(), update(), remove()``

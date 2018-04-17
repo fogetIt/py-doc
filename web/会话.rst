@@ -1,49 +1,46 @@
 会话
 ====
-    - 为了实现中断/继续等操作，将 **user agent** 和 **server** 之间一对一的交互，抽象为“会话”
-    :cookie 会话: 在客户端维护用户信息
+- 为了实现中断/继续等操作，将 **user agent** 和 **server** 之间一对一的交互，抽象为“会话”
 
-        - 安全性不好
-    :cookie/session: cookie 只保存服务端传来的 **session_id**
-
-        - 降低服务端的性能
+:cookie 会话: 在客户端维护用户信息（安全性不好）
+:cookie/session: cookie 只保存服务端传来的 **session_id** （降低服务端的性能）
 
 
 session
 --------
-    - 在建立连接期间保持不变，实现中断/继续等操作，在不同请求之间储存信息
-    - 通常是保存在内存中
+- 在建立连接期间保持不变，实现中断/继续等操作，在不同请求之间储存信息
+- 通常是保存在内存中
 
 
 cookie
 -------
-    - **http** 协议中定义在 **header** 中的字段
-        - 无法跨域
-        - 某些移动应用（比如微信小程序）不支持 **cookie**
-    - e.g.
-        ``name=xxx; path=/; domain=xxx; HttpOnly; Expires=Tue, 19 Jan 2038 03:14:07 GMT;``
+- **http** 协议中定义在 **header** 中的字段
+    - 无法跨域
+    - 某些移动应用（比如微信小程序）不支持 **cookie**
+- e.g.
+    ``name=xxx; path=/; domain=xxx; HttpOnly; Expires=Tue, 19 Jan 2038 03:14:07 GMT;``
 
-        :domain: 表示 **cookie** 所在的域，默认为请求的地址
+    :domain: 表示 **cookie** 所在的域，默认为请求的地址
 
-            :``.xxx.com``: 能被 ``*.xxx.com`` 访问
-            :``xxx.xxx.com``: 只能被 ``xxx.xxx.com`` 访问
-        :path: 表示 **cookie** 所在的目录（能访问 **cookie** 的页面的目录）
+        :``.xxx.com``: 能被 ``*.xxx.com`` 访问
+        :``xxx.xxx.com``: 只能被 ``xxx.xxx.com`` 访问
+    :path: 表示 **cookie** 所在的目录（能访问 **cookie** 的页面的目录）
 
-            :``/``: 默认，根目录
-        :HttpOnly: 通过程序（JS脚本、Applet等）将无法读取 **cookie** ，能有效的防止 **XSS** 攻击
-        :Secure: 只能在 **HTTPS** 连接中被浏览器传递到服务器端进行会话验证，如果是 **HTTP** 连接则不会传递
-        :Expires: 失效时间
+        :``/``: 默认，根目录
+    :HttpOnly: 通过程序（JS脚本、Applet等）将无法读取 **cookie** ，能有效的防止 **XSS** 攻击
+    :Secure: 只能在 **HTTPS** 连接中被浏览器传递到服务器端进行会话验证，如果是 **HTTP** 连接则不会传递
+    :Expires: 失效时间
 
 
 cookie/session 交互流程
 ----------------------
-    - 服务端根据业务逻辑（比如：用户输入用户名、密码登录）生成 **session**
-    - 服务端生成 **session** 后发送 **set-cookie** 响应头给客户端
-    - 客户端根据 **set-cookie** 响应头，生成（或更新） **cookie**
-    - 客户端下次请求时带上 **cookie** ，发送给服务端
-    - 服务端把 **cookie** 作为私钥，验证 **session** （时效，所属会话），执行相应的业务逻辑
-        - 验证 **session** 一般由框架自动完成
-    **flask 默认把 session 的数据都保存在客户端 cookie 中**
-    ::
-        flask 的 session 中写入的数据，将会以 json 字符串的形式，
-        经过 base64 编码写入到用户浏览器的 cookie 里。（仅供调试）
+- 服务端根据业务逻辑（比如：用户输入用户名、密码登录）生成 **session**
+- 服务端生成 **session** 后发送 **set-cookie** 响应头给客户端
+- 客户端根据 **set-cookie** 响应头，生成（或更新） **cookie**
+- 客户端下次请求时带上 **cookie** ，发送给服务端
+- 服务端把 **cookie** 作为私钥，验证 **session** （时效，所属会话），执行相应的业务逻辑
+    - 验证 **session** 一般由框架自动完成
+**flask 默认把 session 的数据都保存在客户端 cookie 中**
+::
+    flask 的 session 中写入的数据，将会以 json 字符串的形式，
+    经过 base64 编码写入到用户浏览器的 cookie 里。（仅供调试）

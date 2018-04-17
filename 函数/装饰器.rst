@@ -1,88 +1,89 @@
 decorator
 =========
-    针对嵌套函数的语法糖
+针对嵌套函数的语法糖
 
 
 高阶函数
 -------
-    - 函数的参数能够接收别的函数
-        - 函数也是一个对象，可以被赋值给变量，通过变量也能调用该函数
-        - 在 **python** 中函数是一级对象
-        - 变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数
-        - 函数式编程就是指这种高度抽象的编程范式
-    .. code-block:: python
+- 函数的参数能够接收别的函数
+    - 函数也是一个对象，可以被赋值给变量，通过变量也能调用该函数
+    - 在 **python** 中函数是一级对象
+    - 变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数
+    - 函数式编程就是指这种高度抽象的编程范式
+.. code-block:: python
 
-        def add(x, y, f): return f(x) + f(y)
-        print(add(3, -5, abs)) # 8
+    def add(x, y, f): return f(x) + f(y)
+    print(add(3, -5, abs)) # 8
 
 
 标准的装饰器
 -----------
-    - ``modify ---> func() == decorator(func)()``
-        :初始化:
-            - **@decorator** 会在加载模块时执行初始化
-            - **高阶函数** ``decorator`` 接收 ``func`` ，返回一个包装了 ``func`` 的 **替代函数**： ``modify``
-            - 程序的其他部分看到的将是 **包装函数**： ``modify``
-        :调用:
-            - 使用 **func** 函数名调用
-            - **modify** 接收参数并传递给 **func**
-            - **modify** 执行 **func** 并返回结果给 **@decorator**
-    .. code-block:: python
+- ``modify ---> func() == decorator(func)()``
 
-        def decorator(func):
-            def modify(*args, **kwargs):
-                print("inner")
-                return func(*args, **kwargs)
-            print("outer")
-            return modify
+    :初始化:
+        - **@decorator** 会在加载模块时执行初始化
+        - **高阶函数** ``decorator`` 接收 ``func`` ，返回一个包装了 ``func`` 的 **替代函数**： ``modify``
+        - 程序的其他部分看到的将是 **包装函数**： ``modify``
+    :调用:
+        - 使用 **func** 函数名调用
+        - **modify** 接收参数并传递给 **func**
+        - **modify** 执行 **func** 并返回结果给 **@decorator**
+.. code-block:: python
+
+    def decorator(func):
+        def modify(*args, **kwargs):
+            print("inner")
+            return func(*args, **kwargs)
+        print("outer")
+        return modify
 
 
-        @decorator
-        def func(*args, **kwargs):
-            print("func")
-                                             #: outer             #: 初始化
-        decorator(lambda : print("func"))()  #: outer inner func  #: 执行嵌套函数
-        func()                               #: inner func        #: 执行装饰器
-        print(func.__name__)                 #: modify            #: 装饰之后的函数名变了
+    @decorator
+    def func(*args, **kwargs):
+        print("func")
+                                         #: outer             #: 初始化
+    decorator(lambda : print("func"))()  #: outer inner func  #: 执行嵌套函数
+    func()                               #: inner func        #: 执行装饰器
+    print(func.__name__)                 #: modify            #: 装饰之后的函数名变了
 
 
 不修改被装饰的函数的行为，只是获得它的引用
 ------------------------------------
-    - **被装饰函数无法接收参数**
-    .. code-block:: python
+- **被装饰函数无法接收参数**
+.. code-block:: python
 
-        def decorator(func):
-            print("get_func")
-            return func
+    def decorator(func):
+        print("get_func")
+        return func
 
 
-        @decorator
-        def func():
-            print("func")
-        func()  # get_func func
+    @decorator
+    def func():
+        print("func")
+    func()  # get_func func
 
 
 装饰函数接收参数（再加一层包装函数）
 ------------------------------
-    .. code-block:: python
+.. code-block:: python
 
-        def wrapper(*args, **kwargs):
-            print("wrapper")
-            def decorator(func):
-                def modify(*args, **kwargs):
-                    print("inner")
-                    return func(*args, **kwargs)
+    def wrapper(*args, **kwargs):
+        print("wrapper")
+        def decorator(func):
+            def modify(*args, **kwargs):
+                print("inner")
+                return func(*args, **kwargs)
 
-                print("outer")
-                return modify
-            return decorator
+            print("outer")
+            return modify
+        return decorator
 
 
-        @wrapper()
-        def func():
-            print("func")
-                #: wrapper outer  #: 初始化
-        func()  #: inner func     #: 执行装饰器
+    @wrapper()
+    def func():
+        print("func")
+            #: wrapper outer  #: 初始化
+    func()  #: inner func     #: 执行装饰器
 
 
 装饰器可以连用

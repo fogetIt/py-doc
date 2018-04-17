@@ -1,92 +1,93 @@
 捕获程序异常
-==========
-    - 在异常处理程序中，可以捕获基类异常，也可以捕获各种子类异常
-    :``except [Error, e]``:   ``python2``
-    :``except [Error as e]``: ``python2, python3``
+===========================
+- 在异常处理程序中，可以捕获基类异常，也可以捕获各种子类异常
+
+:``except [Error, e]``:   ``python2``
+:``except [Error as e]``: ``python2, python3``
 
 
 异常处理流程
------------
-    .. code-block:: python
+------------------
+.. code-block:: python
 
-        try: ...         #: 异常处理                 #: 可以嵌套在 try, except, else, finally 语句块内部
-        except ...: ...  #: 异常捕获                 #: 一个 except 可以处理多个异常，多个 except 可以并列
-        else: ...        #: 没有出错时执行
-        finally: ...     #: 无论是否出错，最后都会执行  #: 用于释放系统资源
+    try: ...         #: 异常处理                 #: 可以嵌套在 try, except, else, finally 语句块内部
+    except ...: ...  #: 异常捕获                 #: 一个 except 可以处理多个异常，多个 except 可以并列
+    else: ...        #: 没有出错时执行
+    finally: ...     #: 无论是否出错，最后都会执行  #: 用于释放系统资源
 
 
 异常处理语句嵌套
---------------
-    .. code-block:: python
+-------------------------------
+.. code-block:: python
 
+    try:
+        print(2 / 0)           #: 外层 try 子句代码引发异常
         try:
-            print(2 / 0)           #: 外层 try 子句代码引发异常
-            try:
-                print("inner ok")  #: 内层 try 子句不会被执行
-            except:
-                print("inner error")
-        except ZeroDivisionError as e:
-            print("outer error")   #: 程序直接跳转到对应的外层 except 子句
+            print("inner ok")  #: 内层 try 子句不会被执行
+        except:
+            print("inner error")
+    except ZeroDivisionError as e:
+        print("outer error")   #: 程序直接跳转到对应的外层 except 子句
 
 
 一个 except 处理多个异常
-----------------------
-    .. code-block:: python
+-------------------------------------
+.. code-block:: python
 
-        try:
-            print(2 / 0)
-        except (ZeroDivisionError, IOError) as e:
-            print(e)
+    try:
+        print(2 / 0)
+    except (ZeroDivisionError, IOError) as e:
+        print(e)
 
 
 多个 except 并列
----------------
-    .. code-block:: python
+-----------------------------
+.. code-block:: python
 
-        try:
-            print( 2 / 0)
-        except ZeroDivisionError as e:
-            print('ZeroDivisionError', e)  #: ZeroDiv...  #: 子异常类写在前面，优先捕获
-        except Exception as e:
-            print('Error:', e)             #:             #: 父异常类写在后面
+    try:
+        print( 2 / 0)
+    except ZeroDivisionError as e:
+        print('ZeroDivisionError', e)  #: ZeroDiv...  #: 子异常类写在前面，优先捕获
+    except Exception as e:
+        print('Error:', e)             #:             #: 父异常类写在后面
 
 
 显式地引发异常
-------------
-    - ``raise xxx``
-        - **raise** 后面的语句将不会执行
-    - 引发预期的错误
-        - 解释器不会引发此类错误
-        - 解释器引发的错误类型不够精确
-        - 满足预期条件时，打断程序（用于开发）
+---------------------------
+- ``raise xxx``
+    - **raise** 后面的语句将不会执行
+- 引发预期的错误
+    - 解释器不会引发此类错误
+    - 解释器引发的错误类型不够精确
+    - 满足预期条件时，打断程序（用于开发）
 
 
 自定义异常
 ---------
-    .. code-block:: python
+.. code-block:: python
 
-        class SelfError(Exception):
-            """
-            必须继承 Exception 类
-            命名规范： 以 Error 结尾
-            """
-            def __init__(self, err0="", err1=""):
-                super(SelfError, self).__init__(err0, err1)  #: 调用基类的 __init__ 进行初始化
-        print(SelfError("hello error"))  #: ('hello error', '')
-        try:
-            raise SelfError("hello error")                   #: 自定义异常不会自动引发，需要使用 raise 语句引发
-        except SelfError as e:
-            print(e)                     #: ('hello error', '')  #: e 表示 SelfError 的实例
+    class SelfError(Exception):
+        """
+        必须继承 Exception 类
+        命名规范： 以 Error 结尾
+        """
+        def __init__(self, err0="", err1=""):
+            super(SelfError, self).__init__(err0, err1)  #: 调用基类的 __init__ 进行初始化
+    print(SelfError("hello error"))  #: ('hello error', '')
+    try:
+        raise SelfError("hello error")                   #: 自定义异常不会自动引发，需要使用 raise 语句引发
+    except SelfError as e:
+        print(e)                     #: ('hello error', '')  #: e 表示 SelfError 的实例
 
 
 异常实例的作用域
---------------
-    .. code-block:: python
+-------------------------
+.. code-block:: python
 
-        e = ex = None
-        try: print(2 / 0)
-        except ZeroDivisionError as e: ex = e
-        print(e)   #: integer division or modulo by zero  #: python2 异常实例可以被外部访问
-                   #: UnboundLocalError                   #: python3 异常实例有单独的作用域
-        print(ex)  #: integer division or modulo by zero  #: python2
-                   #: division by zero                    #: python3
+    e = ex = None
+    try: print(2 / 0)
+    except ZeroDivisionError as e: ex = e
+    print(e)   #: integer division or modulo by zero  #: python2 异常实例可以被外部访问
+               #: UnboundLocalError                   #: python3 异常实例有单独的作用域
+    print(ex)  #: integer division or modulo by zero  #: python2
+               #: division by zero                    #: python3

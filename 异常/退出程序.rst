@@ -1,40 +1,43 @@
 退出 python 程序
-===============
-    - 退出代码
-        - 告诉解释器（或操作系统）实现了程序的功能（比如已经得到所要的结果），不要浪费 CPU
-        :``0``:     无错误退出
-        :``1~127``: 有错误退出
-    - 跳出导致死循环或强制退出
-    :``os._exit(*args, **kwargs)``:
-        :不抛异常立即退出:
-            - 调用 **C** 语言的 ``_exit()`` 函数
-            - 不执行相关清理工作
-            - 常用在 **子进程** 的退出
-    :`sys.exit(status=None)`_:
-        :引发 `SystemExit <异常树.rst>`_:
-            :不捕获异常: 直接退出程序
-            :捕获异常:   执行些清理工作
-            - 常用在 **主程序** 的退出
-    :``exit(*args, **kwargs)/quit()``:
-        :引发 `SystemExit <异常树.rst>`_:
-            - 基本上同 ``sys.exit``
-            - 常用在 **交互式 shell** 中退出
+===================
+
+- 退出代码
+    - 告诉解释器（或操作系统）实现了程序的功能（比如已经得到所要的结果），不要浪费 CPU
+
+    :``0``:     无错误退出
+    :``1~127``: 有错误退出
+- 跳出导致死循环或强制退出
+
+:``os._exit(*args, **kwargs)``:
+    :不抛异常立即退出:
+        - 调用 **C** 语言的 ``_exit()`` 函数
+        - 不执行相关清理工作
+        - 常用在 **子进程** 的退出
+:`sys.exit(status=None)`_:
+    :引发 `SystemExit <异常树.rst>`_:
+        :不捕获异常: 直接退出程序
+        :捕获异常:   执行些清理工作
+        - 常用在 **主程序** 的退出
+:``exit(*args, **kwargs)/quit()``:
+    :引发 `SystemExit <异常树.rst>`_:
+        - 基本上同 ``sys.exit``
+        - 常用在 **交互式 shell** 中退出
 
 
 sys.exit(status=None)
----------------------
-   .. code-block:: python
+------------------------
+.. code-block:: python
 
-        def sys_exit(status=0):
-            try:
-                sys.exit(status)
-            except SystemExit as e:
-                print("error", end=' ')
-            finally:
-                print("finally")
-        sys_exit()            #: error finally  #: status 默认为 0 ，表示正常退出
-        print("继续执行")      #: 继续执行
-        sys_exit(10)          #: error finally  #: status 不为 0 ，表示非正常退出
-        print("继续执行")      #: 继续执行
-        sys.exit("goodbye!")  #: 不捕获异常，直接退出程序
-        print("不执行")
+    def sys_exit(status=0):
+        try:
+            sys.exit(status)
+        except SystemExit as e:
+            print("error", end=' ')
+        finally:
+            print("finally")
+    sys_exit()            #: error finally  #: status 默认为 0 ，表示正常退出
+    print("继续执行")      #: 继续执行
+    sys_exit(10)          #: error finally  #: status 不为 0 ，表示非正常退出
+    print("继续执行")      #: 继续执行
+    sys.exit("goodbye!")  #: 不捕获异常，直接退出程序
+    print("不执行")

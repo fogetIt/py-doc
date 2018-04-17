@@ -1,88 +1,93 @@
 异常继承树
-=========
-    :BaseException:
-        -                   所有异常的基类
-        :SystemExit:        解释器退出
-        :KeyboardInterrupt: 用户中断执行 **^C**
-        :GeneratorExit:     生成器异常，退出
-        :Exception_:        所有常规错误的基类
+=================
+
+:BaseException:
+    -                   所有异常的基类
+    :SystemExit:        解释器退出
+    :KeyboardInterrupt: 用户中断执行 **^C**
+    :GeneratorExit:     生成器异常，退出
+    :Exception_:        所有常规错误的基类
 
 
 Exception
 ----------
-    :StopIteration:  迭代器结束
-    :StandardError_: 所有标准异常的基类
 
-            -        由程序逻辑错误引发
-            -        默认加载，不需要导入 **exception** 模块
-    :Warning_:       警告的基类
-    :ImportWarning:
-    :UnicodeWarning:
-    :BytesWarning:
+:StopIteration:  迭代器结束
+:StandardError_: 所有标准异常的基类
+
+        -        由程序逻辑错误引发
+        -        默认加载，不需要导入 **exception** 模块
+:Warning_:       警告的基类
+:ImportWarning:
+:UnicodeWarning:
+:BytesWarning:
 
 
 StandardError
 """"""""""""""
-    :BufferError:
-    :ArithmeticError:               所有数值计算错误的基类
-        -
-        :FloatingPointError:        浮点计算错误
-        :OverflowError:             数值运算超出最大限制
-        :ZeroDivisionError:         除数为 **0**
-    :AssertionError:                断言语句失败
-    :AttributeError:                对象没有这个属性
-    :EnvironmentError:
-        -                           操作系统错误的基类
-        :IOError:                   输入/输出操作失败
-        :OSError:
-            -                       操作系统错误
-            :WindowsError:          **windows** 系统调用失败
-            :VMSError:              **VM** 系统调用失败
-    :EOFError:                      没有内建输入 **EOF**
-    :ImportError:                   导入模块/对象失败
-    :LookupError:
-        -                           无效数据查询的基类
-        :IndexError:                序列中没有这个索引
-        :KeyError:                  映射中没有这个键
-    :MemoryError:                   内存溢出错误
-    :NameError:
-        -                           未声明对象/没有属性
-        :UnboundLocalError:         未初始化本地变量
-    :ReferenceError:                弱引用（试图访问已垃圾回收对象）
-    :RuntimeError:
-        -                           运行时错误
-        :NotImplementedError:       尚未实现的方法
-    :SyntaxError:
-        -                           语法错误
-        :IndentationError:
-            -                       缩进错误
-            :TabError:              **Tab** 和空格混用
-    :SystemError:                   一般的解释器系统错误
-    :TypeError:                     对类型无效的操作
-    :ValueError:
-        -                           传入无效的参数
-        :UnicodeError:
-            -                       *Unicode* 相关的错误
-            :UnicodeDecodeError:    *Unicode* 解码时的错误
-            :UnicodeEncodeError:    *Unicode* 编码时错误
-            :UnicodeTranslateError: *Unicode* 转换时错误
+
+:BufferError:
+:ArithmeticError:               所有数值计算错误的基类
+    -
+    :FloatingPointError:        浮点计算错误
+    :OverflowError:             数值运算超出最大限制
+    :ZeroDivisionError:         除数为 **0**
+:AssertionError:                断言语句失败
+:AttributeError:                对象没有这个属性
+:EnvironmentError:
+    -                           操作系统错误的基类
+    :IOError:                   输入/输出操作失败
+    :OSError:
+        -                       操作系统错误
+        :WindowsError:          **windows** 系统调用失败
+        :VMSError:              **VM** 系统调用失败
+:EOFError:                      没有内建输入 **EOF**
+:ImportError:                   导入模块/对象失败
+:LookupError:
+    -                           无效数据查询的基类
+    :IndexError:                序列中没有这个索引
+    :KeyError:                  映射中没有这个键
+:MemoryError:                   内存溢出错误
+:NameError:
+    -                           未声明对象/没有属性
+    :UnboundLocalError:         未初始化本地变量
+:ReferenceError:                弱引用（试图访问已垃圾回收对象）
+:RuntimeError:
+    -                           运行时错误
+    :NotImplementedError:       尚未实现的方法
+:SyntaxError:
+    -                           语法错误
+    :IndentationError:
+        -                       缩进错误
+        :TabError:              **Tab** 和空格混用
+:SystemError:                   一般的解释器系统错误
+:TypeError:                     对类型无效的操作
+:ValueError:
+    -                           传入无效的参数
+    :UnicodeError:
+        -                       *Unicode* 相关的错误
+        :UnicodeDecodeError:    *Unicode* 解码时的错误
+        :UnicodeEncodeError:    *Unicode* 编码时错误
+        :UnicodeTranslateError: *Unicode* 转换时错误
 
 
 Warning
 """"""""
-    :DeprecationWarning:        特性被废弃的警告
-    :PendingDeprecationWarning: 特性将会被废弃的警告
-    :RuntimeWarning:            运行时行为的警告
-    :SyntaxWarning:             语法的警告
-    :UserWarning:               用户代码的警告
-    :FutureWarning:             关于构造将来语义会有改变的警告
+
+:DeprecationWarning:        特性被废弃的警告
+:PendingDeprecationWarning: 特性将会被废弃的警告
+:RuntimeWarning:            运行时行为的警告
+:SyntaxWarning:             语法的警告
+:UserWarning:               用户代码的警告
+:FutureWarning:             关于构造将来语义会有改变的警告
 
 
 python idle 启动时 Subprocess Startup Error
--------------------------------------------
-    :错误信息: IDLE's subprocess didn't make connection.Either IDLE cant't start a subprocess or personal firewall software is blocking the connection.
-    :解决:
-        - 控制面板-->系统和安全-->windows防火墙-->允许程序通过windows防火墙-->更改设置-->允许运行另一程序
-        - 点击浏览选择 python 安装目录下的 pythonw.exe 文件
-        - 点击添加按钮将 pwthonw.exe 添加到防火墙允许列表中
-        - 再次启动 idle 时正常启动
+-------------------------------------------------
+
+:错误信息: IDLE's subprocess didn't make connection.Either IDLE cant't start a subprocess or personal firewall software is blocking the connection.
+:解决:
+    - 控制面板-->系统和安全-->windows防火墙-->允许程序通过windows防火墙-->更改设置-->允许运行另一程序
+    - 点击浏览选择 python 安装目录下的 pythonw.exe 文件
+    - 点击添加按钮将 pwthonw.exe 添加到防火墙允许列表中
+    - 再次启动 idle 时正常启动

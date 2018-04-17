@@ -1,137 +1,137 @@
 转换英文字符（跳过非英文字符）（生成新串）
------------------------------------
-    ==================  ================  =========
-    ``S.swapcase()``      ``-> string``     大小写互换
-    ``S.lower()``         ``-> string``     全部小写
-    ``S.title()``         ``-> string``     单词首字大写
-    ``S.upper()``         ``-> string``     全部大写
-    ``S.capitalize()``    ``-> string``     句首大写
-    ==================  ================  =========
+-----------------------------------------------------
+==================  ================  =========
+``S.swapcase()``      ``-> string``     大小写互换
+``S.lower()``         ``-> string``     全部小写
+``S.title()``         ``-> string``     单词首字大写
+``S.upper()``         ``-> string``     全部大写
+``S.capitalize()``    ``-> string``     句首大写
+==================  ================  =========
 
 
 判断
-----
-    =========================================  =============  =========
-    ``S.startswith(prefix[, start[, end]])``     ``-> bool``    判断起始位（有下限无上限）
-    ``S.endswith(suffix[, start[, end]])``       ``-> bool``    判断结束位（有下限无上限）
-    ``S.isalnum()``                              ``-> bool``    只含数字、字母
-    ``S.isalpha()``                              ``-> bool``    只含字母
-    ``S.isdigit()``                              ``-> bool``    只含数字
-    ``S.istitle()``                              ``-> bool``    首字大写，不含特殊字符
-    ``S.islower()``                              ``-> bool``    不含大写
-    ``S.isupper()``                              ``-> bool``    不含小写
-    ``S.isspace()``                              ``-> bool``    全是空白（空格、 **Tab** 键、换行）
-    =========================================  =============  =========
+-----------
+=========================================  =============  =========
+``S.startswith(prefix[, start[, end]])``     ``-> bool``    判断起始位（有下限无上限）
+``S.endswith(suffix[, start[, end]])``       ``-> bool``    判断结束位（有下限无上限）
+``S.isalnum()``                              ``-> bool``    只含数字、字母
+``S.isalpha()``                              ``-> bool``    只含字母
+``S.isdigit()``                              ``-> bool``    只含数字
+``S.istitle()``                              ``-> bool``    首字大写，不含特殊字符
+``S.islower()``                              ``-> bool``    不含大写
+``S.isupper()``                              ``-> bool``    不含小写
+``S.isspace()``                              ``-> bool``    全是空白（空格、 **Tab** 键、换行）
+=========================================  =============  =========
 
 
 查找
-----
-    =================================  ============  =============
-    ``S.find(sub [,start [,end]])``      ``-> int``     找不到，返回 **-1**
-    ``S.rfind(sub [,start [,end]])``     ``-> int``     找不到，返回 **-1**
-    ``S.index(sub [,start [,end]])``     ``-> int``     找不到，报错
-    ``S.rindex(sub [,start [,end]])``    ``-> int``     找不到，报错
-    ``S.count(sub[, start[, end]])``     ``-> int``     计算元素个数
-    =================================  ============  =============
+-----------
+=================================  ============  =============
+``S.find(sub [,start [,end]])``      ``-> int``     找不到，返回 **-1**
+``S.rfind(sub [,start [,end]])``     ``-> int``     找不到，返回 **-1**
+``S.index(sub [,start [,end]])``     ``-> int``     找不到，报错
+``S.rindex(sub [,start [,end]])``    ``-> int``     找不到，报错
+``S.count(sub[, start[, end]])``     ``-> int``     计算元素个数
+=================================  ============  =============
 
 
 转义符
-------
-    ======  =======
-    ``\'``   单引号
-    ``\"``   双引号
-    ``\a``   发出系统铃声
-    ``\b``   退格符
-    ``\n``   换行符
-    ``\t``   横向制表符 **TAB**
-    ``\v``   纵向制表符
-    ``\r``   回车符
-    ``\f``   换页符
-    ``\o``   **8** 进制数代表的字符
-    ``\x``   **16** 进制数代表的字符
-    ``\0``   表示一个空字符
-    ``\\``   反斜杠
-    ======  =======
+-------------
+======  =======
+``\'``   单引号
+``\"``   双引号
+``\a``   发出系统铃声
+``\b``   退格符
+``\n``   换行符
+``\t``   横向制表符 **TAB**
+``\v``   纵向制表符
+``\r``   回车符
+``\f``   换页符
+``\o``   **8** 进制数代表的字符
+``\x``   **16** 进制数代表的字符
+``\0``   表示一个空字符
+``\\``   反斜杠
+======  =======
 
 
 增加、修改（生成新串）
-==================
-    ====  =======================================  ==========================  ================
-    增加
-     -      `S.join(iterable)`_                      ``-> string``               把字符串插入到序列元素之间
-     -      ``S + 'x'``                              ``-> string``               追加元素
-     -      ``S * 6``                                ``-> string``               重复多次
-    填充
-     -      ``S.center(width[, fillchar])``          ``-> string``               填充， **width < len(S)** ，不报错
-     -      ``S.ljust(width[, fillchar])``           ``-> string``
-     -      ``S.rjust(width[, fillchar])``           ``-> string``
-     -      ``S.zfill(width)``                       ``-> string``               填充 **0** ，**width < len(S)**，原样返回
-    弹出
-     -      `S.strip([chars])`_                      ``-> string/unicode``       弹出（默认空格）
-     -      ``S.lstrip([chars])``                    ``-> string/unicode``       字符不存在，不报错，原样返回
-     -      ``S.rstrip([chars])``                    ``-> string/unicode``
-    分割
-     -      ``S.partition(sep)``                     ``-> (head, sep, tail)``    分隔符不为空
-     -      ``S.rpartition(sep)``                    ``-> (head, sep, tail)``
-     -      ``S.split([sep [,maxsplit]])``           ``-> string list``          返回字符串列表(默认空格分割)
-     -      ``S.rsplit([sep [,maxsplit]])``          ``-> string list``          列表不包含分隔符
-     -      ``S.splitlines(keepends=False)``         ``-> string list``          行切片
-    转码
-     -      ``S.decode([encoding[,errors]])``        ``-> object``               **bytes -> str**
-     -      ``S.encode([encoding[,errors]])``        ``-> object``               **str -> bytes**
-    替换
-     -      ``S.replace(old, new[, count])``         ``-> string``
-     -      ``S.expandtabs([tabsize])``              ``-> string``               ``\t`` -> 空格
-     -       -                                        -                          ``default tabsize == 4``
-    ====  =======================================  ==========================  ================
+====================================
+====  =======================================  ==========================  ================
+增加
+ -      `S.join(iterable)`_                      ``-> string``               把字符串插入到序列元素之间
+ -      ``S + 'x'``                              ``-> string``               追加元素
+ -      ``S * 6``                                ``-> string``               重复多次
+填充
+ -      ``S.center(width[, fillchar])``          ``-> string``               填充， **width < len(S)** ，不报错
+ -      ``S.ljust(width[, fillchar])``           ``-> string``
+ -      ``S.rjust(width[, fillchar])``           ``-> string``
+ -      ``S.zfill(width)``                       ``-> string``               填充 **0** ，**width < len(S)**，原样返回
+弹出
+ -      `S.strip([chars])`_                      ``-> string/unicode``       弹出（默认空格）
+ -      ``S.lstrip([chars])``                    ``-> string/unicode``       字符不存在，不报错，原样返回
+ -      ``S.rstrip([chars])``                    ``-> string/unicode``
+分割
+ -      ``S.partition(sep)``                     ``-> (head, sep, tail)``    分隔符不为空
+ -      ``S.rpartition(sep)``                    ``-> (head, sep, tail)``
+ -      ``S.split([sep [,maxsplit]])``           ``-> string list``          返回字符串列表(默认空格分割)
+ -      ``S.rsplit([sep [,maxsplit]])``          ``-> string list``          列表不包含分隔符
+ -      ``S.splitlines(keepends=False)``         ``-> string list``          行切片
+转码
+ -      ``S.decode([encoding[,errors]])``        ``-> object``               **bytes -> str**
+ -      ``S.encode([encoding[,errors]])``        ``-> object``               **str -> bytes**
+替换
+ -      ``S.replace(old, new[, count])``         ``-> string``
+ -      ``S.expandtabs([tabsize])``              ``-> string``               ``\t`` -> 空格
+ -       -                                        -                          ``default tabsize == 4``
+====  =======================================  ==========================  ================
 
-    .. _S.join(iterable): ../基础扩展/pythonic.rst
+.. _S.join(iterable): ../基础扩展/pythonic.rst
 
 
 S.strip([chars])
-::::::::::::::::
-    .. code-block:: python
+:::::::::::::::::
+.. code-block:: python
 
-        # strip() 会寻找所有符合条件的元素，直到遇到一个不符合条件的元素
-        s = '8080 vsid 0 \n'
-        e = '8081 vsid 0 \n'
-        print(s.rstrip(' vsid 0 \n'))  #: 808
-        print(e.rstrip(' vsid 0 \n'))  #: 8081
+    # strip() 会寻找所有符合条件的元素，直到遇到一个不符合条件的元素
+    s = '8080 vsid 0 \n'
+    e = '8081 vsid 0 \n'
+    print(s.rstrip(' vsid 0 \n'))  #: 808
+    print(e.rstrip(' vsid 0 \n'))  #: 8081
 
 
 格式化字符串
 :::::::::::
-    - `S.format(*args, **kwargs) -> string <str_format.py>`_
-    - ``%[(name)][flags][width].[precision]typecode``
-        :[(name)]: 指定 **key**
-        :[flags]:  格式化辅助符号
+- `S.format(*args, **kwargs) -> string <str_format.py>`_
+- ``%[(name)][flags][width].[precision]typecode``
+    :[(name)]: 指定 **key**
+    :[flags]:  格式化辅助符号
 
-            :`m.n`:
-                :``m``: 显示的最小宽度
-            :`-`: 左对齐
-            :`+`:
-                - 右对齐
-                - 在正数前面显示加号
-            :`#`:
-                - 在 **8** 进制前面显示 **0o**
-                - 在 **16** 进制前面显示 **0x** 或 **0X**
-            :`0`: 数字前面填充 **0**
-        :[width]:     显示宽度
-        :[precision]: 小数点后精度
-        :typecode:    格式化类型
+        :`m.n`:
+            :``m``: 显示的最小宽度
+        :`-`: 左对齐
+        :`+`:
+            - 右对齐
+            - 在正数前面显示加号
+        :`#`:
+            - 在 **8** 进制前面显示 **0o**
+            - 在 **16** 进制前面显示 **0x** 或 **0X**
+        :`0`: 数字前面填充 **0**
+    :[width]:     显示宽度
+    :[precision]: 小数点后精度
+    :typecode:    格式化类型
 
-            :%c:     格式化字符及其 **ascii** 码
-            :%s:     格式化字符串
-            :%d(%i): 格式化整数
-            :%o:     格式化无符号 **8** 进制数
-            :%x:     格式化无符号 **16** 进制数
-            :%X:     格式化无符号 **16** 进制数（大写）
-            :%f:     格式化浮点数，可指定小数点后的精度
-            :%e(%E): 用科学计数法格式化定点数
-            :%g(%G): 根据值的大小决定使用 **%f** 或者 **%e**
-            :%r:     不管什么都打印出来
+        :%c:     格式化字符及其 **ascii** 码
+        :%s:     格式化字符串
+        :%d(%i): 格式化整数
+        :%o:     格式化无符号 **8** 进制数
+        :%x:     格式化无符号 **16** 进制数
+        :%X:     格式化无符号 **16** 进制数（大写）
+        :%f:     格式化浮点数，可指定小数点后的精度
+        :%e(%E): 用科学计数法格式化定点数
+        :%g(%G): 根据值的大小决定使用 **%f** 或者 **%e**
+        :%r:     不管什么都打印出来
 
-        **示例**
-            .. code-block:: python
+    **示例**
+        .. code-block:: python
 
-                s2 = "i am %(name)s, i am %(age) years old" % {'name': 'jack', 'age': 26}
+            s2 = "i am %(name)s, i am %(age) years old" % {'name': 'jack', 'age': 26}

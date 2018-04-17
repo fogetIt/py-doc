@@ -1,105 +1,106 @@
 魔法函数
 """""""
-    =====================================  ======
-    ``__new__(self[, *args, **kwargs])``     构造函数
-    ``__init__(self[, *args, **kwargs])``    初始化函数
-    ``__del__(self)``                        解构函数
-     -
-    ``__str__(self)``                        ``str(), print()``
-    ``__repr__(self)``                       ``repr(), ''``
-    ``__unicode__(self)``                    ``unicode()``
-    ``__call__(self, *args, **kwargs)``      ``callable()``
-    ``__nonzero__(self)``                    ``bool()``
-    ``__len__(self)``                        ``len()``
-     -
-    ``__cmp__(self, obj)``                   ``cmp()``
-    ``__add__(self)``                        ``+``
-    ``__iadd__(self)``                       ``+=``
-    ``__sub__(self, obj)``                   ``-``
-    ``__mul__(self, obj)``                   ``*``
-    ``__div__(self, obj)``                   ``/``
-    ``__truediv__(self, obj)``               ``/``
-    ``__floordiv__(self, obj)``              ``//``
-    ``__mod__(self, obj)``                   ``%``
-    ``__divmod__(self, obj)``                ``divmod()``
-    ``__pow__(self, obj[, mod])``            ``pow(), **``
-     -
-    ``__lshift__(self, obj)``                ``<<``
-    ``__rshift__(self, obj)``                ``>>``
-    ``__and__(self, obj)``                   ``&``
-    ``__or__(self, obj)``                    ``|``
-    ``__xor__(self, obj)``                   ``^``
-    ``__invert__(self)``                     ``~``
-     -
-    ``__complex__(self, com)``               ``complex()``
-    ``__int__(self)``                        ``int()``
-    ``__long__(self)``                       ``long()``
-    ``__float__(self)``                      ``float()``
-     -
-    ``__oct__(self)``                        ``oct()``
-    ``__hex__(self)``                        ``hex()``
-     -
-    ``__coerce__(self, num)``                ``coerce()``
-    ``__index__(self)``
-     -
-    ``__getslice__(self, ind1,ind2)``        得到序列片断
-    ``__setslice__(self, i1, i2,val)``       设置序列片断
-    ``__delslice__(self, ind1,ind2)``        删除序列片断
-    ``__contains__(self, val)``              ``in``
-     -
-    ``__hash__(self)``                       散列函数值
-     -
-    ``__missing__(self,key)``                字典默认值
-     -
-    ``__neg__(self)``                        一元负
-    ``__pos__(self)``                        一元正
-    ``__abs__(self)``                        ``abs()``
-     -
-    ``__lt__(self, obj)``                    ``</<=``
-    ``__gt__(self, obj)``                    ``>/>=``
-    ``__eq__(self, obj)``                    ``==/!=/<>``
-     -
-    ``__getattr__(self, attr)``              ``getattr()``
-    ``__getattribute__(self, attr)``         ``getattr()``
-    ``__setattr__(self, attr, val)``         ``setattr()``
-    ``__delattr__(self, attr)``              ``delattr()``
-     -
-    ``__get__(self, attr)``                  （描述符）获取属性
-    ``__set__(self, attr, val)``             （描述符）设置属性
-    ``__delete__(self, attr)``               （描述符）删除属性
-    =====================================  ======
+=====================================  ======
+``__new__(self[, *args, **kwargs])``     构造函数
+``__init__(self[, *args, **kwargs])``    初始化函数
+``__del__(self)``                        解构函数
+ -
+``__str__(self)``                        ``str(), print()``
+``__repr__(self)``                       ``repr(), ''``
+``__unicode__(self)``                    ``unicode()``
+``__call__(self, *args, **kwargs)``      ``callable()``
+``__nonzero__(self)``                    ``bool()``
+``__len__(self)``                        ``len()``
+ -
+``__cmp__(self, obj)``                   ``cmp()``
+``__add__(self)``                        ``+``
+``__iadd__(self)``                       ``+=``
+``__sub__(self, obj)``                   ``-``
+``__mul__(self, obj)``                   ``*``
+``__div__(self, obj)``                   ``/``
+``__truediv__(self, obj)``               ``/``
+``__floordiv__(self, obj)``              ``//``
+``__mod__(self, obj)``                   ``%``
+``__divmod__(self, obj)``                ``divmod()``
+``__pow__(self, obj[, mod])``            ``pow(), **``
+ -
+``__lshift__(self, obj)``                ``<<``
+``__rshift__(self, obj)``                ``>>``
+``__and__(self, obj)``                   ``&``
+``__or__(self, obj)``                    ``|``
+``__xor__(self, obj)``                   ``^``
+``__invert__(self)``                     ``~``
+ -
+``__complex__(self, com)``               ``complex()``
+``__int__(self)``                        ``int()``
+``__long__(self)``                       ``long()``
+``__float__(self)``                      ``float()``
+ -
+``__oct__(self)``                        ``oct()``
+``__hex__(self)``                        ``hex()``
+ -
+``__coerce__(self, num)``                ``coerce()``
+``__index__(self)``
+ -
+``__getslice__(self, ind1,ind2)``        得到序列片断
+``__setslice__(self, i1, i2,val)``       设置序列片断
+``__delslice__(self, ind1,ind2)``        删除序列片断
+``__contains__(self, val)``              ``in``
+ -
+``__hash__(self)``                       散列函数值
+ -
+``__missing__(self,key)``                字典默认值
+ -
+``__neg__(self)``                        一元负
+``__pos__(self)``                        一元正
+``__abs__(self)``                        ``abs()``
+ -
+``__lt__(self, obj)``                    ``</<=``
+``__gt__(self, obj)``                    ``>/>=``
+``__eq__(self, obj)``                    ``==/!=/<>``
+ -
+``__getattr__(self, attr)``              ``getattr()``
+``__getattribute__(self, attr)``         ``getattr()``
+``__setattr__(self, attr, val)``         ``setattr()``
+``__delattr__(self, attr)``              ``delattr()``
+ -
+``__get__(self, attr)``                  （描述符）获取属性
+``__set__(self, attr, val)``             （描述符）设置属性
+``__delete__(self, attr)``               （描述符）删除属性
+=====================================  ======
 
-    - `迭代器中的魔法函数 <../迭代/迭代器1.rst>`_
+- `迭代器中的魔法函数 <../迭代/迭代器1.rst>`_
 
 
 with 语句
 ---------
-    - 方便处理一些事先需要设置，事后做清理工作的场景
-    :``__enter__() -> context_object``: 在进入代码块之前被 **with** 调用
+- 方便处理一些事先需要设置，事后做清理工作的场景
 
-        - 返回一个可供上下文使用的对象，赋值给 **as** 后面的变量
-    :``__exit__(error_type, error_msg, trace_info)``: 在离开代码块之后被 **with** 调用
+:``__enter__() -> context_object``: 在进入代码块之前被 **with** 调用
 
-        :正常退出: 清理被使用的资源（比如：关闭文件）
-        :抛出异常: 接收关联的异常信息
+    - 返回一个可供上下文使用的对象，赋值给 **as** 后面的变量
+:``__exit__(error_type, error_msg, trace_info)``: 在离开代码块之后被 **with** 调用
+
+    :正常退出: 清理被使用的资源（比如：关闭文件）
+    :抛出异常: 接收关联的异常信息
 
 
 属性查找
 -------
-    1. :``__getattribute__(self, attr)``:
-        - 属性查找优先调用
-        - ``getattr(obj, attr)`` 的内部实现
-    #. :``__getattr__(self, attr)``:
-        - 属性查找的最后一步
-            - 当属性不能在实例、类、祖先类的 ``__dict__`` 中找到时，才调用
-        - ``getattr(obj, attr), hasattr(obj, attr)`` 的内部实现
-            :``hasattr(object, name) -> bool``: 判断对象的属性
-            :``getattr(object, name[, default]) -> value``:
-                - 获对象的属性值，如果不存在，返回指定的提示字符串
-                - 只有在不知道对象信息的时候，才会去获取对象信息
-            :``delattr(object, name) == del object.name``:
-                - 删除对象的属性
-                - ``object`` 是实例时，不能用来删除类属性
-            :``setattr(object, name, value)``:
-                - 设置对象的属性值
-                - 如果属性不存在，自动创建并赋值
+1. :``__getattribute__(self, attr)``:
+    - 属性查找优先调用
+    - ``getattr(obj, attr)`` 的内部实现
+#. :``__getattr__(self, attr)``:
+    - 属性查找的最后一步
+        - 当属性不能在实例、类、祖先类的 ``__dict__`` 中找到时，才调用
+    - ``getattr(obj, attr), hasattr(obj, attr)`` 的内部实现
+        :``hasattr(object, name) -> bool``: 判断对象的属性
+        :``getattr(object, name[, default]) -> value``:
+            - 获对象的属性值，如果不存在，返回指定的提示字符串
+            - 只有在不知道对象信息的时候，才会去获取对象信息
+        :``delattr(object, name) == del object.name``:
+            - 删除对象的属性
+            - ``object`` 是实例时，不能用来删除类属性
+        :``setattr(object, name, value)``:
+            - 设置对象的属性值
+            - 如果属性不存在，自动创建并赋值

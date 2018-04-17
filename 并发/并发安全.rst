@@ -121,7 +121,10 @@
 
         :maxsize: 标注队列长度（ ``<=0`` 代表无限长）
 :进程队列: 进程与进程之间进行通讯
-:协程队列: 在同一个进程下的协程间通讯（对线程队列进行了优化）
+:协程队列: 在同一个线程下的协程间通讯
+
+    - 无线程同步开销
+    - 可以线程内 Greenlet 之间同步，无法线程间操作
 :消息队列: 程序与程序之间进行通讯
 
 
@@ -154,6 +157,13 @@ API
     """
 
     Q.empty()       # -> True/False 判断队列是否为空
+    """
+    1. Queue.Queue()                        empty() 加线程锁
+    2. multiprocessing.Queue()              empty() 没有加锁（不稳定）
+    3. multiprocessing.Manager().Queue()()  empty() 加线程锁
+        Manager() 本身是进程安全的
+        Manager() 内部调用 Queue 模块
+    """
     Q.qsize()       # -> 队列的大小
     Q.full()        # -> True/False 判断队列是否满了
 

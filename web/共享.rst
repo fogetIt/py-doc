@@ -1,27 +1,27 @@
 http 共享
 ---------
-    :py2:
-        .. code-block:: bash
 
-            # 任意目录下执行
-            python -m SimpleHTTPServer xxxx
-            # 默认断口是 8000
+:py2:
+    .. code-block:: bash
 
-        :浏览器访问: ``http://ip:port``
+        # 任意目录下执行
+        python -m SimpleHTTPServer xxxx
+        # 默认断口是 8000
 
-            - 如果目录中包含 **index.html** 会展示这一页面
-            - 如果目录中没有包含 **index.html** ，打印整个目录
+    :浏览器访问: ``http://ip:port``
+
+        - 如果目录中包含 **index.html** 会展示这一页面
+        - 如果目录中没有包含 **index.html** ，打印整个目录
 
 
 
 ftp 共享
 --------
-    .. code-block:: bash
+.. code-block:: bash
 
-        pip install pyftpdlib
-        python -m pyftpdlib -p xxxx
-    :浏览器访问: ``ftp://ip:port``
+    pip install pyftpdlib
+    python -m pyftpdlib -p xxxx
+:浏览器访问: ``ftp://ip:port``
 
-        :用户名: anonymous
-        :密码:   空
-        - 如果想要控制访问权限，需要自己定制服务器
+    :用户名: anonymous
+    :密码:   空（如果想要控制访问权限，需要自己定制服务器）

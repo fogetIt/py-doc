@@ -1,24 +1,24 @@
 科学计算模块
------------
-    - `numpy <http://sourceforge.net/projects/numpy/files/NumPy/>`_: 数据分析
-    - `scipy <http://sourceforge.net/projects/scipy/files/>`_
-    - `matplotlib <http://matplotlib.org/downloads.html>`_
+-----------------
+- `numpy <http://sourceforge.net/projects/numpy/files/NumPy/>`_: 数据分析
+- `scipy <http://sourceforge.net/projects/scipy/files/>`_
+- `matplotlib <http://matplotlib.org/downloads.html>`_
 
 
 mysql-connector-python
 -----------------------
-    - **python MySQL** 官方包
-    - 用法类似 **MySQLdb**
+- **python MySQL** 官方包
+- 用法类似 **MySQLdb**
 
 
 Twisted
 --------
-    - 异步网络库
-    - 处理网络通讯
-    - 架构清晰，并且包含了各种中间件接口，可以灵活的完成各种需求
+- 异步网络库
+- 处理网络通讯
+- 架构清晰，并且包含了各种中间件接口，可以灵活的完成各种需求
 
 
 安装包
-------
-    - `pywin32 <http://sourceforge.net/projects/pywin32/files%2Fpywin32/>`_
-    - `pycrypto <http://www.voidspace.org.uk/python/modules.shtml#pycrypto>`_
+----------------
+- `pywin32 <http://sourceforge.net/projects/pywin32/files%2Fpywin32/>`_
+- `pycrypto <http://www.voidspace.org.uk/python/modules.shtml#pycrypto>`_

@@ -1,202 +1,205 @@
 计算机数据存储
-###########
-    - 计算机只能表示数字
-    - 如果要表示其它类型（文本、图像、声音...）的数据，就必须找到将数据转换成数字的方法
+######################
+- 计算机只能表示数字
+- 如果要表示其它类型（文本、图像、声音...）的数据，就必须找到将数据转换成数字的方法
 
 
 字符编码表
-########
-    - 数字和字符之间的映射关系
-    - 每个字符都有对应的编号
-    - 通过这种关系就可以将字符解释成一组数字，然后像处理数字一样处理字符
+###################
+- 数字和字符之间的映射关系
+- 每个字符都有对应的编号
+- 通过这种关系就可以将字符解释成一组数字，然后像处理数字一样处理字符
 
 
 字节
-----
+------
 
 :bytes:
-    - 从网络或磁盘上读取的字节流数据
-    - ``1bytes == 8bit``
-    - **8** 个可以开合的晶体管，表示 **2** 的 **8** 次方
-        - ``11111111 -> 0~255``
+- 从网络或磁盘上读取的字节流数据
+- ``1bytes == 8bit``
+- **8** 个可以开合的晶体管，表示 **2** 的 **8** 次方
+    - ``11111111 -> 0~255``
 
-            .. code-block:: python
+        .. code-block:: python
 
-                for i in range(1, 255): print(chr(i), end=" ")
-        :0~127: **ASCII**
+            for i in range(1, 255): print(chr(i), end=" ")
+    :0~127: **ASCII**
 
-            - 美国信息交换标准代码
-            - “半角”字符
-            - 占用 **1** 个字节
-            :0~32, 127:  特殊用途（控制码）
-            :32~126: 英语字符
+        - 美国信息交换标准代码
+        - “半角”字符
+        - 占用 **1** 个字节
+        :0~32, 127:  特殊用途（控制码）
+        :32~126: 英语字符
 
-                :48～57:  阿拉伯数字 **0~9**
-                :65～90:  **26** 个大写英文字母
-                :97～122: **26** 个小写英文字母
-                - 其余为一些标点符号、运算符号等
-        :128~255: 扩展字符集
+            :48～57:  阿拉伯数字 **0~9**
+            :65～90:  **26** 个大写英文字母
+            :97～122: **26** 个小写英文字母
+            - 其余为一些标点符号、运算符号等
+    :128~255: 扩展字符集
 
-            - 非英语国家字符的奇异符号（不通用）
+        - 非英语国家字符的奇异符号（不通用）
 
 
 双字节字符集
-----------
-    :DBCS: 汉字占用 **2** 个字节的字符集
-        :GB2312: 对 **ASCII** 的中文扩展
+-------------------
 
-            :“全角”字符:
-                - 把 **127** 号之后的（其它国家的）奇异符号取消掉
-                - **1** 个小于 **127** 的字符意义与原来相同
-                - **2** 个大于 **127** 的字符连在一起时，就表示 **1** 个汉字
-                - 组合出 **7000** 多个简体汉字
-        :GBK:
-            :CP936: **IBM** 发明 **Code Page** 时将 **GBK** 放在第 **936** 页
+:DBCS: 汉字占用 **2** 个字节的字符集
+    :GB2312: 对 **ASCII** 的中文扩展
 
-            - 只要第一个字节大于 **127** ，就表示 **1** 个汉字
-            - 在 **GB2312** 基础上，增加了近 **20000** 个汉字（包括繁体）和符号
-        :GB18030: 在 **GBK** 基础上，增加了几千个少数民族的字
+        :“全角”字符:
+            - 把 **127** 号之后的（其它国家的）奇异符号取消掉
+            - **1** 个小于 **127** 的字符意义与原来相同
+            - **2** 个大于 **127** 的字符连在一起时，就表示 **1** 个汉字
+            - 组合出 **7000** 多个简体汉字
+    :GBK:
+        :CP936: **IBM** 发明 **Code Page** 时将 **GBK** 放在第 **936** 页
+
+        - 只要第一个字节大于 **127** ，就表示 **1** 个汉字
+        - 在 **GB2312** 基础上，增加了近 **20000** 个汉字（包括繁体）和符号
+    :GB18030: 在 **GBK** 基础上，增加了几千个少数民族的字
 
 
 unicode
--------
-    :万国码、国际码、统一码、单一码: 计算机科学领域里的一项 **ISO** 标准，至今仍在不断增修
+--------
+:万国码、国际码、统一码、单一码: 计算机科学领域里的一项 **ISO** 标准，至今仍在不断增修
 
-        - 废了所有的地区性编码方案（ **DBCS** 等）
-        - 把地球上所有文化、字母和符号统一到一套编码里
-        - 除了视觉上的字形、编码方法、标准的字符编码外，还包含了字符特性，如大小写字母
-        - 必须用　**2bytes(16bit)** 来统一表示所有的字符
-            + **ASCII** 字符原编码不变，将其长度由 **8** 位扩展为 **16** 位
-                * 前面（高 **8** 位）补 **0**
-                * 在保存英文文本时会多浪费一倍的空间
-            + 无论是半角的英文字母，还是全角的汉字，都是统一的 **1** 个字符 **2** 个字节
+    - 废了所有的地区性编码方案（ **DBCS** 等）
+    - 把地球上所有文化、字母和符号统一到一套编码里
+    - 除了视觉上的字形、编码方法、标准的字符编码外，还包含了字符特性，如大小写字母
+    - 必须用　**2bytes(16bit)** 来统一表示所有的字符
+        + **ASCII** 字符原编码不变，将其长度由 **8** 位扩展为 **16** 位
+            * 前面（高 **8** 位）补 **0**
+            * 在保存英文文本时会多浪费一倍的空间
+        + 无论是半角的英文字母，还是全角的汉字，都是统一的 **1** 个字符 **2** 个字节
 
 
 UTF(UCS Transfer Format)
 ------------------------
-    - **unicode** 在网络上传输的实现方式
-        :UTF-8: 为传输而设计的编码
+- **unicode** 在网络上传输的实现方式
 
-            - 使用最广
-            - 每次 **8** 个位传输数据
-            - 可变长编码
-                - 使用 **1~6** 个字节表示一个 **unicode** 字符，根据不同的字符而变化字节长度
-                    +　通过一些算法和规则来转换 **unicode** 到 **uft-8**
-                        + **ASCII** 码占 **1** 个字节
-                        + 一个中文字符占 **3** 个字节
-                            - **unicode** 是 **2** 个字节
-                        + 生僻的字符会被编码成 **4~6** 个字节
-            - 兼容 **ASCII**
-            - 如果要传输的文本包含大量英文字符，能节省流量和存储空间
+    :UTF-8: 为传输而设计的编码
+
+        - 使用最广
+        - 每次 **8** 个位传输数据
+        - 可变长编码
+            - 使用 **1~6** 个字节表示一个 **unicode** 字符，根据不同的字符而变化字节长度
+                +　通过一些算法和规则来转换 **unicode** 到 **uft-8**
+                    + **ASCII** 码占 **1** 个字节
+                    + 一个中文字符占 **3** 个字节
+                        - **unicode** 是 **2** 个字节
+                    + 生僻的字符会被编码成 **4~6** 个字节
+        - 兼容 **ASCII**
+        - 如果要传输的文本包含大量英文字符，能节省流量和存储空间
 
 
 计算机系统通用的字符编码工作方式
----------------------------
-    - 在计算机内存中，统一使用 **unicode** 编码
-    - 当需要保存到硬盘或者需要传输的时候，转换为 **UTF-8** 编码
-    - 用记事本编辑的时候，从文件读取的 **UTF-8** 字符被转换为 **unicode** 字符到内存里
-    - 编辑完成后，保存的时候再把 **unicode** 转换为 **UTF-8** 保存到文件
-    - 浏览网页的时候，服务器会把动态生成的 **unicode** 内容转换为 **UTF-8** 再传输到浏览器
+----------------------------------------------
+- 在计算机内存中，统一使用 **unicode** 编码
+- 当需要保存到硬盘或者需要传输的时候，转换为 **UTF-8** 编码
+- 用记事本编辑的时候，从文件读取的 **UTF-8** 字符被转换为 **unicode** 字符到内存里
+- 编辑完成后，保存的时候再把 **unicode** 转换为 **UTF-8** 保存到文件
+- 浏览网页的时候，服务器会把动态生成的 **unicode** 内容转换为 **UTF-8** 再传输到浏览器
 
 
 python 编码
-===========
-    :内存中的字符编码格式: unicode
-    :默认文件字符编码格式: 查看编码_
+================
 
-        :`python2.x`_: ascii
-        :python3.x: unicode
+:内存中的字符编码格式: unicode
+:默认文件字符编码格式: 查看编码_
+
+    :`python2.x`_: ascii
+    :python3.x: unicode
 
 
 查看编码
---------
-    .. code-block:: python
+---------------------
+.. code-block:: python
 
-        import sys
-        import locale
+    import sys
+    import locale
 
-        sys.getdefaultencoding()       #: ascii               #: python 默认文件字符编码
-        locale.getdefaultlocale()      #: ('zh_CN', 'UTF-8')  #: 语言 系统文本数据编码
-        locale.getpreferredencoding()  #: UTF-8               #: 系统文本数据编码
+    sys.getdefaultencoding()       #: ascii               #: python 默认文件字符编码
+    locale.getdefaultlocale()      #: ('zh_CN', 'UTF-8')  #: 语言 系统文本数据编码
+    locale.getpreferredencoding()  #: UTF-8               #: 系统文本数据编码
 
 
 python2.x
 ----------
-    - 纯英文的 **str**
-        - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
+- 纯英文的 **str**
+    - 直接用 **ASCII** 编码为 **bytes** ，内容是一样的
+
+        .. code-block:: python
+
+            s = "hello".encode("gbk")
+            print(s, len(s)) # b'hello' 5
+
+- 含中文的 **str**
+    - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
+        (1) 将其他编码的字符串解码成 **unicode**  `utf8 -> unicode`_
+        (2) 从 unicode 转码成另一种编码　`unicode -> gbk`_
+
+    - 或者
+        (1) 设置 **python2** 默认编码: setdefaultencoding_
+        (2) 直接转码
 
             .. code-block:: python
 
-                s = "hello".encode("gbk")
-                print(s, len(s)) # b'hello' 5
+                """
+                s.encode("gbk") == s.decode("utf8").encode("gbk")
+                """
+                s = "中国".encode("gbk")
+                print(s, len(s))
 
-    - 含中文的 **str**
-        - 无法直接用 **ASCII** 编码，通常需要以 **unicode** 作为中间编码进行转换
-            (1) 将其他编码的字符串解码成 **unicode**  `utf8 -> unicode`_
-            (2) 从 unicode 转码成另一种编码　`unicode -> gbk`_
-
-        - 或者
-            (1) 设置 **python2** 默认编码: setdefaultencoding_
-            (2) 直接转码
-
-                .. code-block:: python
-
-                    """
-                    s.encode("gbk") == s.decode("utf8").encode("gbk")
-                    """
-                    s = "中国".encode("gbk")
-                    print(s, len(s))
-
-    - 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
+- 在 **bytes** 中，无法显示为 **ASCII** 字符的字节，用 ``\x##`` 显示
 
 
 utf8 -> unicode
 :::::::::::::::
-    .. code-block:: python
+.. code-block:: python
 
-        # coding: utf-8
-        u = unicode("中国", "utf-8")
-        u = u"中国"
-        u = "中国".decode("utf-8")
-        print(u, len(u))
+    # coding: utf-8
+    u = unicode("中国", "utf-8")
+    u = u"中国"
+    u = "中国".decode("utf-8")
+    print(u, len(u))
 
 
 unicode -> gbk
 ::::::::::::::
-    .. code-block:: python
+.. code-block:: python
 
-        # coding: utf-8
-        s = u.encode("gbk")
+    # coding: utf-8
+    s = u.encode("gbk")
 
 
 setdefaultencoding
 :::::::::::::::::::
-    **方法1**
-        .. code-block:: python
+**方法1**
+    .. code-block:: python
 
-            import sys
-            """
-            python 解释器启动时会自动加载 Lib/site.py
-            in site.main()
-                del sys.setdefaultencoding
-            """
-            reload(sys)
-            sys.setdefaultencoding('utf-8')
+        import sys
+        """
+        python 解释器启动时会自动加载 Lib/site.py
+        in site.main()
+            del sys.setdefaultencoding
+        """
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
 
-    **方法2**
-        .. code-block:: bash
+**方法2**
+    .. code-block:: bash
 
-            # sitecustomize.py is a special script;
-            # Python will try to import it on startup, so any code in it will be run automatically.
-            touch Lib/site-packages/sitecustomize.py
+        # sitecustomize.py is a special script;
+        # Python will try to import it on startup, so any code in it will be run automatically.
+        touch Lib/site-packages/sitecustomize.py
 
 
 避免中文乱码
------------
-    1. 使用 **utf-8** ，跨平台通用
-    #. 打开文件的时候，用 **codecs.open()** ，替代 **open()**
-    #. ``decode early, unicode everywhere, encode late:``
-        - 在输入或者声明字符串的时候，尽早地使用 **decode()** 将 **str** 转化成 **unicode**
-        - 在程序内统一使用 **unicode** 处理字符串
-            + 比如：字符串拼接、字符串替换、获取字符串的长度等操作
-        - 在输出字符串的时候（控制台/网页/文件），通过 **encode()** 将字符串转化为想要的编码格式
+-----------------------
+1. 使用 **utf-8** ，跨平台通用
+#. 打开文件的时候，用 **codecs.open()** ，替代 **open()**
+#. ``decode early, unicode everywhere, encode late:``
+    - 在输入或者声明字符串的时候，尽早地使用 **decode()** 将 **str** 转化成 **unicode**
+    - 在程序内统一使用 **unicode** 处理字符串
+        + 比如：字符串拼接、字符串替换、获取字符串的长度等操作
+    - 在输出字符串的时候（控制台/网页/文件），通过 **encode()** 将字符串转化为想要的编码格式

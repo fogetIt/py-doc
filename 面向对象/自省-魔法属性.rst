@@ -1,119 +1,119 @@
 查看文档字符串
--------------
-    .. code-block:: python
+----------------------------
+.. code-block:: python
 
-        """module doc"""
-        import os
-        def func:
-            """func doc"""
-            pass
-        class Cls:
-            """class doc"""
-            pass
-        print(__doc__)      #: module doc
-        print(func.__doc__) #: func doc
-        print(Cls.__doc__)  #: class doc
+    """module doc"""
+    import os
+    def func:
+        """func doc"""
+        pass
+    class Cls:
+        """class doc"""
+        pass
+    print(__doc__)      #: module doc
+    print(func.__doc__) #: func doc
+    print(Cls.__doc__)  #: class doc
 
 
 查看对象名称
-----------
-    .. code-block:: python
+-------------------------
+.. code-block:: python
 
-        import os
-        class Cls:
-            def __init__(self):
-                print(self.__class__.__name__) #: Cls
-        def func(): pass
-        c = Cls()
-        print(__name__)                        #: __main__
-        print(os.__name__)                     #: os
-        print(func.__name__)                   #: func
-        print(Cls.__name__)                    #: Cls
-        print(c.__class__.__name__)            #: Cls
-        print(type('').__name__)               #: str
-    - 判断是直接执行还是导入执行
-        :**import xxx**:    导入执行模块
+    import os
+    class Cls:
+        def __init__(self):
+            print(self.__class__.__name__) #: Cls
+    def func(): pass
+    c = Cls()
+    print(__name__)                        #: __main__
+    print(os.__name__)                     #: os
+    print(func.__name__)                   #: func
+    print(Cls.__name__)                    #: Cls
+    print(c.__class__.__name__)            #: Cls
+    print(type('').__name__)               #: str
+- 判断是直接执行还是导入执行
+    :**import xxx**:    导入执行模块
 
-            - ``__name__ == 文件名``
-        :**python xxx.py**: 直接运行模块
+        - ``__name__ == 文件名``
+    :**python xxx.py**: 直接运行模块
 
-            - ``__name__ == "__main__"``
+        - ``__name__ == "__main__"``
 
 
 查看父类
---------
-    .. code-block:: python
+-----------------
+.. code-block:: python
 
-        class A(object): pass
-        class B(A): pass
-        class C(A): pass
-        class D(B, C): pass
-        # 直接父类对象的元组，不包含继承树更上层的类
-        print A.__bases__  # (<type 'object'>,)
-        print B.__bases__  # (<class '__main__.A'>,)
-        print C.__bases__  # (<class '__main__.A'>,)
-        print D.__bases__  # (<class '__main__.B'>, <class '__main__.C'>)
-        print D.__base__   # <class '__main__.B'>
-        print issubclass(D, A)  # True
+    class A(object): pass
+    class B(A): pass
+    class C(A): pass
+    class D(B, C): pass
+    # 直接父类对象的元组，不包含继承树更上层的类
+    print A.__bases__  # (<type 'object'>,)
+    print B.__bases__  # (<class '__main__.A'>,)
+    print C.__bases__  # (<class '__main__.A'>,)
+    print D.__bases__  # (<class '__main__.B'>, <class '__main__.C'>)
+    print D.__base__   # <class '__main__.B'>
+    print issubclass(D, A)  # True
 
 
 查看类的属性字典
---------------
-    .. code-block:: python
+-----------------------------
+.. code-block:: python
 
-        import os
-        class Cls:
-            def func(self): pass
-        print(os.__dict__) # ...
-        print(Cls.__dict__)  # {'__module__': '__main__', '__doc__': None, 'func': <function func at ...>}
+    import os
+    class Cls:
+        def func(self): pass
+    print(os.__dict__) # ...
+    print(Cls.__dict__)  # {'__module__': '__main__', '__doc__': None, 'func': <function func at ...>}
 
 
 查看实例的类对象
---------------
-    - ``obj.__class__ == == type(obj)``
-    .. code-block:: python
+-----------------------------
+- ``obj.__class__ == == type(obj)``
+.. code-block:: python
 
-        class Cls: pass
-        c = Cls()
-        print(c.__class__)   #: <class '__main__.Cls'>
-        print(Cls.__class__) #: <class 'type'>
+    class Cls: pass
+    c = Cls()
+    print(c.__class__)   #: <class '__main__.Cls'>
+    print(Cls.__class__) #: <class 'type'>
 
 
 查看模块路径
-----------
-    .. code-block:: python
+-------------------------
+.. code-block:: python
 
-        import os, sys, time
-        print(__file__)       #: 返回当前文件路径
-        print(os.__file__)    #: /usr/lib/python2.7/os.pyc
-        # 某些内建模块没有 __file__ 属性
-        print(sys.__file__)   #: AttributeError
-        print(time.__file__)  #: AttributeError
+    import os, sys, time
+    print(__file__)       #: 返回当前文件路径
+    print(os.__file__)    #: /usr/lib/python2.7/os.pyc
+    # 某些内建模块没有 __file__ 属性
+    print(sys.__file__)   #: AttributeError
+    print(time.__file__)  #: AttributeError
 
 
 查看方法、类所属的模块名称
-----------------------
-    .. code-block:: python
+----------------------------------------------------
+.. code-block:: python
 
-        from os import open
-        print(open.__module__)  #: posix
-        print(str.__module__)   #: __builtin__
+    from os import open
+    print(open.__module__)  #: posix
+    print(str.__module__)   #: __builtin__
 
-        class Cls: pass
-        def func(): pass
-        c = Cls()
-        print(c.__module__)     #: __main__
-        print(Cls.__module__)   #: __main__
-        print(func.__module__)  #: __main__
+    class Cls: pass
+    def func(): pass
+    c = Cls()
+    print(c.__module__)     #: __main__
+    print(Cls.__module__)   #: __main__
+    print(func.__module__)  #: __main__
 
 
 判断方法绑定在哪个实例上
----------------------
-    .. code-block:: python
+---------------------------------------------------
+.. code-block:: python
 
-        class Cls:
-            def func(self): pass
+    class Cls:
+        def func(self): pass
 
-        c = Cls()
-        print(c.func.__self__)  #: <__main__.Cls instance at ...>  #: python2
-                                #: <__main__.Cls object at ...>    #: python3
+    c = Cls()
+    print(c.func.__self__)  #: <__main__.Cls instance at ...>  #: python2
+                            #: <__main__.Cls object at ...>    #: python3

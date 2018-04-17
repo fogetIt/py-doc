@@ -1,128 +1,127 @@
 :自省: 程序在运行时获得对象的信息
-=============================
 
 
 issubclass(C, B) -> bool
 -------------------------
-    - 判断类参数 ``C`` 是否是类型参数 ``B`` 的子类
-    - 参数 ``B`` 可能是元组
-    .. code-block:: python
+- 判断类参数 ``C`` 是否是类型参数 ``B`` 的子类
+- 参数 ``B`` 可能是元组
+.. code-block:: python
 
-        print(issubclass(bool, int))  #: True
+    print(issubclass(bool, int))  #: True
 
 
 isinstance(object, class-or-type-or-tuple) -> bool
 ---------------------------------------------------
-    .. code-block:: python
+.. code-block:: python
 
-        class Cls: pass
-        c = Cls()
-        print(isinstance(c, Cls))   #: 判断实例是否属于类
-        print(isinstance('', str))  #: 判断对象是否是一个已知的类型
+    class Cls: pass
+    c = Cls()
+    print(isinstance(c, Cls))   #: 判断实例是否属于类
+    print(isinstance('', str))  #: 判断对象是否是一个已知的类型
 
 
 
 callable(object) -> bool
 ------------------------
-    - 判断一个对象是否可以被调用
-    .. code-block:: python
+- 判断一个对象是否可以被调用
+.. code-block:: python
 
-        print(callable('a string'))   #: False
-        print(callable(lambda x: x))  #: True
+    print(callable('a string'))   #: False
+    print(callable(lambda x: x))  #: True
 
 
 type
 -----
-    - ``type(object) -> the object's type``
-    - ``type(name, bases, dict) -> a new type``
+- ``type(object) -> the object's type``
+- ``type(name, bases, dict) -> a new type``
 
 
 sys.modules
 ------------
-    - 当前载入（成功导入）到解释器的模块
-        - ``{模块名: 模块位置, ...}``
-    .. code-block:: python
+- 当前载入（成功导入）到解释器的模块
+    - ``{模块名: 模块位置, ...}``
+.. code-block:: python
 
-        import sys
-        print(sys.modules.keys())
+    import sys
+    print(sys.modules.keys())
 
 
 查看关键字
----------
-    .. code-block:: python
+--------------------
+.. code-block:: python
 
-        import keyword
-        print(keyword.kwlist)
-        print(keyword.iskeyword('and'))
+    import keyword
+    print(keyword.kwlist)
+    print(keyword.iskeyword('and'))
 
 
 pprint
 -------
-    :``pprint(object, stream=None, indent=1, width=80, depth=None)``:
-        :stream: 输出流对象，默认是 ``sys.stdout``
-        :indent: 缩进
-        :width:  最大行宽
-        :depth:  打印的深度
-    .. code-block:: python
+:``pprint(object, stream=None, indent=1, width=80, depth=None)``:
+    :stream: 输出流对象，默认是 ``sys.stdout``
+    :indent: 缩进
+    :width:  最大行宽
+    :depth:  打印的深度
+.. code-block:: python
 
-        from pprint import pprint
-        print(__builtins__.__dict__)
-        pprint(__builtins__.__dict__, indent=2)
+    from pprint import pprint
+    print(__builtins__.__dict__)
+    pprint(__builtins__.__dict__, indent=2)
 
 
 help
 ----
-    .. code-block:: python
+.. code-block:: python
 
-        help(xxx.xxx)     #: 查看属性、方法
-        help('modules')   #: 列出所有已安装模块
-        help('keywords')  #: 列出所有关键字
-        help()            #: 进入help交互式
-                          #: q 退出
-                          #: 输入 list、keywords 等，可以查看对象信息
+    help(xxx.xxx)     #: 查看属性、方法
+    help('modules')   #: 列出所有已安装模块
+    help('keywords')  #: 列出所有关键字
+    help()            #: 进入help交互式
+                      #: q 退出
+                      #: 输入 list、keywords 等，可以查看对象信息
 
 
 ipython
 --------
-    .. code-block:: shell
+.. code-block:: shell
 
-        import flask
-        flask? #: 简化了 help
+    import flask
+    flask? #: 简化了 help
 
 
 查看对象属性
------------
-    :``dir([object]) -> list of strings``: 返回的对象的 **所有** 属性名列表（实例、类、父类的属性）
+----------------------
+:``dir([object]) -> list of strings``: 返回的对象的 **所有** 属性名列表（实例、类、父类的属性）
 
-        - 无视 ``__slots__``
+    - 无视 ``__slots__``
+    .. code-block:: python
+
+        print(dir())              #: 文件属性（当前模块中定义的方法名称列表）
+        print(dir(Cls))           #: 类属性（模块或者类内部的所有方法）
+        print(dir(instance))      #: 实例属性
+        print(dir(__builtins__))  #: 列出所有内建方法
+
+:``object.__dict__``: 返回对象的 **局部** 属性字典（ ``{属性名: 属性值}`` ）
+
+    - 不包含所有有效属性
+
         .. code-block:: python
 
-            print(dir())              #: 文件属性（当前模块中定义的方法名称列表）
-            print(dir(Cls))           #: 类属性（模块或者类内部的所有方法）
-            print(dir(instance))      #: 实例属性
-            print(dir(__builtins__))  #: 列出所有内建方法
+            print(__builtins__.__dict__)
+    - 添加了 ``__slots__`` 的类的实例，将不会拥有 ``__dict__``
+        - 许多内建类型（如 ``list`` ）都没有 ``__dict__``
+    - 动态地添加或删除属性
 
-    :``object.__dict__``: 返回对象的 **局部** 属性字典（ ``{属性名: 属性值}`` ）
+        .. code-block:: python
 
-        - 不包含所有有效属性
-
-            .. code-block:: python
-
-                print(__builtins__.__dict__)
-        - 添加了 ``__slots__`` 的类的实例，将不会拥有 ``__dict__``
-            - 许多内建类型（如 ``list`` ）都没有 ``__dict__``
-        - 动态地添加或删除属性
-
-            .. code-block:: python
-
-                class Cls(object):
-                    def __init__(self):
-                        self.__dict__.update(...)
-                c = Cls()
-                c.xxx = ...
-                c.__dict__.update(...)
-        :对象的属性查找顺序:
-            - ``instance.__dict__ -> Cls.__dict__ -> Base.__dict__``
-            - ``instance.__dict__`` 仅仅是实例的局部属性集合
-            - 对一个类设置属性时，它的实例的 ``__dict__`` 也会受到影响
-            - 对一个实例设置属性时，它所属类的 ``__dict__`` 不受影响
+            class Cls(object):
+                def __init__(self):
+                    self.__dict__.update(...)
+            c = Cls()
+            c.xxx = ...
+            c.__dict__.update(...)
+    :对象的属性查找顺序:
+        - ``instance.__dict__ -> Cls.__dict__ -> Base.__dict__``
+        - ``instance.__dict__`` 仅仅是实例的局部属性集合
+        - 对一个类设置属性时，它的实例的 ``__dict__`` 也会受到影响
+        - 对一个实例设置属性时，它所属类的 ``__dict__`` 不受影响

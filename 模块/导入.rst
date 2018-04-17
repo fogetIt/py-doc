@@ -1,152 +1,155 @@
 python 标准模块
---------------
-    - **.py** 文件
-    - 带有 **__init__.py** 的包目录（否则，视为普通目录）
+------------------------
+- **.py** 文件
+- 带有 **__init__.py** 的包目录（否则，视为普通目录）
 
 
 模块搜索
--------
-    - 根据 **sys.path** 环境变量的值，查找具体模块的路径
-    - 搜索路径
-        - **执行入口文件** 所在目录
-        - 环境变量
-            :Lib:           标准库
-            :sit-packages:  第三方包安装
-            :dist-packages: 手动安装的第三方包
-            - **.pth** 文件所记录的内容
-                - **python** 在遍历库文件目录时，会将遇到的 **.pth** 文件中所记录的路径加入到 **sys.path**
-                - 这样 **.pth** 文件中指明的库就可以被 **python** 运行环境找到
-    - 注册新的类库
-        - 临时添加
+--------------------
+- 根据 **sys.path** 环境变量的值，查找具体模块的路径
+- 搜索路径
+    - **执行入口文件** 所在目录
+    - 环境变量
+        :Lib:           标准库
+        :sit-packages:  第三方包安装
+        :dist-packages: 手动安装的第三方包
+        - **.pth** 文件所记录的内容
+            - **python** 在遍历库文件目录时，会将遇到的 **.pth** 文件中所记录的路径加入到 **sys.path**
+            - 这样 **.pth** 文件中指明的库就可以被 **python** 运行环境找到
+- 注册新的类库
+    - 临时添加
 
-            .. code-block:: python
+        .. code-block:: python
 
-                import sys
-                sys.path.append("xxx")
-        - 添加到环境变量
-            - 将文件复制到 **sys.path** 列表中的目录里
-            - 在 **sys.path** 列表中的目录里添加 **.pth** 文件
+            import sys
+            sys.path.append("xxx")
+    - 添加到环境变量
+        - 将文件复制到 **sys.path** 列表中的目录里
+        - 在 **sys.path** 列表中的目录里添加 **.pth** 文件
 
 
 模块导入
--------
-    - 绝对路径导入
-        - 按照 **执行入口文件** 所对应的当前路径导入
-        - 不能直接运行当前模块，只能在 **入口文件** 中导入
-    - 相对路径导入
-        :package: 拥有 **__init__.py** 文件的目录，视作 **package**
+------------------
+- 绝对路径导入
+    - 按照 **执行入口文件** 所对应的当前路径导入
+    - 不能直接运行当前模块，只能在 **入口文件** 中导入
+- 相对路径导入
 
-            :module: **package** 下的其他文件、文件夹，视作 **module**
+    :package: 拥有 **__init__.py** 文件的目录，视作 **package**
 
-                - 各个 **module** 之间使用相对路径导入
-                    :显式相对路径导入:
-                            .. code-block:: python
+        :module: **package** 下的其他文件、文件夹，视作 **module**
 
-                                from .module_xxx import xxx
-                        - 不能直接运行当前模块，只能在 **入口文件** 中导入
-                    :隐式相对路径导入:
-                            .. code-block:: python
+            - 各个 **module** 之间使用相对路径导入
+                :显式相对路径导入:
+                        .. code-block:: python
 
-                                from module_xxx import xxx
-                        - 可以单独运行
-                        - **python3** 中已废弃
-                        - 禁用隐式相对路径导入
+                            from .module_xxx import xxx
+                    - 不能直接运行当前模块，只能在 **入口文件** 中导入
+                :隐式相对路径导入:
+                        .. code-block:: python
 
-                            .. code-block:: python
+                            from module_xxx import xxx
+                    - 可以单独运行
+                    - **python3** 中已废弃
+                    - 禁用隐式相对路径导入
 
-                                from __future__ import absolute_import
+                        .. code-block:: python
+
+                            from __future__ import absolute_import
 
 
 模块加载
--------
-    - 模块导入时会执行其中的语句，并初始化类属性
-        - 一个模块无论被导入多少次，只被加载一次
-        - 多次重复导入时，不会重新加载，只是把对该模块的内存地址给引用到本地变量环境
-    - 作用域
-        - 如果在一个模块的顶层导入, 那么它的作用域就是全局的
-        - 如果在函数中导入, 那么它的作用域是局部的
-    - 局部绑定
-        - 尽量避免使用 ***form** 导入
-            - ``from xxx import xxx`` 引入的函数，引用的 **外部变量** 绑定了模块里的对象（局部绑定）
-            - ``import xxx; xxx.xxx`` 引入的函数，引用的 **外部变量** 绑定的是最近作用域的对象
+-----------------
+- 模块导入时会执行其中的语句，并初始化类属性
+    - 一个模块无论被导入多少次，只被加载一次
+    - 多次重复导入时，不会重新加载，只是把对该模块的内存地址给引用到本地变量环境
+- 作用域
+    - 如果在一个模块的顶层导入, 那么它的作用域就是全局的
+    - 如果在函数中导入, 那么它的作用域是局部的
+- 局部绑定
+    - 尽量避免使用 ***form** 导入
+        - ``from xxx import xxx`` 引入的函数，引用的 **外部变量** 绑定了模块里的对象（局部绑定）
+        - ``import xxx; xxx.xxx`` 引入的函数，引用的 **外部变量** 绑定的是最近作用域的对象
 
 
 import
 -------
-    - 隐式调用 ``__import__(name, globals={}, locals={}, fromlist=[], level=-1) -> module`` 进行导入工作
-    .. code-block:: python
+- 隐式调用 ``__import__(name, globals={}, locals={}, fromlist=[], level=-1) -> module`` 进行导入工作
+.. code-block:: python
 
-        import xxx.xxx...
-        import xxx, xxx, ...
-        import (xxx, xxx, ...)
-        from xxx import module[, cls, func, var]
+    import xxx.xxx...
+    import xxx, xxx, ...
+    import (xxx, xxx, ...)
+    from xxx import module[, cls, func, var]
 
-        import sys
-        # equals
-        sys = __import__('sys')
+    import sys
+    # equals
+    sys = __import__('sys')
 
 
 exec("import xxx")
 ------------------
-    - 将导入语句构建成字符串并传递给 **exec()** 执行
-    - 缺点：每次执行都要编译，运行多次会影响性能
+- 将导入语句构建成字符串并传递给 **exec()** 执行
+- 缺点：每次执行都要编译，运行多次会影响性能
 
 
 importlib
----------
-    .. code-block:: python
+----------
+.. code-block:: python
 
-        import importlib
-        importlib.import_module('xxx.xxx')
+    import importlib
+    importlib.import_module('xxx.xxx')
 
 
 reload(module) -> module
 -------------------------
-    - 对已经加载的模块进行重新加载
-    - 一般用于原模块有变化等特殊情况
-        - **reload** 前该模块必须已经 **import**过
-        - 不支持 **from** 方式导入的模块进行重新加载
-        - 原来已经使用的实例还是会使用旧的模块，新生产的实例会使用新的模块
-        - **reload** 后还是用原来的内存地址
-    .. code-block:: python
+- 对已经加载的模块进行重新加载
+- 一般用于原模块有变化等特殊情况
+    - **reload** 前该模块必须已经 **import**过
+    - 不支持 **from** 方式导入的模块进行重新加载
+    - 原来已经使用的实例还是会使用旧的模块，新生产的实例会使用新的模块
+    - **reload** 后还是用原来的内存地址
+.. code-block:: python
 
-        import sys
-        """
-        每次启动 python 解释器时会自动加载 python Lib/site.py 里的 main() 函数
-        setdefaultencoding() 函数一出来就已经被删除了
-        """
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
+    import sys
+    """
+    每次启动 python 解释器时会自动加载 python Lib/site.py 里的 main() 函数
+    setdefaultencoding() 函数一出来就已经被删除了
+    """
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
 
 if __name__ == '__main__'
 -------------------------
-    只在文件直接运行时有效，在其它文件导入时无效
+只在文件直接运行时有效，在其它文件导入时无效
 
 
 新特性
-------
-    :``import __future__``: 不起任何作用
-    :from __future__ import ...:
-        - "导入"新特性
-        - 必须放在文件首部
-        :精确除法:
-            - ``from __future__ import division``
-            - 返回真实的商（浮点型）
-        :禁用隐式相对路径导入:
-            - ``from __future__ import absolute_import``
+----------
+
+:``import __future__``: 不起任何作用
+:from __future__ import ...:
+    - "导入"新特性
+    - 必须放在文件首部
+    :精确除法:
+        - ``from __future__ import division``
+        - 返回真实的商（浮点型）
+    :禁用隐式相对路径导入:
+        - ``from __future__ import absolute_import``
 
 
 导入限制
--------
-    :__all__:
-        - 定义在包的 **__init__.py** 或者单文件模块中
-        - 包含了执行 ``from xxx import **`` 应该导入的对象
-    :_xxx:
-        - 不会被 ``from xxx import *`` 语句导入
-        - 除非模块或包中的 **__all__** 列表显式地包含
+----------------
+
+:__all__:
+    - 定义在包的 **__init__.py** 或者单文件模块中
+    - 包含了执行 ``from xxx import **`` 应该导入的对象
+:_xxx:
+    - 不会被 ``from xxx import *`` 语句导入
+    - 除非模块或包中的 **__all__** 列表显式地包含
 
 
 循环导入
---------
-    把 **import** 语句移到函数内部或者文件底部
+--------------
+把 **import** 语句移到函数内部或者文件底部

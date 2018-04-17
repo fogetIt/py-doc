@@ -1,41 +1,41 @@
 推导式（生成式、表达式）
-====================
+=========================
 
 
 列表推导式
----------
-    .. code-block:: python
+---------------------
+.. code-block:: python
 
-        print([i * i for i in range(1, 11) if i % 2])  #: [1, 9, 25, 49, 81]        #: 使用条件判断
-        print([m + n for m in "AB" for n in "XY"])     #: ['AX', 'AY', 'BX', 'BY']  #: 使用两层循环
-        L = ["Hello", "World", 18, "Apple", None]
-        print([s.lower() for s in L if isinstance(s, str)])  #: ['hello', 'world', 'apple']
+    print([i * i for i in range(1, 11) if i % 2])  #: [1, 9, 25, 49, 81]        #: 使用条件判断
+    print([m + n for m in "AB" for n in "XY"])     #: ['AX', 'AY', 'BX', 'BY']  #: 使用两层循环
+    L = ["Hello", "World", 18, "Apple", None]
+    print([s.lower() for s in L if isinstance(s, str)])  #: ['hello', 'world', 'apple']
 
 
 集合推导式
----------
-    .. code-block:: python
+--------------------
+.. code-block:: python
 
-        print({i for i in [1, 1, 2]})  #: {1, 2}
+    print({i for i in [1, 1, 2]})  #: {1, 2}
 
 
 同时循环多个变量
--------------
-    .. code-block:: python
+-------------------------
+.. code-block:: python
 
-        for i, j, k in (1, 2, 3), ("a", "b", "c"), ("A", "B", "C"):
-            print((i, j, k), end="")  #: (1, 2, 3)('a', 'b', 'c')('A', 'B', 'C')
+    for i, j, k in (1, 2, 3), ("a", "b", "c"), ("A", "B", "C"):
+        print((i, j, k), end="")  #: (1, 2, 3)('a', 'b', 'c')('A', 'B', 'C')
 
 
 字典推导式
----------
-    .. code-block:: python
+---------------
+.. code-block:: python
 
-        print({i: j for i, j in [("name", "kitty"), ("age", 2)]})  #: {'age': 2, 'name': 'kitty'}
+    print({i: j for i, j in [("name", "kitty"), ("age", 2)]})  #: {'age': 2, 'name': 'kitty'}
 
 
 生成器推导式
------------
-    .. code-block:: python
+-----------------
+.. code-block:: python
 
-        g = (i ** 2 for i in range(5)); print(g)  #: <generator object ... at ...>
+    g = (i ** 2 for i in range(5)); print(g)  #: <generator object ... at ...>

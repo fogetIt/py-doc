@@ -1,0 +1,93 @@
+换行符
+-----
+=========  ====
+``\n``       Unix
+``\r``       Mac
+``\r\n``     Windows
+``U, rU``    Unix, Mac, Windows
+=========  ====
+
+
+打开文件
+--------
+
+:python2:
+    - ``file(name[, mode[, buffering]]) -> file object``
+        - 返回一个类对象
+    - ``open(name[, mode[, buffering]]) -> file object``
+        - 一个封装了 **file** 类对象的函数，建议使用
+        :name: 文件位置
+
+            - 默认在当前路径下查找文件名
+        :mode: 操作权限
+
+            :``r``:  读（默认）
+            :``w``:  覆盖写
+            :``a``:  追加写
+            :``rb``: 二进制读
+            :``wb``: 二进制写
+            :``rU``: 带有标准换行符的读
+            :``Ua``: 带有标准换行符的写
+        :buffering: 缓冲
+:python3: open(file, mode='r', buffering=None,
+    encoding=None, errors=None, newline=None, closefd=True)
+
+        - 返回一个文件流对象
+:``codecs.open``: 替代 **python2 open()** 打开文件（读取 **unicode** 字符串），避免中文乱码
+
+    - ``open(filename, mode='r', encoding=None, errors='strict', buffering=1)``
+
+
+**对一个不存在的文件进行操作，如果权限是 读权限 会报错，如果是 写权限 会创建文件。**
+
+
+文件操作
+-------
+.. code-block:: python
+
+    # 打开一个一次性消耗对象
+    f = open("xxx", mode="r")
+    # 通过赋值保存读取的对象
+    s = f.read([size=-1])    #: -> string
+    s1 = f.readline([size])  #: -> string
+    l = f.readlines([size])  #: -> list of strings
+
+    # 在 for 循环中直接使用文件对象进行迭代
+    for line in f: print(line)
+
+    f = open("xxx", mode="w")
+    f.write(str)            #: -> None
+    f.writelines(str_list)  #: -> None
+
+    #: 关闭并保存文件
+    #: 如果不关闭，就要等垃圾回收时，自动释放资源
+    #: 如果程序执行很长时间，或并发很大时，不关闭文件，可能耗尽资源，会导致死锁
+    f.close()  # -> None/integer
+
+
+
+使用 with_ ，不用写关闭语句
+-------------------------
+.. _with: ../面向对象/魔法函数.rst
+.. code-block:: python
+
+    with open("xxx", "r") as file:
+        data = file.read()
+
+
+truncate
+---------
+清空文件，请小心使用该命令
+
+
+seek(offset[, whence]) -> None
+--------------------------------
+- 移动文件对象中的指针
+    :``0``: 开头
+    :``1``: 当前
+    :``2``: 尾部
+
+
+tell() -> current file position, an integer (may be a long integer)
+--------------------------------------------------------------------
+返回当前指针位置
