@@ -88,11 +88,10 @@
     :进程安全对象:
 
         ================  =======================
-        `共享内存`_          ``multiprocessing.Value()``
+        `共享内存对象`_       ``multiprocessing.Value()``
          -                  ``multiprocessing.Array()``
         `系统内核对象`_       ``multiprocessing.Pipe(duplex)``
          -                  `队列和锁 <并发安全.rst>`_
-         -                  ``multiprocessing.JoinableQueue()``
         `服务进程对象`_       ``multiprocessing.Manager().list()``
          -                  ``multiprocessing.Manager().dict()``
          -                  ``multiprocessing.Manager().Namespace()``
@@ -103,9 +102,9 @@
          -                  ``multiprocessing.Manager().Array()``
         ================  =======================
 
-    :效率: 共享内存 > 系统内核对象  > 服务进程对象
+    :效率: 共享内存对象 > 系统内核对象  > 服务进程对象
 
-    :通过继承实现对象的进程间共享:
+    :通过继承实现进程间共享对象:
 
         - 继承本质上不是一种对象共享机制
         - 进程的内存是各自独立的
@@ -113,46 +112,70 @@
         - 子进程自动继承父进程的内存状态和对象描述符
         - 子进程从父进程继承来的对象并不一定是共享的
         - 子进程复制了一份父进程的对象
-        - 当这个对象包装了一些 **进程安全对象** 时，拷贝这个对象实现了对象的共享
-        - 因此，只有 **进程安全对象** 和基于这些对象实现的对象，才能够通过继承来共享
+        - 当这个对象包装了一些 **系统内核对象** 时，拷贝这个对象实现了对象的共享
+        - 因此，只有 **系统内核对象** 和基于这些对象实现的对象，才能够通过继承来共享
         - 通过继承共享对象
-            - 在 linux 平台上没有任何限制
-            - 在 Windows 上面由于没有实现 fork ，继承方式几乎无法共享对象
+            - 在 linux 上没有任何限制
+            - 由于 Windows 没有实现 fork ，无法通过继承方式共享对象
 
-    :给进程池传递进程安全对象:
+    :进程池引用进程安全对象:
 
-        - **进程安全对象** 无法像普通参数那样传入 apply/apply_async
-        - **进程安全对象** 必须在进程池实例化的时候通过 initializer,initargs 设置成进程间全局对象
-        .. code-block:: python
+        :服务进程对象:
 
-            from multiprocessing import Pool, Lock
+            1. 在主进程中实例化为全局变量，子进程直接引用
+            #. 可以通过 ``apply/apply_async`` 传入
 
-            def init(l):
-                global lock
-                lock = l
-            pool = Pool(
-                4,
-                initializer=init,
-                initargs=(Lock(),)
-            )
+        :系统内核对象、共享内存对象:
+
+            1. 在主进程中实例化为全局变量，子进程直接引用
+            #. 无法通过 ``apply/apply_async`` 传入
+                - 在进程池实例化的时候设置成进程间全局对象
+
+                .. code-block:: python
+
+                    from multiprocessing import Pool, Lock
+
+                    def init(l):
+                        global lock
+                        lock = l
+                    pool = Pool(
+                        4, initializer=init, initargs=(Lock(),)
+                    )
 
 
-共享内存
---------------
+共享内存对象
+-------------------
 - 支持 **ctypes** 当中的类型
 - 接收一个 **锁** 对象，用于同步
-- **python3** 已废弃的 **API**
-    - ``multiprocessing.RawValue(), multiprocessing.RawArray()``
-        - 不存在锁定
-        - 内核不会对共享内存的访问进行同步
-- 这种共享方式，依赖于继承
+- 内核不会对共享内存对象的访问进行同步
+    - **python3** 已废弃的 **API**
+        - ``multiprocessing.RawValue()``
+        - ``multiprocessing.RawArray()``
+    - 进程间同步锁定（手动加锁）
+        - ``multiprocessing.Value()``
+        - ``multiprocessing.Array()``
+
+        .. code-block:: python
+
+            # 主进程内
+            import multiprocessing
+            manager = multiprocessing.Manager()
+            lock = manager.Lock()
+            num = manager.Value(c_int, 0)  # Value 可以传入锁对象，但是不起作用
+
+            # 子进程内
+            lock.accquire()
+            num.value += 1
+            # num.set(num.get() + 1)
+            lock.release()
+- 依赖于继承
     - 由于缺少命名机制，在一个进程当中创建的对象，无法在另外一个进程当中通过名字来引用
-    - 因此，这种共享方式依赖于继承，对象应该由父进程创建，然后由子进程引用
-- 使用共享内存和必要的同步锁，性能比其它共享方式提升很大
+    - 因此，对象应该由父进程创建，然后由子进程引用
+- 使用共享内存对象和必要的同步锁，性能比其它共享方式提升很大
 
 
 系统内核对象
----------------
+--------------------
 - 在主进程中共享数据
 
 :mutiprocessing.Pipe(duplex):
