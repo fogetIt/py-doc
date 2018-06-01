@@ -36,7 +36,7 @@ API
         name=None,    #: 别名
     )
     t.setDaemon()  #: t.daemon = True/False
-    t.start()
+    t.start()      #: 调用 target 或者线程对象的 run() 方法（如果直接执行 t.run() ，则顺序执行）
     t.join()
     t.getName()    #: 返回线程名
     t.setName("")  #: 设置线程名
