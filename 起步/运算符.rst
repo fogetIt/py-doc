@@ -21,8 +21,8 @@
 
         .. code-block:: python
 
-            print(not True and False)      #: True  #: not > and
-            print(False and True or True)  #: True  #: and > or
+            print(not True and False)      #: False  #: not > and
+            print(False and True or True)  #: True   #: and > or
 
 
 算术运算符
