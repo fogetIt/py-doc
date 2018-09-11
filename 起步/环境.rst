@@ -53,6 +53,7 @@ Anaconda
     - spyder(IDE)
 
 :conda: **Anaconda** 自带的包管理器
+
     .. code-block:: shell
 
         conda list         # 查看已经安装的包
