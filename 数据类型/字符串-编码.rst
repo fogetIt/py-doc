@@ -1,11 +1,11 @@
 计算机数据存储
-######################
+#############################
 - 计算机只能表示数字
 - 如果要表示其它类型（文本、图像、声音...）的数据，就必须找到将数据转换成数字的方法
 
 
 字符编码表
-###################
+#######################
 - 数字和字符之间的映射关系
 - 每个字符都有对应的编号
 - 通过这种关系就可以将字符解释成一组数字，然后像处理数字一样处理字符
@@ -15,6 +15,7 @@
 ------
 
 :bytes:
+
 - 从网络或磁盘上读取的字节流数据
 - ``1bytes == 8bit``
 - **8** 个可以开合的晶体管，表示 **2** 的 **8** 次方
@@ -23,18 +24,22 @@
         .. code-block:: python
 
             for i in range(1, 255): print(chr(i), end=" ")
+            
     :0~127: **ASCII**
 
         - 美国信息交换标准代码
         - “半角”字符
         - 占用 **1** 个字节
+        
         :0~32, 127:  特殊用途（控制码）
         :32~126: 英语字符
 
             :48～57:  阿拉伯数字 **0~9**
             :65～90:  **26** 个大写英文字母
             :97～122: **26** 个小写英文字母
+            
             - 其余为一些标点符号、运算符号等
+            
     :128~255: 扩展字符集
 
         - 非英语国家字符的奇异符号（不通用）
@@ -44,18 +49,23 @@
 -------------------
 
 :DBCS: 汉字占用 **2** 个字节的字符集
+
     :GB2312: 对 **ASCII** 的中文扩展
 
         :“全角”字符:
+        
             - 把 **127** 号之后的（其它国家的）奇异符号取消掉
             - **1** 个小于 **127** 的字符意义与原来相同
             - **2** 个大于 **127** 的字符连在一起时，就表示 **1** 个汉字
             - 组合出 **7000** 多个简体汉字
+            
     :GBK:
+    
         :CP936: **IBM** 发明 **Code Page** 时将 **GBK** 放在第 **936** 页
 
         - 只要第一个字节大于 **127** ，就表示 **1** 个汉字
         - 在 **GB2312** 基础上，增加了近 **20000** 个汉字（包括繁体）和符号
+        
     :GB18030: 在 **GBK** 基础上，增加了几千个少数民族的字
 
 
@@ -74,7 +84,7 @@ unicode
 
 
 UTF(UCS Transfer Format)
-------------------------
+-------------------------
 - **unicode** 在网络上传输的实现方式
 
     :UTF-8: 为传输而设计的编码
@@ -93,7 +103,7 @@ UTF(UCS Transfer Format)
 
 
 计算机系统通用的字符编码工作方式
-----------------------------------------------
+-----------------------------------------------------------
 - 在计算机内存中，统一使用 **unicode** 编码
 - 当需要保存到硬盘或者需要传输的时候，转换为 **UTF-8** 编码
 - 用记事本编辑的时候，从文件读取的 **UTF-8** 字符被转换为 **unicode** 字符到内存里
@@ -105,7 +115,7 @@ python 编码
 ================
 
 :内存中的字符编码格式: unicode
-:默认文件字符编码格式: 查看编码_
+:默认文件字符编码格式: `查看编码`_
 
     :`python2.x`_: ascii
     :python3.x: unicode
@@ -154,7 +164,7 @@ python2.x
 
 
 utf8 -> unicode
-:::::::::::::::
+::::::::::::::::
 .. code-block:: python
 
     # coding: utf-8
@@ -165,7 +175,7 @@ utf8 -> unicode
 
 
 unicode -> gbk
-::::::::::::::
+:::::::::::::::
 .. code-block:: python
 
     # coding: utf-8
@@ -175,23 +185,25 @@ unicode -> gbk
 setdefaultencoding
 :::::::::::::::::::
 **方法1**
-    .. code-block:: python
 
-        import sys
-        """
-        python 解释器启动时会自动加载 Lib/site.py
-        in site.main()
-            del sys.setdefaultencoding
-        """
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
+.. code-block:: python
+
+    import sys
+    """
+    python 解释器启动时会自动加载 Lib/site.py
+    in site.main()
+        del sys.setdefaultencoding
+    """
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
 
 **方法2**
-    .. code-block:: bash
 
-        # sitecustomize.py is a special script;
-        # Python will try to import it on startup, so any code in it will be run automatically.
-        touch Lib/site-packages/sitecustomize.py
+.. code-block:: bash
+
+    # sitecustomize.py is a special script;
+    # Python will try to import it on startup, so any code in it will be run automatically.
+    touch Lib/site-packages/sitecustomize.py
 
 
 避免中文乱码
