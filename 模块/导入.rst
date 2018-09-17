@@ -11,7 +11,7 @@ python 标准模块
     - **执行入口文件** 所在目录
     - 环境变量
         :Lib:           标准库
-        :sit-packages:  第三方包安装
+        :site-packages: 第三方包安装
         :dist-packages: 手动安装的第三方包
         - **.pth** 文件所记录的内容
             - **python** 在遍历库文件目录时，会将遇到的 **.pth** 文件中所记录的路径加入到 **sys.path**
