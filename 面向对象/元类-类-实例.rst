@@ -20,7 +20,7 @@
 
             class MetaClass(type):
                 """（1）"""
-                def __new__(cls, what, bases, attrs):
+                def __new__(cls, name, bases, attrs):
                     # ...
                     return type.__new__(name, bases, attrs)
 
