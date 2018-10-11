@@ -4,10 +4,11 @@
 :os.getpid(): 获取进程 ID
 :multiprocessing: python 多进程包，像线程一样管理进程
 
-    :警告:
+    :警告: 必须把创建子进程的部分用 ``if __name__ == '__main__'`` 保护起来
+    
         - 在 Windows 上，子进程会自动 import 主进程文件
         - import 会执行 python 语句，就会无限递归创建子进程报错
-        - 所以必须把创建子进程的部分用 ``if __name__ == '__main__'`` 保护起来
+
 .. code-block:: python
 
     from multiprocessing import Process, current_process
