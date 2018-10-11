@@ -79,9 +79,6 @@ API
 
 
             class Singleton(object):
-                """
-                单例模式
-                """
                 instance = None
 
                 @synchronized
