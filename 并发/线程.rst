@@ -60,8 +60,35 @@ API
     :类对象: 在多线程下释放不完全，没释放的那部分内存，可以重复利用
     :单例对象:
         
-        - id 唯一，但是在多线程下，容器内部最内层的原子对象，不是线程安全的
-        - 需要 `配合锁的使用 <https://www.cnblogs.com/baiyb/p/8506438.html>`_
+        - id 唯一，但是在多线程下，容器内部最内层的原子对象，不是线程安全的，需要配合锁的使用
+        
+        .. code-block:: python
+        
+            # coding:utf-8
+            import threading
+
+
+            def synchronized(func):
+
+                func.__lock__ = threading.Lock()
+
+                def lock_func(*args, **kwargs):
+                    with func.__lock__:
+                        return func(*args, **kwargs)
+                return lock_func
+
+
+            class Singleton(object):
+                """
+                单例模式
+                """
+                instance = None
+
+                @synchronized
+                def __new__(cls, *args, **kwargs):
+                    if cls.instance is None:
+                        cls.instance = object.__new__(cls, *args, **kwargs)
+                    return cls.instance
  
     - 共享的容器对象，不能覆盖赋值
  
