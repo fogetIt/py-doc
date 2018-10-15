@@ -96,7 +96,7 @@
                 - linux 上，没有任何限制
                 - Windows 上，没有实现 fork
 
-    - `IPC <./ipc.py>`_
+    - `ICP <./icp.py>`_
 
         :共享服务进程:
 
