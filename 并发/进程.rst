@@ -31,7 +31,7 @@
 
 
 进程池
-=======
+=========
 - ``multiprocessing.Pool, multiprocessing.Process`` 有冲突
 
 .. code-block:: python
@@ -54,87 +54,80 @@
     pool.apply(func, args=(), kwds={})                       #: 同步进程池（建议废弃）
     pool.apply_async(func, args=(), kwds={}, callback=None)  #: 异步进程池（效率更高）
     """
-    同步进程池
-        阻塞主进程（等待子进程运行结束，再切换到另外一个子进程）
-    异步进程池
-        不阻塞主进程（等到操作系统进行进程切换的时候，再交给子进程运行）
-        支持对返回结果进行回调
+    同步进程池：阻塞主进程（等待一个子进程结束，再切换到另一个）
+    异步进程池：不阻塞主进程（等到操作系统进行进程切换的时候，再交给子进程运行），支持对返回结果进行回调
     """
     pool.close()      #: 不再接受新的任务，等待池中的工作进程执行结束，关闭 pool
     pool.terminate()  #: 不再处理未完成的任务，关闭 pool
-    pool.join()
-    """
-    在调用 join() 前，必须调用 close() 或 terminate()
-    这样是因为被终止的进程需要被父进程等待，否则进程会成为僵尸进程
-    """
+    pool.join()       #: 在调用 join() 前，必须调用 close() 或 terminate()（因为被终止的进程需要被父进程等待，否则进程会成为僵尸进程）
 
 通信
-=====
+======
 - python 容器不是进程安全的，不能在进程间通信
 
-:应用程序间通信: ``Redis, RabbitMQ``
+:程序间通信: ``Redis, RabbitMQ``
 :进程间通信:
 
     :进程安全对象:
 
-        ================  =======================
-        `共享内存对象`_       ``multiprocessing.Value()``
-         -                  ``multiprocessing.Array()``
-        `系统内核对象`_       ``multiprocessing.Pipe(duplex)``
-         -                  `队列和锁 <并发安全.rst>`_
-        `服务进程对象`_       ``multiprocessing.Manager().list()``
-         -                  ``multiprocessing.Manager().dict()``
-         -                  ``multiprocessing.Manager().Namespace()``
-         -                  `队列和锁 <并发安全.rst>`_
-         -                  ``multiprocessing.Manager().Queue()``
-         -                  ``multiprocessing.Manager().Barrier()``
-         -                  ``multiprocessing.Manager().Value()``
-         -                  ``multiprocessing.Manager().Array()``
-        ================  =======================
+        ====================  =======================
+        `共享内存`_               ``multiprocessing.Value()``
+         -                      ``multiprocessing.Array()``
+        `共享系统内核信息`_        ``multiprocessing.Pipe(duplex)``
+         -                      `队列和锁 <队列和锁.rst>`_
+        `共享服务进程`_           ``multiprocessing.Manager().list()``
+         -                      ``multiprocessing.Manager().dict()``
+         -                      ``multiprocessing.Manager().Namespace()``
+         -                      `队列和锁 <队列和锁.rst>`_
+         -                      ``multiprocessing.Manager().Queue()``
+         -                      ``multiprocessing.Manager().Barrier()``
+         -                      ``multiprocessing.Manager().Value()``
+         -                      ``multiprocessing.Manager().Array()``
+        ====================  =======================
 
-    :效率: 共享内存对象 > 系统内核对象  > 服务进程对象
+    :效率: 共享内存 > 共享系统内核信息  > 共享服务进程
 
-    :通过继承实现进程间共享对象:
+    :复制父进程的内存状态和对象描述符:
 
-        - 继承本质上不是一种对象共享机制
         - 进程的内存是各自独立的
             - 父进程 **fork** 出子进程
-            - 子进程自动继承（复制）父进程的内存状态和对象描述符
+            - 子进程自动复制父进程的内存状态和对象描述符
                 - 子进程从父进程继承来的对象并不一定是共享的
-                - 如果子进程复制的对象包装了一些 **系统内核对象** ，能够实现通过继承来共享对象
-                    - 在 linux 上，没有任何限制
-                    - 在 Windows 上，没有实现 fork ，无法通过继承方式共享对象
+                - 如果子进程复制的对象包装了一些 **共享系统内核信息** ，能够实现共享对象
+                    - linux 上，没有任何限制
+                    - Windows 上，没有实现 fork
 
-    :进程池引用进程安全对象:
+    - `IPC <./ipc.py>`_
 
-        :服务进程对象:
+        :共享服务进程:
 
-            1. 在主进程中实例化为全局变量，子进程直接引用
-            #. 可以通过 ``apply/apply_async`` 传入
+            - 在主进程中实例化为全局变量
+                - 子进程直接引用父进程的全局变量
+                - 通过 ``Process() args`` 传入子进程
+                - 通过 ``apply/apply_async() args`` 传入进程池
 
-        :系统内核对象、共享内存对象:
+        :共享系统内核信息、共享内存:
 
-            1. 在主进程中实例化为全局变量，子进程直接引用
-            #. 无法通过 ``apply/apply_async`` 传入
-                - 在进程池实例化的时候设置成进程间全局对象
+            - 在主进程中实例化为全局变量
+                - 子进程直接引用父进程的全局变量
+                - 通过 ``Process() args`` 传入子进程
+                - 在进程池实例化的时候设置成进程间全局对象（无法通过 ``apply/apply_async() args`` 传入进程池
+                    .. code-block:: python
 
-                .. code-block:: python
-
-                    from multiprocessing import Pool, Lock
-
-                    def init(l):
-                        global lock
-                        lock = l
-                    pool = Pool(
-                        4, initializer=init, initargs=(Lock(),)
-                    )
+                        import multiprocessing
 
 
-共享内存对象
--------------------
+                        def init(l):
+                            global lock
+                            lock = l
+                        pool = multiprocessing.Pool(4, initializer=init, initargs=(multiprocessing.Lock(),))
+
+
+共享内存
+------------------
 - 支持 **ctypes** 当中的类型
 - 接收一个 **锁** 对象，用于同步
-- 内核不会对共享内存对象的访问进行同步
+- 内核不会对共享内存的访问进行同步
     - **python3** 已废弃的 **API**
         - ``multiprocessing.RawValue()``
         - ``multiprocessing.RawArray()``
@@ -158,15 +151,17 @@
 - 依赖于继承
     - 由于缺少命名机制，在一个进程当中创建的对象，无法在另外一个进程当中通过名字来引用
     - 因此，对象应该由父进程创建，然后由子进程引用
-- 使用共享内存对象和必要的同步锁，性能比其它共享方式提升很大
+- 使用共享内存和必要的同步锁，性能比其它共享方式提升很大
 
 
-系统内核对象
---------------------
+共享系统内核信息
+------------------------
 - 在主进程中共享数据
 
 :mutiprocessing.Pipe(duplex):
+
     :duplex:
+
         :True: 双向管道（只允许从管道一端的进程输入）
         :False: 单向管道（允许从管道两端的进程输入）
 
@@ -176,14 +171,13 @@
         - 另一个进程从管道另一端接收（ **recv()** ）对象
 
 
-服务进程对象
---------------------
+共享服务进程
+---------------------
 - 控制一个子进程，其他的进程通过 proxies 访问此子进程的容器对象
-- 典型的RPC（远程过程调用）调用方式
+- 典型的 RPC （远程过程调用）调用方式
     - 可以实现不同主机、不同主进程创建的子进程之间共享数据
 
 :Manager().Namespace():
 
     - 没有公共方法，可以添加属性
     - **_xxx** 属性值属于 proxy ，跟原来的 namespace 没有关系
-

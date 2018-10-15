@@ -26,7 +26,7 @@ API
 ====
 .. code-block:: python
 
-    import  _thread, threading
+    import _thread, threading
     from threading import Thread, current_thread
     t = Thread(
         group=None,
@@ -57,13 +57,14 @@ API
 
 :模块: 一个模块只会被实例化一次
 :容器:
+
     :类对象: 在多线程下释放不完全，没释放的那部分内存，可以重复利用
     :单例对象:
-        
+
         - id 唯一，但是在多线程下，容器内部最内层的原子对象，不是线程安全的，需要配合锁的使用
-        
+
         .. code-block:: python
-        
+
             # coding:utf-8
             import threading
 
@@ -86,9 +87,9 @@ API
                     if cls.instance is None:
                         cls.instance = object.__new__(cls, *args, **kwargs)
                     return cls.instance
- 
+
     - 共享的容器对象，不能覆盖赋值
- 
+
 :线程全局变量:
 
     :threading.local()/_thread._local():
@@ -98,4 +99,4 @@ API
             - 对于其他线程来说是局部变量，不可更改
 
     - Flask 底层 Werkzeug 的 LocalStack ，就是基于线程全局变量，每个线程处理一个 HTTP 请求
-- 线程 `队列和锁 <并发安全.rst>`_
+- 线程 `队列和锁 <队列和锁.rst>`_
