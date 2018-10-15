@@ -1,98 +1,84 @@
 守护程序
 ============
 
-- 子守护程序等待主程序 **运行完毕** 后， **立即** 销毁子程序
+:start(): 开始执行进程/线程函数（调用进程/线程对象的 **run()** ）
+:setDaemon(daemonic): 子守护程序等待主程序 **运行完毕** 后， **立即** 销毁子守护程序
 
-    :子守护进程等待主进程:
-    
-        - 由于进程之间互相独立，主进程代码执行结束，就算 **运行完毕** ，守护进程也就结束
-        - 主进程要等非守护进程都运行完毕后再回收子进程的资源（否则会产生僵尸进程）才结束
-        
-            :僵尸进程: 
+    :daemonic: 在 **start()** 之前设置
 
-                - 当某个子进程终结之后，需要被其父进程用 wait() 向操作系统发起回收资源信号，子进程不能自己释放空间
-                    - 有必要对每个子进程调用 **join()**
-                - 如果主进程结束，子进程没结束，则导致：内存无法释放、新的进程无法开始
-                - 对于多线程来说，
-        - 守护子进程内部无法再开启子进程
+        :False: 默认，不守护
+        :True:  守护 **主程序**
 
-    :子守护线程等待所有线程:
- 
-        - 由于线程之间共享数据，主线程代码执行结束，并且等待其它非守护子线程运行完毕，才算 **运行完毕** 
-            - 由于只有一个进程，所以 **join()** 不必须
-        - 主线程也是非守护线程
-        - 子守护线程别名：服务线程（垃圾回收的线程也是一个守护线程）
- 
-:API:
-    :setDaemon(daemonic):
-    
-        :daemonic:
-        
-            :False: 默认，声明（非守护） **子执行单元** （在 **start()** 之前设置）
-            :True:  非默认，声明（守护） **子执行单元** （在 **start()** 之前设置）
- 
-    :start():         开始执行线程函数（调用进程/线程对象的 **run()** ）
+    :非守护程序: 被主程序等待（主程序执行 **start()** 后面的代码，完毕后等待）
+    :守护程序: 等待主程序 **运行完毕**
 
-    :join(timeout=None):
-    
-        - 在 ``所有子执行单元`` **start()** 之后设置
-        - 阻塞当前 **执行单元** （一般是 **主执行单元** ）
-            - 运行逻辑
-            
-                :设置了 join(): 先等待 **子执行单元** ，再执行 **主执行单元** 后面的代码
+        - 如果该子程序比 **主程序** 耗时长，强制退出
+        - 如果该子程序比 **主程序** 耗时短，等待 **主程序** 完成后退出
+        - 线程 **主程序** 耗时，包括等待其它 **子执行单元**
+        - 进程 **主程序** 耗时，不包括等待其它 **子执行单元**
 
-                    :（守护）子执行单元:
-                    
-                        :timeout=None:  等待 **子执行单元** 完成运行、异常
-                        :timeout!=None: 等待 **子执行单元** 运行一段固定时间
-                        
-                :未设置 join():
-                
-                    :（非守护）子执行单元:
-                    
-                        - 无论是否设置 **join()** ，都会被 **主执行单元** 等待
-                        - 所以
-                            - 先执行 **主执行单元** 后面的代码，再等待 **子执行单元**
-                            
-                    :（守护）子执行单元:
-                    
-                        - 无论是否设置 **join()** ，都会等待 **主执行单元**
-                        - 所以
-                            - 如果该执行单元比 **主执行单元** 耗时更长，强制退出
-                            - 如果该执行单元比 **主执行单元** 耗时更短，等待 **主执行单元** 完成后退出
-                            - 线程 **主执行单元** 耗时，包括等待其它 **子执行单元**
-                            - 进程 **主执行单元** 耗时，不包括等待其它 **子执行单元**
-.. code-block:: python
+        :生命周期:
 
-    import time
-    # from multiprocessing import (
-    #     Process, current_process
-    # )
-    from threading import (
-        Thread as Process, current_thread as current_process
-    )
+            :子守护进程等待主进程: 由于进程之间互相独立，主进程代码执行结束，就算 **运行完毕**
+
+                - 主进程要等非守护进程都运行完毕后再回收子进程的资源（否则会产生僵尸进程）才结束
+
+                    :僵尸进程:
+
+                        - 当某个子进程终结之后，需要被其父进程用 wait() 向操作系统发起回收资源信号，子进程不能自己释放空间
+                            - 有必要对每个子进程调用 **join()**
+                        - 如果主进程结束，子进程没结束，则导致：内存无法释放、新的进程无法开始
+                        - 对于多线程来说，
+                - 守护子进程内部无法再开启子进程
+
+            :子守护线程等待所有线程: 由于线程之间共享数据，主线程代码执行结束，并且等待其它非守护子线程运行完毕，才算 **运行完毕**
+
+                - 主线程也是非守护线程
+                - 子守护线程别名：服务线程（垃圾回收的线程也是一个守护线程）
+
+    :join(timeout=None): 阻塞 **当前执行单元(调用者)** ，直到被调用 join() 的 **执行单元(被调用者)** 终止
+
+        - 一个 **执行单元** 可以被 join 多次
+        - timeout ，指定调用者等待多久
+            - None ，一直等待被调用者结束（或发生异常）
+
+    .. code-block:: python
+
+        import sys
+        import time
 
 
-    def f1():
-        time.sleep(1)
-        print(current_process().name, current_process().is_alive())  #: 1
-        time.sleep(3)
-        print(current_process().name, current_process().is_alive())  #: 3
+        def f1(cp):
+            time.sleep(1)
+            print(cp().name, cp().is_alive())  #: 1
+            time.sleep(3)
+            print(cp().name, cp().is_alive())  #: 1
 
 
-    def f2():
-        time.sleep(2)
-        print(current_process().name, current_process().is_alive())  #: 2
+        def f2(cp):
+            time.sleep(2)
+            print(cp().name, cp().is_alive())  #: 2
 
-    t1 = Process(target=f1)
-    t2 = Process(target=f2)
-    t1.daemon = True
-    t1.start()
-    t2.start()
-    # t1.join()
-    # t2.join()
-    print(current_process().name, current_process().is_alive())  #: 0
-    #: multi threading, not join()   #: 0 -> 1 -> 2
-    #: multi threading, join()       #: 1 -> 2 -> 3 -> 0
-    #: multi processing, not join()  #: 0 -> 2
-    #: multi processing, join()      #: 1 -> 2 -> 3 -> 0
+
+        def main(P, cp, joining=False):
+            t1, t2 = P(target=f1, args=(cp, )), P(target=f2, args=(cp, ))
+            t1.daemon = True
+            t1.start()
+            t2.start()
+            if joining:
+                t1.join()
+                t2.join()
+            print(cp().name, cp().is_alive())  #: 0
+
+
+        if __name__ == '__main__':
+            from threading import Thread, current_thread
+            from multiprocessing import Process, current_process
+            if sys.argv[1] == '1':
+                main(Thread, current_thread, joining=False)   #: 0 -> 1 -> 2
+            elif sys.argv[1] == '2':
+                main(Thread, current_thread, joining=True)    #: 1 -> 2 -> 1 -> 0
+            elif sys.argv[1] == '3':
+                main(Process, current_process, joining=False) #: 0 -> 2
+            elif sys.argv[1] == '4':
+                main(Process, current_process, joining=True)  #: 1 -> 2 -> 1 -> 0

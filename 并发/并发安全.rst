@@ -29,12 +29,12 @@
 
 :进程锁/线程锁: **multiprocessing, multiprocessing.Manager(). threading** 都实现了下列对象
 
-    :``Lock()``:              `互斥（同步）锁`_
-    :``RLock()``:             `多重（递归）锁`_
-    :``Semaphore(n)``:        `信号量`_
-    :``BoundedSemaphore(n)``: `绑定信号量`_
-    :``Condition()``:         `条件变量（关联锁）`_
-    :``Event()``:             `事件`_
+    :Lock():              `互斥（同步）锁`_
+    :RLock():             `多重（递归）锁`_
+    :Semaphore(n):        `信号量`_
+    :BoundedSemaphore(n): `绑定信号量`_
+    :Condition():         `条件变量（关联锁）`_
+    :Event():             `事件`_
 
     :进程锁: 锁住多个进程之间的某个线程级/协程级执行单元，其它所有的线程/协程都处于等待状态
 
@@ -122,11 +122,13 @@
     :PriorityQueue(maxsize=0): **Priority** 优先级低的先出
 
         :maxsize: 标注队列长度（ ``<=0`` 代表无限长）
+
 :进程队列: 进程与进程之间进行通讯
 :协程队列: 在同一个线程下的协程间通讯
 
     - 无线程同步开销
     - 可以线程内 Greenlet 之间同步，无法线程间操作
+
 :消息队列: 程序与程序之间进行通讯
 
 
@@ -170,6 +172,7 @@ API
     Q.full()        # -> True/False 判断队列是否满了
 
 :``task_done(), join()``:
+
     - 未实现 ``task_done(), join()`` 的模块方法
         - ``gevent.queue.Queue``
         - ``gevent.queue.LifoQueue``
