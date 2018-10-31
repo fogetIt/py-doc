@@ -67,7 +67,7 @@
  -                                   ``-> D.viewitems()``     ``dict_items([(key, value), ...])``
  -                                   ``-> D.viewkeys()``      ``dict_keys([key, ...])``
  -                                   ``-> D.viewvalues()``    ``dict_values([value, ...])``
-`迭代模式（python2） <../迭代/迭代器2.rst>`_
+`迭代模式 <../迭代/迭代器2.rst>`_      (only python2)
  -                                   ``-> D.itervalues()``    ``D.values() iterator``
  -                                   ``-> D.iterkeys()``      ``D.keys() iterator, equals iter(D)``
  -                                   ``-> D.iteritems()``     ``D.items() iterator``
