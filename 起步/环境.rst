@@ -1,18 +1,15 @@
-windows 下安装不同版本的 python
+windows 多版本 python
 --------------------------------------
-- 进入 **python3.x** 安装目录
-- 重命名
-    - **python.exe --> python3.exe**
-    - **pythonw.exe ---> pythonw3.exe**
-- 添加环境变量（系统查找 **.exe** 程序的目录）
-    - :PATH: ``$Python2;$Python2\Scripts;$Python3;$Python3\Scripts;``
-- 命令行测试
-.. code-block:: bat
+1. 进入安装目录，重命名 **python.exe, pythonw.exe** ，自定义新名称加以区分
+    - 命令行测试
+    .. code-block:: bat
 
-    :: 进入 python2 交互环境
-    python
-    :: 进入 python3 交互环境
-    python3
+        :: 进入 python2 交互环境
+        python
+        :: 进入 python3 交互环境
+        python3
+
+2. 修改环境变量的系统查找顺序，把当前要用的 **python.exe** 的目录放前面
 
 
 python 命令行参数
