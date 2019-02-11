@@ -55,3 +55,13 @@ Anaconda
 
         conda list         # 查看已经安装的包
         conda install 包名  # 安装新包
+
+声明
+--------
+```python
+#!/usr/bin/env python
+"""
+首先到 env 设置里查找 python 的安装路径，再调用对应路径下的解释器程序完成操作
+linux 下，在文件头部声明 python 解释器，并给文件添加执行权限，之后可以直接执行 .py 文件
+"""
+```
