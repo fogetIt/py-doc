@@ -37,9 +37,12 @@ time.clock() -> floating point number
 --------------------------------------
 
 :windows:
+
     - 第一次调用返回进程时间
     - 之后每次调用都会返回距离第一次调用过了多长时间
+
 :linux: 返回当前进程的 **CPU** 时间
+
 .. code-block:: python
 
     import time
@@ -64,6 +67,7 @@ time.sleep(seconds)
 pytz
 -----
 - **python2**
+
 .. code-block:: python
 
     import pytz
