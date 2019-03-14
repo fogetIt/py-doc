@@ -37,13 +37,12 @@ bool(x) -> bool
 - 关键字
     - python2__
         .. __: py2_bool.py
-        - **True/False** 不是关键字，可以对其进行任意的赋值
+        .. code-block:: python
 
-            .. code-block:: python
-
-                import keyword
-                "True" not in keyword.kwlist  #: True
-                True = "hello"
+            # True/False 不是关键字，可以对其进行任意的赋值
+            import keyword
+            "True" not in keyword.kwlist  #: True
+            True = "hello"
 
     - python3
 
