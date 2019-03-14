@@ -41,7 +41,7 @@ str(object='') -> string
 
 接收输入
 --------------
-:input():     原样接收
+:input():     原样接收( **python3 中会转化字符串** )
 :raw_input(): 转化字符串( **python3 中已废弃** )
 
 
