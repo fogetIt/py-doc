@@ -42,7 +42,7 @@ str(object='') -> string
 接收输入
 --------------
 :input():     原样接收
-:raw_input(): 转化字符串
+:raw_input(): 转化字符串( **python3 中已废弃** )
 
 
 自动连接两个字符串
@@ -75,6 +75,7 @@ str(object='') -> string
 ------------------
 .. code-block:: python
 
+    # 
     `[1, 3, 7]`
 
 
